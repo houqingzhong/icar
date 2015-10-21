@@ -1,0 +1,407 @@
+//
+//  PublicMethod.m
+//  icar
+//
+//  Created by lizhuzhu on 15/10/18.
+//  Copyright © 2015年 lizhuzhu. All rights reserved.
+//
+
+#import "PublicMethod.h"
+#import "Public.h"
+#import <sys/xattr.h>
+
+@implementation PublicMethod
+
++ (void)saveHistory:(NSDictionary *)album track:(NSDictionary *)track callback:(void (^)(void))callback
+{
+    if (album && track) {
+
+        App(app);
+        
+        NSString *sql = [NSString stringWithFormat:@"select * from history where album_id = %@ and  track_id = %@", album[@"id"], track[@"id"]];
+        [app.queue inDatabase:^(FMDatabase *db) {
+            FMResultSet *rs = [db executeQuery:sql];
+            NSString *sql_ = nil;
+            if([rs next])
+            {
+                sql_ = [NSString stringWithFormat:@"update history set time = 0, album_info = '%@', track_info = '%@', timestamp = %lld where track_id = %@ and album_id = %@", [album JSONString], [track JSONString], [PublicMethod getTimeNow], track[@"id"], album[@"id"]];
+                
+            }
+            //向数据库中插入一条数据
+            else
+            {
+                sql_ = [NSString stringWithFormat:@"INSERT INTO history (album_id, track_id, album_info, track_info, timestamp) VALUES (%@, %@, '%@', '%@', %llu)", album[@"id"], track[@"id"], [album JSONString], [track JSONString], [PublicMethod getTimeNow]];
+            }
+            
+            [rs close];
+
+            [db executeUpdate:sql_];
+
+
+        }];
+        
+    }
+}
+
++ (void)updateHistory:(NSString *)albumId trackId:(NSString *)trackId time:(NSTimeInterval)time callback:(void (^)(void))callback
+{
+    if (albumId.integerValue > 0 && trackId.integerValue > 0 && time >= 0) {
+        
+        App(app);
+        
+        NSString *sql = [NSString stringWithFormat:@"select * from history where album_id = %@ and  track_id = %@", albumId, trackId];
+        
+        [app.queue inDatabase:^(FMDatabase *db) {
+            
+            FMResultSet *rs = [db executeQuery:sql];
+            
+            NSString *sql_ = nil;
+            if([rs next])
+            {
+                sql_ = [NSString stringWithFormat:@"update history set time = 0, timestamp = %lld where album_id = %@ and track_id = %@", [PublicMethod getTimeNow], albumId, trackId];
+                
+            }
+            
+            [rs close];
+            
+            if (sql_) {
+                [db executeUpdate:sql_];
+            }
+            
+            if (callback) {
+                callback();
+            }
+            
+        }];
+    }
+}
+
++ (void)updateDownloadState:(NSString *)albumId trackId:(NSString *)trackId progress:(CGFloat)progress state:(DownloadState)state callback:(void (^)(void))callback
+{
+    if (albumId.integerValue > 0 && trackId.integerValue > 0 && progress >= 0) {
+        
+        App(app);
+        
+        NSString *sql = [NSString stringWithFormat:@"select * from download where album_id = %@ and  track_id = %@", albumId, trackId];
+        
+        [app.queue inDatabase:^(FMDatabase *db) {
+            
+            FMResultSet *rs = [db executeQuery:sql];
+            
+            NSString *sql_ = nil;
+            if([rs next])
+            {
+                sql_ = [NSString stringWithFormat:@"update download set progress = %lf, timestamp = %lld, download_state = %ld where track_id = %@ and album_id = %@", progress, [PublicMethod getTimeNow], (unsigned long)state, trackId, albumId];
+                
+            }
+            
+            [rs close];
+            
+            if (sql_) {
+                [db executeUpdate:sql_];
+            }
+            
+            if (callback) {
+                callback();
+            }
+
+        }];
+    }
+}
+
++ (void)saveDownload:(NSDictionary *)album track:(NSDictionary *)track progress:(CGFloat)progress state:(DownloadState)state
+{
+    if (album && track && progress >= 0) {
+        
+        App(app);
+        
+        NSString *sql = [NSString stringWithFormat:@"select * from download where album_id = %@ and  track_id = %@", album[@"id"], track[@"id"]];
+        
+        [app.queue inDatabase:^(FMDatabase *db) {
+
+            FMResultSet *rs = [db executeQuery:sql];
+            
+            NSString *sql_ = nil;
+            if([rs next])
+            {
+                sql_ = [NSString stringWithFormat:@"update download set progress = %lf, album_info = '%@', track_info = '%@', timestamp = %lld, download_state = %ld where track_id = %@ and album_id = %@", progress,[album JSONString], [track JSONString], [PublicMethod getTimeNow], (unsigned long)state,  track[@"id"], album[@"id"] ];
+                
+            }
+            //向数据库中插入一条数据
+            else
+            {
+                sql_ = [NSString stringWithFormat:@"INSERT INTO download (album_id, track_id, album_info, track_info, progress, download_state, timestamp) VALUES (%@, %@, '%@', '%@', %lf, %ld, %llu)", album[@"id"], track[@"id"], [album JSONString], [track JSONString], progress, (unsigned long)state, [PublicMethod getTimeNow]];
+            }
+            
+            
+            [rs close];
+
+            [db executeUpdate:sql_];
+
+        }];
+    }
+}
+
++ (void)getDownloadTracks:(NSString *)albumId callback:(void (^)(NSArray*))callback
+{
+    App(app);
+
+    NSString *sql = [NSString stringWithFormat:@"select * from download where album_id = %@ order by timestamp DESC", albumId];
+    
+    [app.queue inDatabase:^(FMDatabase *db) {
+
+        FMResultSet *rs = [db executeQuery:sql];
+        
+        NSMutableArray *arr = [NSMutableArray new];
+        while ([rs next]) {
+            if ([rs doubleForColumn:@"download_state"] > 0) {
+                NSDictionary *track = [[rs stringForColumn:@"track_info"] objectFromJSONString];
+                NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:track];
+                dict[@"progress"] = @([rs doubleForColumn:@"progress"]);
+                dict[@"download_state"] = @([rs doubleForColumn:@"download_state"]);
+                
+                [arr addObject:dict];
+            }
+        }
+        [rs close];
+
+
+        if (callback) {
+            callback(arr);
+        }
+
+    }];
+    
+}
+
++ (void)getDownloadTracks:(NSString *)albumId trackId:(NSString *)trackId  callback:(void (^)(NSDictionary*))callback
+{
+    App(app);
+    
+    NSString *sql = [NSString stringWithFormat:@"select * from download where album_id = %@ order by timestamp DESC", albumId];
+    
+    [app.queue inDatabase:^(FMDatabase *db) {
+        FMResultSet *rs = [db executeQuery:sql];
+        
+        NSMutableDictionary *newDic = [NSMutableDictionary new];
+        while ([rs next]) {
+            
+            if ([rs doubleForColumn:@"download_state"] > 0) {
+                NSDictionary *album = [[rs stringForColumn:@"album_info"] objectFromJSONString];
+                NSDictionary *track = [[rs stringForColumn:@"track_info"] objectFromJSONString];
+                
+                NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:track];
+                dict[@"progress"] = @([rs doubleForColumn:@"progress"]);
+                dict[@"download_state"] = @([rs doubleForColumn:@"download_state"]);
+                
+                newDic[@"album"] = album;
+                newDic[@"track"] = dict;
+            }
+        }
+        
+        [rs close];
+
+        if (callback) {
+            callback(newDic);
+        }
+        
+    }];
+}
+
++ (void)getDownloadTracks:(void (^)(NSArray*))callback
+{
+    App(app);
+    
+    NSString *sql = [NSString stringWithFormat:@"select * from download order by timestamp DESC"];
+    [app.queue inDatabase:^(FMDatabase *db) {
+        FMResultSet *rs = [db executeQuery:sql];
+        NSMutableArray *arr = [NSMutableArray new];
+        while ([rs next]) {
+            if ([rs doubleForColumn:@"download_state"] > 0) {
+                NSDictionary *album = [[rs stringForColumn:@"album_info"] objectFromJSONString];
+                NSDictionary *track = [[rs stringForColumn:@"track_info"] objectFromJSONString];
+                NSMutableDictionary *newDic = [NSMutableDictionary new];
+                newDic[@"album"] = album;
+                
+                NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:track];
+                dict[@"progress"] = @([rs doubleForColumn:@"progress"]);
+                dict[@"download_state"] = @([rs doubleForColumn:@"download_state"]);
+                
+                newDic[@"track"] = dict;
+                [arr addObject:newDic];
+            }
+        }
+        
+        [rs close];
+
+        
+        if (callback) {
+            callback(arr);
+        }
+
+    }];
+}
+
++ (void)getDownloadTask:(void (^)(NSDictionary*))callback;
+{
+    App(app);
+    
+    NSString *sql = [NSString stringWithFormat:@"select * from download where download_state != %lu order by timestamp DESC limit 1", (unsigned long)DownloadStateDownloadFinish];
+    [app.queue inDatabase:^(FMDatabase *db) {
+        FMResultSet *rs = [db executeQuery:sql];
+        NSMutableDictionary *newDic = [NSMutableDictionary new];
+        while ([rs next]) {
+            if ([rs doubleForColumn:@"download_state"] > 0) {
+                NSDictionary *album = [[rs stringForColumn:@"album_info"] objectFromJSONString];
+                NSDictionary *track = [[rs stringForColumn:@"track_info"] objectFromJSONString];
+                newDic[@"album"] = album;
+                
+                NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:track];
+                dict[@"progress"] = @([rs doubleForColumn:@"progress"]);
+                dict[@"download_state"] = @([rs doubleForColumn:@"download_state"]);
+                
+                newDic[@"track"] = dict;
+            }
+        }
+        [rs close];
+
+        if (callback) {
+            callback(newDic);
+        }
+
+    }];
+}
+
+
+
++ (void)getHistoryTrack:(NSString *)trackId callback:(void (^)(NSDictionary*))callback;
+{
+    App(app);
+    
+    NSString *sql = [NSString stringWithFormat:@"select * from history where track_id = %@ limit 1", trackId];
+    [app.queue inDatabase:^(FMDatabase *db) {
+        FMResultSet *rs = [db executeQuery:sql];
+        
+        NSMutableDictionary *dict = nil;
+        while ([rs next]) {
+            NSDictionary* track = [[rs stringForColumn:@"track_info"] objectFromJSONString];
+            dict = [NSMutableDictionary dictionaryWithDictionary:track];
+            dict[@"time"] = @([rs doubleForColumn:@"time"]);
+        }
+        
+        [rs close];
+
+        
+        if (callback) {
+            callback(dict);
+        }
+    }];
+
+}
+
+
+//+ (void)getLastPlay:(void (^)(NSDictionary*))callback;
+//{
+//    App(app);
+//    
+//    NSString *sql = [NSString stringWithFormat:@"select * from history order by timestamp limit 1"];
+//    [app.queue inDatabase:^(FMDatabase *db) {
+//        FMResultSet *rs = [db executeQuery:sql];
+//        
+//        NSMutableDictionary *dict = [NSMutableDictionary new];
+//        while ([rs next]) {
+//            NSDictionary* track = [[rs stringForColumn:@"track_info"] objectFromJSONString];
+//            NSDictionary* album = [[rs stringForColumn:@"album_info"] objectFromJSONString];
+//            NSMutableDictionary *newTrack = [NSMutableDictionary dictionaryWithDictionary:track];
+//            dict[@"time"] = @([rs doubleForColumn:@"time"]);
+//            
+//            dict[@"album"] = album;
+//            dict[@"track"] = newTrack;
+//        }
+//        
+//        
+//        [rs close];
+//        
+//        
+//        if (callback) {
+//            callback(dict);
+//        }
+//    }];
+//}
+
+
++ (UInt64)getTimeNow
+{
+
+    UInt64 time = [[NSDate date] timeIntervalSince1970]*1000;
+
+    return time;
+}
+
++ (NSString*)dataToJsonString:(id)object
+{
+    
+    NSString *jsonString = nil;
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:object
+                                                       options:NSJSONWritingPrettyPrinted 
+                                                         error:&error];
+    if (! jsonData) {
+        NSLog(@"Got an error: %@", error);
+    } else {
+        jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    }
+    return jsonString;
+}
+
+
++ (void)allowGprsDownload:(BOOL)flag
+{
+    [[NSUserDefaults standardUserDefaults] setObject:@(flag) forKey:@"allow_3g_download"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+}
+
++ (void)allowGprsPlay:(BOOL)flag
+{
+    [[NSUserDefaults standardUserDefaults] setObject:@(flag) forKey:@"allow_3g_play"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+}
+
++ (BOOL)isAllowPlayInGprs
+{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"allow_3g_play"];
+}
+
++ (BOOL)isAllowDownloadInGprs
+{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"allow_3g_download"];
+
+}
+
+//http://developer.apple.com/library/ios/#qa/qa1719/_index.html
++ (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL {
+    assert([[NSFileManager defaultManager] fileExistsAtPath: [URL path]]);
+    NSError *error = nil;
+    BOOL success = FALSE;
+    if (&NSURLIsExcludedFromBackupKey > 0) {
+        success = [URL setResourceValue: [NSNumber numberWithBool: YES]
+                                 forKey: NSURLIsExcludedFromBackupKey error: &error];
+        if(!success){
+            //NSLog(@"Error excluding %@ from backup %@", [URL lastPathComponent], error);
+        }
+    }else{
+        assert([[NSFileManager defaultManager] fileExistsAtPath: [URL path]]);
+        
+        const char* filePath = [[URL path] fileSystemRepresentation];
+        
+        const char* attrName = "com.apple.MobileBackup";
+        u_int8_t attrValue = 1;
+        
+        int result = setxattr(filePath, attrName, &attrValue, sizeof(attrValue), 0, 0);
+        success = (result == 0);
+    }
+    return success;
+}
+@end

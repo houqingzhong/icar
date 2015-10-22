@@ -44,6 +44,9 @@
     [super viewWillAppear:animated];
     
     [_rightBtn startAnimation];
+    App(app);
+    
+    [BABAudioPlayer sharedPlayer].delegate = app.playerView;
 }
 /*
 #pragma mark - Navigation

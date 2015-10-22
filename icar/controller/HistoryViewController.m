@@ -8,12 +8,13 @@
 
 #import "HistoryViewController.h"
 
-@interface HistoryViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface HistoryViewController ()<UITableViewDelegate,UITableViewDataSource, BABAudioPlayerDelegate>
 
 @property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic, strong) NSMutableArray *dataArray;
 
 @property (nonatomic, assign) ViewContrllerType viewContrllerType;
+
 @end
 
 @implementation HistoryViewController
@@ -58,38 +59,28 @@
 
 - (void)openOrCloseLeftList
 {
-    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    if (tempAppDelegate.leftSlideVC.closed)
+    App(app);
+    if (app.leftSlideVC.closed)
     {
-        [tempAppDelegate.leftSlideVC openLeftView];
+        [app.leftSlideVC openLeftView];
     }
     else
     {
-        [tempAppDelegate.leftSlideVC closeLeftView];
+        [app.leftSlideVC closeLeftView];
     }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-//    if (ViewContrllerTypeMenu == _viewContrllerType) {
-//        NSLog(@"viewWillDisappear");
-//        AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-//        [tempAppDelegate.leftSlideVC setPanEnabled:NO];
-//
-//    };
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-//    if (ViewContrllerTypeMenu == _viewContrllerType) {
-//        NSLog(@"viewWillAppear");
-//        AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-//        [tempAppDelegate.leftSlideVC setPanEnabled:YES];
-//    }
+
+    [BABAudioPlayer sharedPlayer].delegate = self;
 
     [self updateList];
 
@@ -104,9 +95,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *Identifier = @"Identifier";
-    AlbumCell *cell = [tableView dequeueReusableCellWithIdentifier:Identifier];
+    HistoryCell *cell = [tableView dequeueReusableCellWithIdentifier:Identifier];
     if (cell == nil) {
-        cell = [[AlbumCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier];
+        cell = [[HistoryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier];
     }
     
     [cell setData:_dataArray[indexPath.row]];
@@ -116,14 +107,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     NSDictionary *dict = _dataArray[indexPath.row];
-    TrackViewController *tc = [TrackViewController new];
-    [tc updateList:dict];
-    
+
     App(app);
-    [app.mainNavigationController pushViewController:tc animated:YES];
+    [app play:dict track:dict[@"track"] target:self slider:nil];
+    
+    [self startPlayAnimation];
     
 }
 
@@ -133,6 +122,30 @@
     return cellHeight;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        NSDictionary *dict = _dataArray[indexPath.row];
+        
+        WS(ws);
+        [PublicMethod deleteHistoryAlbum:dict[@"id"] callback:^(BOOL sucess) {
+            
+            [ws.dataArray removeObjectAtIndex:indexPath.row];
+        }];
+        
+        // Delete the row from the data source.
+        [self.tableview deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+    }
+    else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+    }
+}
 
 
 #pragma method
@@ -145,12 +158,19 @@
     
     App(app);
     [app.queue inDatabase:^(FMDatabase *db) {
-        FMResultSet *rs = [db executeQuery:@"select * from history group by album_id order by timestamp DESC"];
+        FMResultSet *rs = [db executeQuery:@"select * from history order by timestamp DESC"];
         
         NSMutableArray *arr = [NSMutableArray new];
         while ([rs next]) {
             
-            NSDictionary *album = [[rs stringForColumn:@"album_info"] objectFromJSONString];
+            NSDictionary *album_ = [[rs stringForColumn:@"album_info"] objectFromJSONString];
+            NSMutableDictionary *album = [NSMutableDictionary dictionaryWithDictionary:album_];
+
+            NSDictionary *track_ = [[rs stringForColumn:@"track_info"] objectFromJSONString];
+            NSMutableDictionary *track = [NSMutableDictionary dictionaryWithDictionary:track_];
+            track[@"time"] = @([rs doubleForColumn:@"time"]);
+            album[@"track"] = track;
+            
             [arr addObject:album];
             
         }
@@ -168,28 +188,27 @@
 }
 
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+#pragma BABAudioPlayerDelegate
+- (void)audioPlayer:(BABAudioPlayer *)player didChangeElapsedTime:(NSTimeInterval)elapsedTime percentage:(float)percentage
+{
+    App(app);
+    NSDictionary *track = app.currentPlayInfo[@"track"];
+    NSDictionary *album = app.currentPlayInfo[@"album"];
+    [PublicMethod updateHistory:album[@"id"] trackId:track[@"id"] time:elapsedTime callback:^{
+        
+    }];
     
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-
-        NSDictionary *dict = _dataArray[indexPath.row];
+    NSInteger trackid = [track[@"id"] integerValue];
+    for (HistoryCell *cell in _tableview.visibleCells) {
         
-        WS(ws);
-        [PublicMethod deleteHistoryAlbum:dict[@"id"] callback:^(BOOL sucess) {
-                        
-            [ws.dataArray removeObjectAtIndex:indexPath.row];
-        }];
-        
-        // Delete the row from the data source.
-        [self.tableview deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        
+        NSDictionary *ctrack = cell.dict[@"track"];
+        NSInteger ctrackid = [ctrack[@"id"] integerValue];
+        if (trackid == ctrackid) {
+            [cell updateTime:elapsedTime];
+            break;
+        }
     }
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-    }
+    
 }
+
 @end

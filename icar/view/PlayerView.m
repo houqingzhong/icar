@@ -9,10 +9,10 @@
 #import "PlayerView.h"
 #import "Public.h"
 
-@interface PlayerView()<BABAudioPlayerDelegate>
+@interface PlayerView()
 {
     UIImageView     *_playerTop;
-    ProgressView        *_progressView;
+    ProgressView    *_progressView;
     UILabel         *_timeLeft;
     UILabel         *_timeRight;
     UIButton        *_nextButton;
@@ -171,9 +171,6 @@
     [self setAlbum:album track:dict];
     
     
-//    _timeLeft.text = BABFormattedTimeStringFromTimeInterval(0);
-//    _timeRight.text = BABFormattedTimeStringFromTimeInterval([dict[@"duration"] floatValue]);
-    
     _timeLeft.text = [NSObject getDurationText:0];
     _timeRight.text = [NSObject getDurationText:[dict[@"duration"] floatValue]];
     
@@ -203,19 +200,6 @@
 
 - (void)play
 {
-//    App(app);
-//    if (AFSoundStatusPlaying == app.player.status || AFSoundStatusNotStarted == app.player.status) {
-//        [_playButtton setImage:[UIImage imageNamed:@"widget_play_pressed"] forState:UIControlStateNormal];
-//        app.isStoped = YES;
-//        [app.player pause];
-//    }
-//    
-//    if (AFSoundStatusPaused == app.player.status)
-//    {
-//        [_playButtton setImage:[UIImage imageNamed:@"widget_pause_pressed"] forState:UIControlStateNormal];
-//        app.isStoped = NO;
-//        [app.player play];
-//    }
     
     App(app);
     if (BABAudioPlayerStatePlaying == [BABAudioPlayer sharedPlayer].state) {
@@ -239,6 +223,11 @@
     if (_callback) {
         _callback(PlayerActionTypeNext, _playModeType);
     }
+}
+
+- (ProgressView *)getProgressView
+{
+    return _progressView;
 }
 
 - (void)setMode
@@ -276,6 +265,10 @@
         _activityView.hidden = NO;
     }
     
+    if (BABAudioPlayerStateIdle ==  player.state) {
+        return;
+    }
+    
     [PublicMethod updateHistory:self.album[@"id"] trackId:self.track[@"id"] time:player.timeElapsed callback:nil];
     
 }
@@ -283,6 +276,9 @@
 - (void)audioPlayer:(BABAudioPlayer *)player didChangeElapsedTime:(NSTimeInterval)elapsedTime percentage:(float)percentage
 {
 
+    if (BABAudioPlayerStatePlaying !=  player.state) {
+        return;
+    }
     _timeLeft.text = [NSObject getDurationText:elapsedTime];
     _timeRight.text = [NSObject getDurationText:player.duration];
     _progressView.value = percentage;

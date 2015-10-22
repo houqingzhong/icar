@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Public.h"
 
 typedef enum : NSUInteger {
     PlayerActionTypeNext,
@@ -18,11 +19,12 @@ typedef enum : NSUInteger {
     PlayModeTypeLoop,
 } PlayModeType;
 
-@interface PlayerView : UIView
+@interface PlayerView : UIView<BABAudioPlayerDelegate>
 @property(nonatomic, copy) void(^callback)(PlayerActionType, PlayModeType);
 
 - (void)setAlbum:(NSDictionary *)album track:(NSDictionary *)track;
 
 - (void)setData:(NSDictionary *)dict album:(NSDictionary *)album time:(NSTimeInterval)time;
 
+- (ProgressView *)getProgressView;
 @end

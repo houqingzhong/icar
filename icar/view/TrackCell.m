@@ -127,7 +127,7 @@
 
     if(dict[@"download_state"])
     {
-        [_icon setImage:[UIImage imageNamed:@"finished_flag"] forState:UIControlStateNormal];        
+        [_icon setImage:[UIImage imageNamed:@"btn_downloaded"] forState:UIControlStateNormal];        
     }
     else
     {

@@ -46,10 +46,11 @@
     //_tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableview];
     
-    self.playerView = [PlayerView new];
-    [self.view addSubview:self.playerView];
+    App(app);
+    [app.playerView removeFromSuperview];
     
-    //[_playerView setData:nil album:nil time:0];
+    self.playerView = app.playerView;
+    [self.view addSubview:self.playerView];
     
     [_playerView anchorBottomCenterFillingWidthWithLeftAndRightPadding:0 bottomPadding:0 height:120*XA];
     
@@ -111,15 +112,15 @@
 
 - (void) openOrCloseLeftList
 {
-    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    App(app);
     
-    if (tempAppDelegate.leftSlideVC.closed)
+    if (app.leftSlideVC.closed)
     {
-        [tempAppDelegate.leftSlideVC openLeftView];
+        [app.leftSlideVC openLeftView];
     }
     else
     {
-        [tempAppDelegate.leftSlideVC closeLeftView];
+        [app.leftSlideVC closeLeftView];
     }
 }
 
@@ -127,16 +128,21 @@
 {
     [super viewWillDisappear:animated];
     NSLog(@"viewWillDisappear");
-    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [tempAppDelegate.leftSlideVC setPanEnabled:NO];
+    App(app);
+    [app.leftSlideVC setPanEnabled:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     NSLog(@"viewWillAppear");
-    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [tempAppDelegate.leftSlideVC setPanEnabled:NO];
+    App(app);
+    [app.leftSlideVC setPanEnabled:NO];
+    
+    [BABAudioPlayer sharedPlayer].delegate = _playerView;
+    
+    BABConfigureSliderForAudioPlayer([_playerView getProgressView], [BABAudioPlayer sharedPlayer]);
+
 }
 
 

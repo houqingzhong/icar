@@ -91,6 +91,8 @@
     self.window.backgroundColor = [UIColor whiteColor];   //设置通用背景颜色
     [self.window makeKeyAndVisible];
     
+    _playerView = [PlayerView new];
+    
     MainPageViewController *mainVC = [[MainPageViewController alloc] init];
     self.mainNavigationController = [[UINavigationController alloc] initWithRootViewController:mainVC];
     LeftSortsViewController *leftVC = [[LeftSortsViewController alloc] init];
@@ -180,7 +182,6 @@
     if(!app.isStoped)
     {
         
-        self.currentPlayInfo = @{@"album":album, @"track":track};
         
         [PublicMethod getHistoryTrack:track[@"id"] callback:^(NSDictionary * localTrack) {
             
@@ -191,11 +192,9 @@
                     
                     float value = [localTrack[@"time"] doubleValue]/[track[@"duration"] floatValue];
                     
-                    
-//                    CMTime seekTime = CMTimeMakeWithSeconds([localTrack[@"time"] doubleValue], NSEC_PER_SEC);
-//
+                
                     [[BABAudioPlayer sharedPlayer] seekToTime:[localTrack[@"time"] doubleValue]];
-                    //[[BABAudioPlayer sharedPlayer] seekToPercent:value];
+
                     
                     slider.value = value;
                     
@@ -204,6 +203,9 @@
 
                 
                 app.isPlayed = YES;
+                
+                self.currentPlayInfo = @{@"album":album, @"track":track};
+
                 
             });
             

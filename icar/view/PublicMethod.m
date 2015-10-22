@@ -53,13 +53,10 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval) {
             if([rs next])
             {
                 
-                [db executeUpdate:@"update history set time = ?, album_info = ?, track_info = ?, timestamp = ? where track_id = ? and album_id = ?", @(0), [album JSONString], [track JSONString], @([PublicMethod getTimeNow]), track[@"id"], album[@"id"]];
-
             }
             //向数据库中插入一条数据
             else
             {
-                
                 [db executeUpdate:@"INSERT INTO history (album_id, track_id, album_info, track_info, timestamp) VALUES (?, ?, ?, ?, ?)", album[@"id"], track[@"id"], [album JSONString], [track JSONString],  @([PublicMethod getTimeNow])];
             }
             

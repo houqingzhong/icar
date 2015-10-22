@@ -10,7 +10,7 @@
 #import "Public.h"
 
 @class HistoryViewController;
-
+@class PlayerView;
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
@@ -22,6 +22,9 @@
 @property (assign, nonatomic) BOOL    isPlayed;
 @property (assign, nonatomic) BOOL    isStoped;
 @property (strong, nonatomic) FMDatabaseQueue *queue;
+
+
+@property (strong, nonatomic) PlayerView    *playerView;
 @property (strong, nonatomic) NSDictionary  *currentPlayInfo;
 
 //- (void)play:(NSDictionary *)album track:(NSDictionary *)track;

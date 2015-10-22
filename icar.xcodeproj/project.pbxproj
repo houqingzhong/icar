@@ -39,6 +39,7 @@
 		FF59C5501BD2998200858FE2 /* DownloadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FF59C54F1BD2998200858FE2 /* DownloadingCell.m */; };
 		FF59C5531BD3004D00858FE2 /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF59C5521BD3004D00858FE2 /* PlayerViewController.m */; };
 		FF59C5561BD3012200858FE2 /* PlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF59C5551BD3012200858FE2 /* PlayerView.m */; };
+		FFC07DD51BD9358E0001C671 /* HistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DD41BD9358E0001C671 /* HistoryCell.m */; settings = {ASSET_TAGS = (); }; };
 		FFC9461C1BD1CA32001B2B8A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC9461B1BD1CA32001B2B8A /* main.m */; };
 		FFC9461F1BD1CA32001B2B8A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC9461E1BD1CA32001B2B8A /* AppDelegate.m */; };
 		FFC946251BD1CA32001B2B8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFC946231BD1CA32001B2B8A /* Main.storyboard */; };
@@ -126,6 +127,8 @@
 		FF59C5591BD320BD00858FE2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		FF59C55B1BD3289C00858FE2 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		FF59C5761BD32F8100858FE2 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		FFC07DD31BD9358E0001C671 /* HistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryCell.h; sourceTree = "<group>"; };
+		FFC07DD41BD9358E0001C671 /* HistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryCell.m; sourceTree = "<group>"; };
 		FFC946161BD1CA32001B2B8A /* icar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = icar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC9461A1BD1CA32001B2B8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FFC9461B1BD1CA32001B2B8A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -282,6 +285,8 @@
 				FF1F9F1B1BD3691B0099D1F0 /* ProgressView.m */,
 				FF23A2EA1BD3BC1700440792 /* NavPlayButton.h */,
 				FF23A2EB1BD3BC1700440792 /* NavPlayButton.m */,
+				FFC07DD31BD9358E0001C671 /* HistoryCell.h */,
+				FFC07DD41BD9358E0001C671 /* HistoryCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -545,6 +550,7 @@
 				FF59C53E1BD21A6500858FE2 /* CategoryCell.m in Sources */,
 				FF59C5381BD2141600858FE2 /* CategoryViewController.m in Sources */,
 				FF59C5351BD20F8600858FE2 /* BaseCell.m in Sources */,
+				FFC07DD51BD9358E0001C671 /* HistoryCell.m in Sources */,
 				1D9005401BD8E32C00769476 /* ShowDownloadingCell.m in Sources */,
 				FF1F9F1F1BD3819F0099D1F0 /* PublicMethod.m in Sources */,
 				FF59C52D1BD20F6600858FE2 /* MainPageViewController.m in Sources */,

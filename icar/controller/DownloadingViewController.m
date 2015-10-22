@@ -229,37 +229,27 @@
     
     WS(ws);
     
-    [HttpEngine recommend:[NSString stringWithFormat:@"%@tracks/%@", HOST, dict[@"id"]] callback:^(NSArray *arr) {
+    [PublicMethod getDownloadTracks:dict[@"id"] callback:^(NSArray *ts) {
         
-        if (nil == arr) {
-            return ;
-        }
         NSMutableArray *newTracks = [NSMutableArray new];
+
         
-        [PublicMethod getDownloadTracks:dict[@"id"] callback:^(NSArray *ts) {
-            [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                
-                NSMutableDictionary *newTrack = [NSMutableDictionary dictionaryWithDictionary:obj];
-                
-                [ts enumerateObjectsUsingBlock:^(id  _Nonnull obj2, NSUInteger idx2, BOOL * _Nonnull stop2) {
-                    if ([obj2[@"id"] integerValue] == [obj[@"id"] integerValue]) {
-                        newTrack[@"progress"] = obj2[@"progress"];
-                        newTrack[@"download_state"] = obj2[@"download_state"];
-                        [newTracks addObject:newTrack];                        
-                    }
-                }];
-                
-            }];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                ws.dataArray = newTracks;
-                
-                [ws.tableview reloadData];
-                
-            });
+        [ts enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSMutableDictionary *newTrack = [NSMutableDictionary dictionaryWithDictionary:obj];
+            newTrack[@"progress"] = obj[@"progress"];
+            newTrack[@"download_state"] = obj[@"download_state"];
+            [newTracks addObject:newTrack];
         }];
+
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            ws.dataArray = newTracks;
+            
+            [ws.tableview reloadData];
+            
+        });
     }];
-    
+
 }
 
 - (void)showTrackViewController

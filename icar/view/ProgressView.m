@@ -9,7 +9,7 @@
 #import "ProgressView.h"
 #import "Public.h"
 
-@interface ProgressView()
+@interface ProgressView()<BABCurrentTimeScrubber>
 
 
 @end

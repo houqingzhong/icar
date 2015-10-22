@@ -294,6 +294,32 @@ NSString * const APPURLSessionDownloadTaskDidFailToMoveFileNotification = @"APPU
 //    }];
 //}
 
+- (NSURL *)getDownloadFile:(NSDictionary *)album track:(NSDictionary *)track
+{
+    NSString *docDir = [PublicMethod getDownloadPath];
+    
+    NSString *folder = [docDir stringByAppendingPathComponent:album[@"id"]];
+    
+    [self createFolder:folder];
+    
+    NSString *file = [NSString stringWithFormat:@"%@/%@.m4a", folder, track[@"id"]];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    NSURL *filePath = [NSURL URLWithString:file];
+    
+    if([fileManager fileExistsAtPath:filePath.absoluteString])
+    {
+        
+        return filePath;
+    }
+    else
+    {
+        return nil;
+    }
+    
+}
+
 - (BOOL)isFileDownloaded:(NSString *)albumId trackId:(NSString *)trackId
 {
         NSArray *array = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

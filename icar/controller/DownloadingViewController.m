@@ -139,7 +139,7 @@
 {
     NSDictionary *dict = _dataArray[indexPath.row];    
     App(app);
-    [app play:self.album track:dict];
+    [app play:self.album track:dict target:nil slider:nil];
     
 }
 

@@ -27,4 +27,7 @@
 
 - (BOOL)isFileDownloaded:(NSString *)albumId trackId:(NSString *)trackId;
 
+- (NSURL *)getDownloadFile:(NSDictionary *)album track:(NSDictionary *)track;
+
+
 @end

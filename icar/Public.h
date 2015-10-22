@@ -42,7 +42,9 @@ typedef enum : NSUInteger {
 #import <FMDB.h>
 #import <AFNetworking.h>
 #import <UIImageView+AFNetworking.h>
-#import <AFSoundManager.h>
+#import <BABAudioPlayer.h>
+#import <BABAudioUtilities.h>
+#import "BABAudioItem.h"
 #import "PublicMethod.h"
 #import "UIView+Facade.h"
 #import "NSString+Extension.h"

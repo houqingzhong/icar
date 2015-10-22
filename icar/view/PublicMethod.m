@@ -533,4 +533,15 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval) {
     }
     return success;
 }
+
++ (NSString *)getDownloadPath
+{
+    NSArray *array = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docDir = [array lastObject];
+    
+    docDir = [docDir stringByAppendingPathComponent:@"mp3"];
+    
+    return docDir;
+}
+
 @end

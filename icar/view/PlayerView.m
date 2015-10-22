@@ -9,7 +9,7 @@
 #import "PlayerView.h"
 #import "Public.h"
 
-@interface PlayerView()
+@interface PlayerView()<BABAudioPlayerDelegate>
 {
     UIImageView     *_playerTop;
     ProgressView        *_progressView;
@@ -167,15 +167,19 @@
 
 - (void)setData:(NSDictionary *)dict album:(NSDictionary *)album time:(NSTimeInterval)time
 {
-   
+    
     [self setAlbum:album track:dict];
+    
+    
+//    _timeLeft.text = BABFormattedTimeStringFromTimeInterval(0);
+//    _timeRight.text = BABFormattedTimeStringFromTimeInterval([dict[@"duration"] floatValue]);
     
     _timeLeft.text = [NSObject getDurationText:0];
     _timeRight.text = [NSObject getDurationText:[dict[@"duration"] floatValue]];
-
+    
     App(app);
     
-    [app play:album track:dict];
+    [app play:album track:dict target:self slider:_progressView];
     
     if(!app.isStoped)
     {
@@ -185,19 +189,10 @@
     {
         [_playButtton setImage:[UIImage imageNamed:@"widget_play_pressed"] forState:UIControlStateNormal];
     }
-
-    WS(ws);
-    [app.player listenFeedbackUpdatesWithBlock:^(AFSoundItem *item) {
-        NSLog(@"Item duration: %ld - time elapsed: %ld", (long)item.duration, (long)item.timePlayed);
-        [ws updateProgres:item.timePlayed duration:item.duration];
-
-    } andFinishedBlock:^{
-        [ws nextItem];
-    }];
     
     [self setNeedsLayout];
-
 }
+
 
 - (void)updateProgres:(NSInteger)timePlayed duration:(NSInteger)duration
 {
@@ -208,17 +203,33 @@
 
 - (void)play
 {
+//    App(app);
+//    if (AFSoundStatusPlaying == app.player.status || AFSoundStatusNotStarted == app.player.status) {
+//        [_playButtton setImage:[UIImage imageNamed:@"widget_play_pressed"] forState:UIControlStateNormal];
+//        app.isStoped = YES;
+//        [app.player pause];
+//    }
+//    
+//    if (AFSoundStatusPaused == app.player.status)
+//    {
+//        [_playButtton setImage:[UIImage imageNamed:@"widget_pause_pressed"] forState:UIControlStateNormal];
+//        app.isStoped = NO;
+//        [app.player play];
+//    }
+    
     App(app);
-    if (AFSoundStatusPlaying == app.player.status || AFSoundStatusNotStarted == app.player.status) {
+    if (BABAudioPlayerStatePlaying == [BABAudioPlayer sharedPlayer].state) {
         [_playButtton setImage:[UIImage imageNamed:@"widget_play_pressed"] forState:UIControlStateNormal];
+        [[BABAudioPlayer sharedPlayer] pause];
         app.isStoped = YES;
     }
-    
-    if (AFSoundStatusPaused == app.player.status)
+    else
     {
         [_playButtton setImage:[UIImage imageNamed:@"widget_pause_pressed"] forState:UIControlStateNormal];
+        [[BABAudioPlayer sharedPlayer] play];
         app.isStoped = NO;
     }
+
     
 }
 
@@ -252,53 +263,53 @@
 
 #pragma mark Delegate
 
-//- (void)audioPlayer:(BABAudioPlayer *)player didChangeState:(BABAudioPlayerState)state
-//{
-//    _activityView.hidden = YES;
-//    if (BABAudioPlayerStatePlaying == state) {
-//        [_playButtton setImage:[UIImage imageNamed:@"widget_pause_pressed"] forState:UIControlStateNormal];
-//    }
-//    else if (BABAudioPlayerStateBuffering == state)
-//    {
-//        [_playButtton setImage:[UIImage imageNamed:@"widget_pause_pressed"] forState:UIControlStateNormal];
-//        
-//        _activityView.hidden = NO;
-//    }
-//    
-//    [PublicMethod updateHistory:self.album[@"id"] trackId:self.track[@"id"] time:player.timeElapsed callback:nil];
-//    
-//}
-//
-//- (void)audioPlayer:(BABAudioPlayer *)player didChangeElapsedTime:(NSTimeInterval)elapsedTime percentage:(float)percentage
-//{
-//
-//    _timeLeft.text = [NSObject getDurationText:elapsedTime];
-//    _timeRight.text = [NSObject getDurationText:player.duration];
-//    _progressView.value = percentage;
-//
-//    [PublicMethod updateHistory:self.album[@"id"] trackId:self.track[@"id"] time:player.timeElapsed callback:nil];
-//
-//}
-//
-//
-//- (void)audioPlayer:(BABAudioPlayer *)player didFinishPlayingAudioItem:(BABAudioItem *)audioItem
-//{
-//    [_playButtton setImage:[UIImage imageNamed:@"widget_play_pressed"] forState:UIControlStateNormal];
-//    
-//    if (_callback) {
-//        _callback(PlayerActionTypeNext, _playModeType);
-//    }
-//}
-//
-//- (void)audioPlayer:(BABAudioPlayer *)player didLoadMetadata:(NSDictionary *)metadata forAudioItem:(BABAudioItem *)audioItem
-//{
-//    
-//}
-//
-//- (void)audioPlayer:(BABAudioPlayer *)player didFailPlaybackWithError:(NSError *)error
-//{
-//    [_playButtton setImage:[UIImage imageNamed:@"widget_play_pressed"] forState:UIControlStateNormal];
-//
-//}
+- (void)audioPlayer:(BABAudioPlayer *)player didChangeState:(BABAudioPlayerState)state
+{
+    _activityView.hidden = YES;
+    if (BABAudioPlayerStatePlaying == state) {
+        [_playButtton setImage:[UIImage imageNamed:@"widget_pause_pressed"] forState:UIControlStateNormal];
+    }
+    else if (BABAudioPlayerStateBuffering == state)
+    {
+        [_playButtton setImage:[UIImage imageNamed:@"widget_pause_pressed"] forState:UIControlStateNormal];
+        
+        _activityView.hidden = NO;
+    }
+    
+    [PublicMethod updateHistory:self.album[@"id"] trackId:self.track[@"id"] time:player.timeElapsed callback:nil];
+    
+}
+
+- (void)audioPlayer:(BABAudioPlayer *)player didChangeElapsedTime:(NSTimeInterval)elapsedTime percentage:(float)percentage
+{
+
+    _timeLeft.text = [NSObject getDurationText:elapsedTime];
+    _timeRight.text = [NSObject getDurationText:player.duration];
+    _progressView.value = percentage;
+
+    [PublicMethod updateHistory:self.album[@"id"] trackId:self.track[@"id"] time:player.timeElapsed callback:nil];
+
+}
+
+
+- (void)audioPlayer:(BABAudioPlayer *)player didFinishPlayingAudioItem:(BABAudioItem *)audioItem
+{
+    [_playButtton setImage:[UIImage imageNamed:@"widget_play_pressed"] forState:UIControlStateNormal];
+    
+    if (_callback) {
+        _callback(PlayerActionTypeNext, _playModeType);
+    }
+}
+
+- (void)audioPlayer:(BABAudioPlayer *)player didLoadMetadata:(NSDictionary *)metadata forAudioItem:(BABAudioItem *)audioItem
+{
+    
+}
+
+- (void)audioPlayer:(BABAudioPlayer *)player didFailPlaybackWithError:(NSError *)error
+{
+    [_playButtton setImage:[UIImage imageNamed:@"widget_play_pressed"] forState:UIControlStateNormal];
+
+}
 
 @end

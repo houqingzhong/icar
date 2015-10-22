@@ -137,6 +137,78 @@
     
 }
 
+- (void)play:(NSDictionary *)album track:(NSDictionary *)track target:(id<BABAudioPlayerDelegate>)target slider:(UISlider *)slider
+{
+    if (!album || !track) {
+        return;
+    }
+    
+    [PublicMethod saveHistory:album track:track callback:nil];
+    
+    
+    if (![NSObject isNull:track[@"play_path_32"]]) {
+        
+        if (nil == [BABAudioPlayer sharedPlayer]) {
+            BABAudioPlayer *player = [BABAudioPlayer new];
+            [BABAudioPlayer setSharedPlayer:player];
+            
+        }
+        
+        BOOL isLocal = YES;
+        NSURL *url = [[DownloadClient sharedInstance] getDownloadFile:album track:track];
+        
+        if (nil == url) {
+            url = [NSURL URLWithString:track[@"play_path_32"]];
+            isLocal = NO;
+        }
+        
+        BABAudioItem *item = [BABAudioItem audioItemWithURL:url];
+        [item setLocal:isLocal];
+        [[BABAudioPlayer sharedPlayer] queueItem:item];
+        
+    }
+    
+    
+    [BABAudioPlayer sharedPlayer].delegate = target;
+    
+    BABConfigureSliderForAudioPlayer(slider, [BABAudioPlayer sharedPlayer]);
+    
+    App(app);
+    
+    if(!app.isStoped)
+    {
+        
+        self.currentPlayInfo = @{@"album":album, @"track":track};
+        
+        [PublicMethod getHistoryTrack:track[@"id"] callback:^(NSDictionary * localTrack) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (localTrack) {
+                    
+                    float value = [localTrack[@"time"] doubleValue]/[track[@"duration"] floatValue];
+                    
+                    
+                    [[BABAudioPlayer sharedPlayer] seekToPercent:value];
+                    
+                    slider.value = value;
+                    
+                    
+                }
+                else
+                {
+                    [[BABAudioPlayer sharedPlayer] play];
+                }
+                
+                app.isPlayed = YES;
+                
+            });
+            
+        }];
+    }
+    
+}
+
+/*
 - (void)play:(NSDictionary *)album track:(NSDictionary *)track
 {
     if (!album || !track) {
@@ -194,4 +266,5 @@
         }];
     }
 }
+*/
 @end

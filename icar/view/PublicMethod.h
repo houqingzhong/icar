@@ -56,4 +56,6 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval);
  */
 + (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL;
 
++ (NSString *)getDownloadPath;
+
 @end

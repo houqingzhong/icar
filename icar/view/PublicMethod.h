@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "Public.h"
 
+
+NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval);
+
+
 @interface PublicMethod : NSObject
 
 

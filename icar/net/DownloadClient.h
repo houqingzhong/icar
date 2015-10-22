@@ -23,6 +23,8 @@
 
 - (void)currentDownloadTask;
 
-- (NSURL *)getDownloadFile:(NSDictionary *)album track:(NSDictionary *)track;
+- (NSString *)getDownloadPath:(NSDictionary *)album;
+
+- (BOOL)isFileDownloaded:(NSString *)albumId trackId:(NSString *)trackId;
 
 @end

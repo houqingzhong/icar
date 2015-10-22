@@ -137,7 +137,7 @@
     
 }
 
-- (void)play:(NSDictionary *)album track:(NSDictionary *)track target:(id<BABAudioPlayerDelegate>)target slider:(UISlider *)slider
+- (void)play:(NSDictionary *)album track:(NSDictionary *)track
 {
     if (!album || !track) {
         return;
@@ -147,39 +147,29 @@
     
     
     if (![NSObject isNull:track[@"play_path_32"]]) {
-        
-        if (nil == [BABAudioPlayer sharedPlayer]) {
-            BABAudioPlayer *player = [BABAudioPlayer new];
-            [BABAudioPlayer setSharedPlayer:player];
-            
-        }
-        
-        BOOL isLocalFile = NO;
-        NSURL *url = [[DownloadClient sharedInstance] getDownloadFile:album track:track];
-        if (nil == url) {
-            url = [NSURL URLWithString:track[@"play_path_32"]];
+    
+        AFSoundItem *playItem = nil;
+        if ([[DownloadClient sharedInstance] isFileDownloaded:album[@"id"] trackId:track[@"id"]]) {;
+            NSString *filePath = [[DownloadClient sharedInstance] getDownloadPath:album];
+            playItem = [[AFSoundItem alloc] initWithLocalResource:[NSString stringWithFormat:@"%@.m4a", track[@"id"]] atPath:filePath];
         }
         else
         {
-            isLocalFile = YES;
+
+            playItem = [[AFSoundItem alloc] initWithStreamingURL:[NSURL URLWithString:track[@"play_path_32"]]];
+        
+        }
+
+        if (nil == self.player) {
+            self.player = [[AFSoundPlayback alloc] init];
         }
         
-        BABAudioItem *playItem = [BABAudioItem audioItemWithURL:url];
-        [playItem setIsLocalFile:isLocalFile];
-        
-        [[BABAudioPlayer sharedPlayer] queueItem:playItem];
+        [self.player playItem:playItem];
+
         
     }
     
-    
-    
-    [BABAudioPlayer sharedPlayer].delegate = target;
-    
-    BABConfigureSliderForAudioPlayer(slider, [BABAudioPlayer sharedPlayer]);
-    
-    App(app);
-    
-    if(!app.isStoped)
+    if(!self.isStoped)
     {
         
         self.currentPlayInfo = @{@"album":album, @"track":track};
@@ -189,24 +179,15 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (localTrack) {
                     
-                    float value = [localTrack[@"time"] doubleValue]/[track[@"duration"] floatValue];
+                    NSTimeInterval value = [localTrack[@"time"] doubleValue]/[track[@"duration"] doubleValue];
                     
-                    
-                    [[BABAudioPlayer sharedPlayer] seekToPercent:value];
-                    
-                    
-                    [[BABAudioPlayer sharedPlayer] play];
-                    
-                    slider.value = value;
-                    
-                    
+                    [self.player playAtSecond:(NSInteger)value];
+
                 }
-                else
-                {
-                    [[BABAudioPlayer sharedPlayer] play];
-                }
+
+                [self.player play];
                 
-                app.isPlayed = YES;
+                self.isPlayed = YES;
                 
             });
             

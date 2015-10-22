@@ -9,7 +9,7 @@
 #import "PlayerView.h"
 #import "Public.h"
 
-@interface PlayerView()<BABAudioPlayerDelegate>
+@interface PlayerView()
 {
     UIImageView     *_playerTop;
     ProgressView        *_progressView;
@@ -35,7 +35,6 @@
 
 - (void)dealloc
 {
-    [BABAudioPlayer sharedPlayer].delegate = nil;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -93,14 +92,7 @@
         
         [_modeButton addTarget:self action:@selector(setMode) forControlEvents:UIControlEventTouchUpInside];
         
-        BABAudioPlayer *player = [BABAudioPlayer sharedPlayer];
-        if (BABAudioPlayerStatePlaying == player.state) {
-            [_playButtton setImage:[UIImage imageNamed:@"widget_pause_pressed"] forState:UIControlStateNormal];
-        }
-        else
-        {
-            [_playButtton setImage:[UIImage imageNamed:@"widget_play_pressed"] forState:UIControlStateNormal];
-        }
+        [_playButtton setImage:[UIImage imageNamed:@"widget_play_pressed"] forState:UIControlStateNormal];
         
         [self setMode];
     }
@@ -169,10 +161,6 @@
     self.album = album;
     self.track = track;
 
-    [BABAudioPlayer sharedPlayer].delegate = self;
-    
-    BABConfigureSliderForAudioPlayer(_progressView, [BABAudioPlayer sharedPlayer]);
-
     [self setNeedsLayout];
 
 }
@@ -182,13 +170,12 @@
    
     [self setAlbum:album track:dict];
     
-    
     _timeLeft.text = [NSObject getDurationText:0];
     _timeRight.text = [NSObject getDurationText:[dict[@"duration"] floatValue]];
 
     App(app);
     
-    [app play:album track:dict target:self slider:_progressView];
+    [app play:album track:dict];
     
     if(!app.isStoped)
     {
@@ -198,22 +185,38 @@
     {
         [_playButtton setImage:[UIImage imageNamed:@"widget_play_pressed"] forState:UIControlStateNormal];
     }
+
+    WS(ws);
+    [app.player listenFeedbackUpdatesWithBlock:^(AFSoundItem *item) {
+        NSLog(@"Item duration: %ld - time elapsed: %ld", (long)item.duration, (long)item.timePlayed);
+        [ws updateProgres:item.timePlayed duration:item.duration];
+
+    } andFinishedBlock:^{
+        [ws nextItem];
+    }];
     
     [self setNeedsLayout];
+
+}
+
+- (void)updateProgres:(NSInteger)timePlayed duration:(NSInteger)duration
+{
+    _timeLeft.text = [NSObject getDurationText:timePlayed];//FormattedTimeStringFromTimeInterval(timePlayed);
+    _timeRight.text = [NSObject getDurationText:duration];//FormattedTimeStringFromTimeInterval(duration);
+    _progressView.value = (CGFloat)timePlayed/duration;
 }
 
 - (void)play
 {
     App(app);
-    if (BABAudioPlayerStatePlaying == [BABAudioPlayer sharedPlayer].state) {
+    if (AFSoundStatusPlaying == app.player.status || AFSoundStatusNotStarted == app.player.status) {
         [_playButtton setImage:[UIImage imageNamed:@"widget_play_pressed"] forState:UIControlStateNormal];
-        [[BABAudioPlayer sharedPlayer] pause];
         app.isStoped = YES;
     }
-    else
+    
+    if (AFSoundStatusPaused == app.player.status)
     {
         [_playButtton setImage:[UIImage imageNamed:@"widget_pause_pressed"] forState:UIControlStateNormal];
-        [[BABAudioPlayer sharedPlayer] play];
         app.isStoped = NO;
     }
     
@@ -249,53 +252,53 @@
 
 #pragma mark Delegate
 
-- (void)audioPlayer:(BABAudioPlayer *)player didChangeState:(BABAudioPlayerState)state
-{
-    _activityView.hidden = YES;
-    if (BABAudioPlayerStatePlaying == state) {
-        [_playButtton setImage:[UIImage imageNamed:@"widget_pause_pressed"] forState:UIControlStateNormal];
-    }
-    else if (BABAudioPlayerStateBuffering == state)
-    {
-        [_playButtton setImage:[UIImage imageNamed:@"widget_pause_pressed"] forState:UIControlStateNormal];
-        
-        _activityView.hidden = NO;
-    }
-    
-    [PublicMethod updateHistory:self.album[@"id"] trackId:self.track[@"id"] time:player.timeElapsed callback:nil];
-    
-}
-
-- (void)audioPlayer:(BABAudioPlayer *)player didChangeElapsedTime:(NSTimeInterval)elapsedTime percentage:(float)percentage
-{
-
-    _timeLeft.text = [NSObject getDurationText:elapsedTime];
-    _timeRight.text = [NSObject getDurationText:player.duration];
-    _progressView.value = percentage;
-
-    [PublicMethod updateHistory:self.album[@"id"] trackId:self.track[@"id"] time:player.timeElapsed callback:nil];
-
-}
-
-
-- (void)audioPlayer:(BABAudioPlayer *)player didFinishPlayingAudioItem:(BABAudioItem *)audioItem
-{
-    [_playButtton setImage:[UIImage imageNamed:@"widget_play_pressed"] forState:UIControlStateNormal];
-    
-    if (_callback) {
-        _callback(PlayerActionTypeNext, _playModeType);
-    }
-}
-
-- (void)audioPlayer:(BABAudioPlayer *)player didLoadMetadata:(NSDictionary *)metadata forAudioItem:(BABAudioItem *)audioItem
-{
-    
-}
-
-- (void)audioPlayer:(BABAudioPlayer *)player didFailPlaybackWithError:(NSError *)error
-{
-    [_playButtton setImage:[UIImage imageNamed:@"widget_play_pressed"] forState:UIControlStateNormal];
-
-}
+//- (void)audioPlayer:(BABAudioPlayer *)player didChangeState:(BABAudioPlayerState)state
+//{
+//    _activityView.hidden = YES;
+//    if (BABAudioPlayerStatePlaying == state) {
+//        [_playButtton setImage:[UIImage imageNamed:@"widget_pause_pressed"] forState:UIControlStateNormal];
+//    }
+//    else if (BABAudioPlayerStateBuffering == state)
+//    {
+//        [_playButtton setImage:[UIImage imageNamed:@"widget_pause_pressed"] forState:UIControlStateNormal];
+//        
+//        _activityView.hidden = NO;
+//    }
+//    
+//    [PublicMethod updateHistory:self.album[@"id"] trackId:self.track[@"id"] time:player.timeElapsed callback:nil];
+//    
+//}
+//
+//- (void)audioPlayer:(BABAudioPlayer *)player didChangeElapsedTime:(NSTimeInterval)elapsedTime percentage:(float)percentage
+//{
+//
+//    _timeLeft.text = [NSObject getDurationText:elapsedTime];
+//    _timeRight.text = [NSObject getDurationText:player.duration];
+//    _progressView.value = percentage;
+//
+//    [PublicMethod updateHistory:self.album[@"id"] trackId:self.track[@"id"] time:player.timeElapsed callback:nil];
+//
+//}
+//
+//
+//- (void)audioPlayer:(BABAudioPlayer *)player didFinishPlayingAudioItem:(BABAudioItem *)audioItem
+//{
+//    [_playButtton setImage:[UIImage imageNamed:@"widget_play_pressed"] forState:UIControlStateNormal];
+//    
+//    if (_callback) {
+//        _callback(PlayerActionTypeNext, _playModeType);
+//    }
+//}
+//
+//- (void)audioPlayer:(BABAudioPlayer *)player didLoadMetadata:(NSDictionary *)metadata forAudioItem:(BABAudioItem *)audioItem
+//{
+//    
+//}
+//
+//- (void)audioPlayer:(BABAudioPlayer *)player didFailPlaybackWithError:(NSError *)error
+//{
+//    [_playButtton setImage:[UIImage imageNamed:@"widget_play_pressed"] forState:UIControlStateNormal];
+//
+//}
 
 @end

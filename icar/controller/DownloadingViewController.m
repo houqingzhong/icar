@@ -102,9 +102,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *dict = _dataArray[indexPath.row];    
-
     App(app);
-    [app play:self.album track:dict target:nil slider:nil];
+    [app play:self.album track:dict];
     
 }
 

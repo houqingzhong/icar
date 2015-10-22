@@ -137,9 +137,6 @@ NSString * const APPURLSessionDownloadTaskDidFailToMoveFileNotification = @"APPU
     
     [_downloadManager setDownloadTaskDidFinishDownloadingBlock:^NSURL * _Nonnull(NSURLSession * _Nonnull session, NSURLSessionDownloadTask * _Nonnull downloadTask, NSURL * _Nonnull location) {
         
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        BOOL isE = [fileManager fileExistsAtPath:location.path];
-        
         NSString *albumId = nil;
         NSString *trackId = nil;
         [ws parseInfoFromTask:downloadTask.taskDescription albumId:&albumId trackId:&trackId];
@@ -299,22 +296,28 @@ NSString * const APPURLSessionDownloadTaskDidFailToMoveFileNotification = @"APPU
 
 - (BOOL)isFileDownloaded:(NSString *)albumId trackId:(NSString *)trackId
 {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *folder = [[paths objectAtIndex:0] stringByAppendingPathComponent:albumId];
+        NSArray *array = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *docDir = [array lastObject];
+        
+        docDir = [docDir stringByAppendingPathComponent:@"mp3"];
+        NSString *folder = [docDir stringByAppendingPathComponent:albumId];
+        
+        [self createFolder:folder];
     
-    [self createFolder:folder];
-    
-    NSString *desPath = [NSString stringWithFormat:@"%@/%@", folder, trackId];
-    
-    if([fileManager fileExistsAtPath:desPath isDirectory:nil])
-    {
-        return YES;
-    }
-    else
-    {
-        return NO;
-    }
+        NSString *file = [NSString stringWithFormat:@"%@/%@.m4a", folder, trackId];
+
+        NSURL *filePath = [NSURL URLWithString:file];
+
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        if([fileManager fileExistsAtPath:filePath.absoluteString])
+        {
+
+            return YES;
+        }
+        else
+        {
+            return NO;
+        }
 }
 
 //移动下载完成的文件到目标文件夹   app在下载过程中crash 重启时会走这个逻辑
@@ -417,7 +420,7 @@ NSString * const APPURLSessionDownloadTaskDidFailToMoveFileNotification = @"APPU
     }];
 }
 
-- (NSURL *)getDownloadFile:(NSDictionary *)album track:(NSDictionary *)track
+- (NSString *)getDownloadPath:(NSDictionary *)album
 {
     NSArray *array = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *docDir = [array lastObject];
@@ -427,21 +430,49 @@ NSString * const APPURLSessionDownloadTaskDidFailToMoveFileNotification = @"APPU
     
     [self createFolder:folder];
 
-    NSString *file = [NSString stringWithFormat:@"%@/%@.m4a", folder, track[@"id"]];
+    //NSString *file = [NSString stringWithFormat:@"%@/%@.m4a", folder, track[@"id"]];
     
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    
-    NSURL *filePath = [NSURL URLWithString:file];
-    
-    if([fileManager fileExistsAtPath:filePath.absoluteString])
-    {
+//    NSURL *filePath = [NSURL URLWithString:file];
+//    
+//    if([fileManager fileExistsAtPath:filePath.absoluteString])
+//    {
+//        
+//        return filePath;
+//    }
+//    else
+//    {
+//        return nil;
+//    }
 
-        return filePath;
-    }
-    else
-    {
-        return nil;
-    }
+    return folder;
     
 }
+//
+//- (BOOL)getDownloadPath:(NSDictionary *)album
+//{
+//    NSFileManager *fileManager = [NSFileManager defaultManager];
+//    NSArray *array = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *docDir = [array lastObject];
+//    
+//    docDir = [docDir stringByAppendingPathComponent:@"mp3"];
+//    NSString *folder = [docDir stringByAppendingPathComponent:album[@"id"]];
+//    
+//    [self createFolder:folder];
+//    
+//    NSString *file = [NSString stringWithFormat:@"%@/%@.m4a", folder, track[@"id"]];
+//    
+//        NSURL *filePath = [NSURL URLWithString:file];
+//    
+//        if([fileManager fileExistsAtPath:filePath.absoluteString])
+//        {
+//    
+//            return YES;
+//        }
+//        else
+//        {
+//            return NO;
+//        }
+//    
+//}
+//
 @end

@@ -22,10 +22,10 @@
 @property (assign, nonatomic) BOOL    isPlayed;
 @property (assign, nonatomic) BOOL    isStoped;
 @property (strong, nonatomic) FMDatabaseQueue *queue;
-
+@property (strong, nonatomic) AFSoundPlayback *player;
 @property (strong, nonatomic) NSDictionary  *currentPlayInfo;
 
-- (void)play:(NSDictionary *)album track:(NSDictionary *)track target:(id<BABAudioPlayerDelegate>)target slider:(UISlider *)slider;
+- (void)play:(NSDictionary *)album track:(NSDictionary *)track;
 
 @end
 

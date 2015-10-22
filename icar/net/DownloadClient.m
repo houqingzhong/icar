@@ -325,17 +325,19 @@ NSString * const APPURLSessionDownloadTaskDidFailToMoveFileNotification = @"APPU
         return;
     }
     
-    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSArray *array = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docDir = [array lastObject];
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *folder = [[paths objectAtIndex:0] stringByAppendingPathComponent:albumId];
+    docDir = [docDir stringByAppendingPathComponent:@"mp3"];
+    NSString *folder = [docDir stringByAppendingPathComponent:albumId];
     
     [self createFolder:folder];
     
-    NSString *desPath = [NSString stringWithFormat:@"%@/%@", folder, trackId];
+    NSString *desPath = [NSString stringWithFormat:@"%@/%@.m4a", folder, trackId];
     
     NSError *error = nil;
 
+    NSFileManager *fileManager = [NSFileManager defaultManager];
     [fileManager removeItemAtPath:desPath error:&error];
     
     // location是下载的临时文件目录,将文件从临时文件夹复制到沙盒
@@ -425,7 +427,7 @@ NSString * const APPURLSessionDownloadTaskDidFailToMoveFileNotification = @"APPU
     
     [self createFolder:folder];
 
-    NSString *file = [NSString stringWithFormat:@"%@/%@", docDir, track[@"id"]];
+    NSString *file = [NSString stringWithFormat:@"%@/%@.m4a", folder, track[@"id"]];
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     

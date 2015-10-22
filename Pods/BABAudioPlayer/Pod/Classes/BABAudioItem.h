@@ -25,4 +25,6 @@
 + (instancetype)audioItemWithURL:(NSURL *)url;
 - (instancetype)initWithURL:(NSURL *)url;
 
+- (void)setIsLocalFile:(BOOL)isLocalFile;
+
 @end

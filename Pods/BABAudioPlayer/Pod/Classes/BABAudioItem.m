@@ -32,5 +32,9 @@
     
 }
 
+- (void)setIsLocalFile:(BOOL)isLocalFile
+{
+    _isLocalFile = isLocalFile;
+}
 
 @end

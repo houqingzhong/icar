@@ -145,70 +145,74 @@
     
     [PublicMethod saveHistory:album track:track callback:nil];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
+    
+    if (![NSObject isNull:track[@"play_path_32"]]) {
         
-        
-        if (![NSObject isNull:track[@"play_path_32"]]) {
-            
-            if (nil == [BABAudioPlayer sharedPlayer]) {
-                BABAudioPlayer *player = [BABAudioPlayer new];
-                [BABAudioPlayer setSharedPlayer:player];
-                
-            }
-            
-            NSURL *url = [[DownloadClient sharedInstance] getDownloadFile:album track:track];
-            
-            if (nil == url) {
-                url = [NSURL URLWithString:track[@"play_path_32"]];
-            }
-            
-            [[BABAudioPlayer sharedPlayer] queueItem:[BABAudioItem audioItemWithURL:url]];
+        if (nil == [BABAudioPlayer sharedPlayer]) {
+            BABAudioPlayer *player = [BABAudioPlayer new];
+            [BABAudioPlayer setSharedPlayer:player];
             
         }
         
-        
-        
-        [BABAudioPlayer sharedPlayer].delegate = target;
-        
-        BABConfigureSliderForAudioPlayer(slider, [BABAudioPlayer sharedPlayer]);
-        
-        App(app);
-        
-        if(!app.isStoped)
+        BOOL isLocalFile = NO;
+        NSURL *url = [[DownloadClient sharedInstance] getDownloadFile:album track:track];
+        if (nil == url) {
+            url = [NSURL URLWithString:track[@"play_path_32"]];
+        }
+        else
         {
-            
-            self.currentPlayInfo = @{@"album":album, @"track":track};
-            
-            [PublicMethod getHistoryTrack:track[@"id"] callback:^(NSDictionary * localTrack) {
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (localTrack) {
-                        
-                        float value = [localTrack[@"time"] doubleValue]/[track[@"duration"] floatValue];
-                        
-                        
-                        [[BABAudioPlayer sharedPlayer] seekToPercent:value];
-                        
-                        
-                        [[BABAudioPlayer sharedPlayer] play];
-                        
-                        slider.value = value;
-                        
-                        
-                    }
-                    else
-                    {
-                        [[BABAudioPlayer sharedPlayer] play];
-                    }
-                    
-                    app.isPlayed = YES;
-                    
-                });
-                
-            }];
+            isLocalFile = YES;
         }
         
-    });
+        BABAudioItem *playItem = [BABAudioItem audioItemWithURL:url];
+        [playItem setIsLocalFile:isLocalFile];
+        
+        [[BABAudioPlayer sharedPlayer] queueItem:playItem];
+        
+    }
+    
+    
+    
+    [BABAudioPlayer sharedPlayer].delegate = target;
+    
+    BABConfigureSliderForAudioPlayer(slider, [BABAudioPlayer sharedPlayer]);
+    
+    App(app);
+    
+    if(!app.isStoped)
+    {
+        
+        self.currentPlayInfo = @{@"album":album, @"track":track};
+        
+        [PublicMethod getHistoryTrack:track[@"id"] callback:^(NSDictionary * localTrack) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (localTrack) {
+                    
+                    float value = [localTrack[@"time"] doubleValue]/[track[@"duration"] floatValue];
+                    
+                    
+                    [[BABAudioPlayer sharedPlayer] seekToPercent:value];
+                    
+                    
+                    [[BABAudioPlayer sharedPlayer] play];
+                    
+                    slider.value = value;
+                    
+                    
+                }
+                else
+                {
+                    [[BABAudioPlayer sharedPlayer] play];
+                }
+                
+                app.isPlayed = YES;
+                
+            });
+            
+        }];
+    }
+    
     
 
 }

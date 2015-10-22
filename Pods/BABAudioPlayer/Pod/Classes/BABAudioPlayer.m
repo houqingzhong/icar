@@ -202,16 +202,35 @@ static BABAudioPlayer  *sharedPlayer = nil;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
+
     if(self.player) {
         [self clearCurrentMediaItem];
     }
-    
+    self.currentAudioItem = audioItem;
+
     __weak typeof(self)weakSelf = self;
     
     dispatch_async(self.playbackQueue, ^{
         
-        AVPlayerItem *item = [[AVPlayerItem alloc] initWithURL:audioItem.url];
-        weakSelf.player = [[AVPlayer alloc] initWithPlayerItem:item];
+//        NSURL *fileURL = [NSURL fileURLWithPath:audioItem.url.absoluteString];
+//        
+
+        if(audioItem.isLocalFile)
+        {
+            AVAsset *avAsset = [AVAsset assetWithURL:audioItem.url];
+            
+            AVPlayerItem *avPlayerItem =[[AVPlayerItem alloc]initWithAsset:avAsset];
+
+            weakSelf.player = [[AVPlayer alloc] initWithPlayerItem:avPlayerItem];
+
+        }
+        else
+        {
+            AVPlayerItem *playItem = [[AVPlayerItem alloc] initWithURL:audioItem.url];
+            weakSelf.player = [[AVPlayer alloc] initWithPlayerItem:playItem];
+            
+        }
+        
         weakSelf.newMediaItem = YES;
         
         [[NSNotificationCenter defaultCenter] addObserver:weakSelf selector:@selector(didEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
@@ -222,7 +241,6 @@ static BABAudioPlayer  *sharedPlayer = nil;
         
         [weakSelf.player addObserver:weakSelf forKeyPath:NSStringFromSelector(@selector(rate)) options:NSKeyValueObservingOptionNew context:NULL];
         
-        weakSelf.currentAudioItem = audioItem;
         
         if(weakSelf.showsNowPlayingMetadata){
             [weakSelf updateNowPlayingMetadata:audioItem];

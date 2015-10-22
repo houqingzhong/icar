@@ -143,6 +143,7 @@
         return;
     }
     
+    
     [PublicMethod saveHistory:album track:track callback:nil];
     
     
@@ -150,6 +151,7 @@
         
         if (nil == [BABAudioPlayer sharedPlayer]) {
             BABAudioPlayer *player = [BABAudioPlayer new];
+            player.allowsBackgroundAudio = YES;
             [BABAudioPlayer setSharedPlayer:player];
             
         }
@@ -183,21 +185,23 @@
         [PublicMethod getHistoryTrack:track[@"id"] callback:^(NSDictionary * localTrack) {
             
             dispatch_async(dispatch_get_main_queue(), ^{
+                [[BABAudioPlayer sharedPlayer] play];
+
                 if (localTrack) {
                     
                     float value = [localTrack[@"time"] doubleValue]/[track[@"duration"] floatValue];
                     
                     
-                    [[BABAudioPlayer sharedPlayer] seekToPercent:value];
+//                    CMTime seekTime = CMTimeMakeWithSeconds([localTrack[@"time"] doubleValue], NSEC_PER_SEC);
+//
+                    [[BABAudioPlayer sharedPlayer] seekToTime:[localTrack[@"time"] doubleValue]];
+                    //[[BABAudioPlayer sharedPlayer] seekToPercent:value];
                     
                     slider.value = value;
                     
                     
                 }
-                else
-                {
-                    [[BABAudioPlayer sharedPlayer] play];
-                }
+
                 
                 app.isPlayed = YES;
                 

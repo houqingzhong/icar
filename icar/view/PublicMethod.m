@@ -87,7 +87,7 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval) {
             if([rs next])
             {
                 
-                [db executeUpdate:@"update history set time = ?, timestamp = ? where album_id = ? and track_id = ?", @(0),  @([PublicMethod getTimeNow]), albumId, trackId];
+                [db executeUpdate:@"update history set time = ?, timestamp = ? where album_id = ? and track_id = ?", @(time),  @([PublicMethod getTimeNow]), albumId, trackId];
             }
             
             [rs close];

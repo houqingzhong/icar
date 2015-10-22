@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1D90051E1BD4C59400769476 /* DownloadClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D90051D1BD4C59400769476 /* DownloadClient.m */; };
 		1D9005201BD4FBF600769476 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF59C5591BD320BD00858FE2 /* AVFoundation.framework */; };
+		1D9005401BD8E32C00769476 /* ShowDownloadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D90053F1BD8E32C00769476 /* ShowDownloadingCell.m */; settings = {ASSET_TAGS = (); }; };
+		1D9005431BD9010B00769476 /* AddNewDownloadHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9005421BD9010B00769476 /* AddNewDownloadHeaderView.m */; settings = {ASSET_TAGS = (); }; };
 		917D8FF6E2F42A1190138338 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D37CE3D38DCCC55E90F75AE /* libPods.a */; };
 		FF1F9F1C1BD3691B0099D1F0 /* ProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF1F9F1B1BD3691B0099D1F0 /* ProgressView.m */; };
 		FF1F9F1F1BD3819F0099D1F0 /* PublicMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = FF1F9F1E1BD3819F0099D1F0 /* PublicMethod.m */; };
@@ -60,6 +62,10 @@
 /* Begin PBXFileReference section */
 		1D90051C1BD4C59400769476 /* DownloadClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadClient.h; sourceTree = "<group>"; };
 		1D90051D1BD4C59400769476 /* DownloadClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadClient.m; sourceTree = "<group>"; };
+		1D90053E1BD8E32C00769476 /* ShowDownloadingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowDownloadingCell.h; sourceTree = "<group>"; };
+		1D90053F1BD8E32C00769476 /* ShowDownloadingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowDownloadingCell.m; sourceTree = "<group>"; };
+		1D9005411BD9010B00769476 /* AddNewDownloadHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNewDownloadHeaderView.h; sourceTree = "<group>"; };
+		1D9005421BD9010B00769476 /* AddNewDownloadHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNewDownloadHeaderView.m; sourceTree = "<group>"; };
 		4D37CE3D38DCCC55E90F75AE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		537260B9D4BAB35207CE5F11 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		DEC02284736AFB0EAE897408 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -256,6 +262,10 @@
 				FF59C5331BD20F8600858FE2 /* BaseCell.m */,
 				FF59C53C1BD21A6500858FE2 /* CategoryCell.h */,
 				FF59C53D1BD21A6500858FE2 /* CategoryCell.m */,
+				1D90053E1BD8E32C00769476 /* ShowDownloadingCell.h */,
+				1D90053F1BD8E32C00769476 /* ShowDownloadingCell.m */,
+				1D9005411BD9010B00769476 /* AddNewDownloadHeaderView.h */,
+				1D9005421BD9010B00769476 /* AddNewDownloadHeaderView.m */,
 				FF59C5301BD20F8600858FE2 /* AlbumCell.h */,
 				FF59C5311BD20F8600858FE2 /* AlbumCell.m */,
 				FF59C5451BD2838D00858FE2 /* TrackCell.h */,
@@ -505,6 +515,7 @@
 				FF59C52E1BD20F6600858FE2 /* otherViewController.m in Sources */,
 				FF59C5561BD3012200858FE2 /* PlayerView.m in Sources */,
 				FF59C5471BD2838E00858FE2 /* TrackCell.m in Sources */,
+				1D9005431BD9010B00769476 /* AddNewDownloadHeaderView.m in Sources */,
 				FF59C5531BD3004D00858FE2 /* PlayerViewController.m in Sources */,
 				FF2A8F171BD5367500A7F403 /* DownloadingViewController.m in Sources */,
 				FF59C52B1BD20F6600858FE2 /* BaseViewController.m in Sources */,
@@ -518,6 +529,7 @@
 				FF59C53E1BD21A6500858FE2 /* CategoryCell.m in Sources */,
 				FF59C5381BD2141600858FE2 /* CategoryViewController.m in Sources */,
 				FF59C5351BD20F8600858FE2 /* BaseCell.m in Sources */,
+				1D9005401BD8E32C00769476 /* ShowDownloadingCell.m in Sources */,
 				FF1F9F1F1BD3819F0099D1F0 /* PublicMethod.m in Sources */,
 				FF59C52D1BD20F6600858FE2 /* MainPageViewController.m in Sources */,
 				FF23A2E91BD3AB2800440792 /* HistoryViewController.m in Sources */,

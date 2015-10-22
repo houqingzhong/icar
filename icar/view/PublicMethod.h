@@ -28,11 +28,20 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval);
 
 + (void)getDownloadTask:(void (^)(NSDictionary*))callback;
 
++ (void)getDownloadTask:(NSString *)trackId callback:(void (^)(NSDictionary*))callback;
+
 + (void)saveDownload:(NSDictionary *)album track:(NSDictionary *)track progress:(CGFloat)progress state:(DownloadState)state;
+
++ (void)deleteDownloadAlbum:(NSString *)albumId callback:(void (^)(BOOL))callback;
++ (void)deleteDownloadTrack:(NSString *)trackId callback:(void (^)(BOOL))callback;
 
 + (void)updateDownloadState:(NSString *)albumId trackId:(NSString *)trackId progress:(CGFloat)progress state:(DownloadState)state callback:(void (^)(void))callback;
 
 + (void)getHistoryTrack:(NSString *)trackId callback:(void (^)(NSDictionary*))callback;
+
++ (void)deleteHistory:(NSString *)trackId callback:(void (^)(BOOL))callback;
++ (void)deleteHistoryAlbum:(NSString *)albumId callback:(void (^)(BOOL))callback;
+
 
 + (void)allowGprsDownload:(BOOL)flag;
 

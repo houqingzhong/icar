@@ -73,25 +73,24 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    if (ViewContrllerTypeMenu == _viewContrllerType) {
-        NSLog(@"viewWillDisappear");
-        AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        [tempAppDelegate.leftSlideVC setPanEnabled:NO];
-
-    };
+//    if (ViewContrllerTypeMenu == _viewContrllerType) {
+//        NSLog(@"viewWillDisappear");
+//        AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//        [tempAppDelegate.leftSlideVC setPanEnabled:NO];
+//
+//    };
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    if (ViewContrllerTypeMenu == _viewContrllerType) {
-        NSLog(@"viewWillAppear");
-        AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        [tempAppDelegate.leftSlideVC setPanEnabled:YES];
-    }
+//    if (ViewContrllerTypeMenu == _viewContrllerType) {
+//        NSLog(@"viewWillAppear");
+//        AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//        [tempAppDelegate.leftSlideVC setPanEnabled:YES];
+//    }
 
-    
     [self updateList];
 
 }
@@ -123,8 +122,8 @@
     TrackViewController *tc = [TrackViewController new];
     [tc updateList:dict];
     
-    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [tempAppDelegate.mainNavigationController pushViewController:tc animated:YES];
+    App(app);
+    [app.mainNavigationController pushViewController:tc animated:YES];
     
 }
 
@@ -176,7 +175,15 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_dataArray removeObjectAtIndex:indexPath.row];
+
+        NSDictionary *dict = _dataArray[indexPath.row];
+        
+        WS(ws);
+        [PublicMethod deleteHistoryAlbum:dict[@"id"] callback:^(BOOL sucess) {
+                        
+            [ws.dataArray removeObjectAtIndex:indexPath.row];
+        }];
+        
         // Delete the row from the data source.
         [self.tableview deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
         

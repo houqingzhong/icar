@@ -127,12 +127,16 @@
 {
     [super viewWillDisappear:animated];
     NSLog(@"viewWillDisappear");
+    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [tempAppDelegate.leftSlideVC setPanEnabled:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     NSLog(@"viewWillAppear");
+    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [tempAppDelegate.leftSlideVC setPanEnabled:NO];
 }
 
 

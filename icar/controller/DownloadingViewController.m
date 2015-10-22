@@ -49,6 +49,9 @@
     [super viewWillDisappear:animated];
     NSLog(@"viewWillDisappear");
     
+    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [tempAppDelegate.leftSlideVC setPanEnabled:NO];
+    
     [[DownloadClient sharedInstance] setCallback:nil];
 }
 
@@ -56,9 +59,12 @@
 {
     [super viewWillAppear:animated];
     NSLog(@"viewWillAppear");
+ 
+    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [tempAppDelegate.leftSlideVC setPanEnabled:NO];
     
     WS(ws);
-    [[DownloadClient sharedInstance] setCallback:^(CGFloat progress, NSString *albumId, NSString *trackId) {
+    [[DownloadClient sharedInstance] setCallback:^(CGFloat progress, NSString *albumId, NSString *trackId, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
         if ([ws.album[@"id"] integerValue] == albumId.integerValue) {
             
             NSArray *cells = [ws.tableview visibleCells];
@@ -75,6 +81,36 @@
     }];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    
+    if (0 == section) {
+        return 90*XA;
+    }
+    
+    return 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if (0 == section)
+    {
+        NSString *headerIdentifier = @"section-0-headerview-2";
+        
+        AddNewDownloadHeaderView * headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerIdentifier];
+        if (nil == headerView) {
+            headerView = [[AddNewDownloadHeaderView alloc] initWithReuseIdentifier:headerIdentifier];
+        }
+        
+        WS(ws);
+        [headerView setCallback:^{
+            [ws showTrackViewController];
+        }];
+        return headerView;
+    }
+    
+    return 0;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -113,11 +149,28 @@
     return [DownloadingCell height:_dataArray[indexPath.row]];
 }
 
-
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_dataArray removeObjectAtIndex:indexPath.row];
+        NSDictionary *dict = _dataArray[indexPath.row];
+
+        WS(ws);
+        [PublicMethod deleteDownloadTrack:dict[@"id"] callback:^(BOOL sucess) {
+            NSString *fileFolder = [[DownloadClient sharedInstance] getDownloadPath:ws.album];
+            
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+
+            NSString *file = [NSString stringWithFormat:@"%@/%@.m4a", fileFolder, dict[@"id"]];
+            
+            NSError *err = nil;
+            if ([fileManager removeItemAtPath:file error:&err] != YES)
+            {
+                NSLog(@"%@", err);
+            }
+
+            [ws.dataArray removeObjectAtIndex:indexPath.row];            
+        }];
+        
         // Delete the row from the data source.
         [self.tableview deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
@@ -125,6 +178,12 @@
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
     }
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    return YES;
 }
 
 - (void)download:(NSDictionary *)dict
@@ -160,6 +219,8 @@
     
     self.album = dict;
     
+//    [self updateHeader:dict];
+    
     self.title = dict[@"title"];
     
     self.dataArray = nil;
@@ -184,10 +245,10 @@
                     if ([obj2[@"id"] integerValue] == [obj[@"id"] integerValue]) {
                         newTrack[@"progress"] = obj2[@"progress"];
                         newTrack[@"download_state"] = obj2[@"download_state"];
+                        [newTracks addObject:newTrack];                        
                     }
                 }];
                 
-                [newTracks addObject:newTrack];
             }];
             
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -200,6 +261,18 @@
     }];
     
 }
+
+- (void)showTrackViewController
+{
+    
+    TrackViewController *tc = [TrackViewController new];
+    [tc updateList:self.album];
+    
+    App(app);
+    [app.mainNavigationController pushViewController:tc animated:YES];
+
+}
+
 
 @end
 

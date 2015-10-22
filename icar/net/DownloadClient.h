@@ -11,7 +11,7 @@
 
 @interface DownloadClient : NSObject
 @property (nonatomic, strong) void (^backgroundSessionCompletionHandler)();
-@property (nonatomic, strong) void (^callback)(CGFloat progress, NSString *albumId, NSString *trackId);
+@property (nonatomic, strong) void (^callback)(CGFloat progress, NSString *albumId, NSString *trackId, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite);
 
 + (DownloadClient *)sharedInstance;
 

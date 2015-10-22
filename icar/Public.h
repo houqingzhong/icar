@@ -59,7 +59,8 @@ typedef enum : NSUInteger {
 #import "CategoryCell.h"
 #import "DownloadingCell.h"
 #import "DownloadCell.h"
-
+#import "ShowDownloadingCell.h"
+#import "AddNewDownloadHeaderView.h"
 #import "ProgressView.h"
 #import "NavPlayButton.h"
 

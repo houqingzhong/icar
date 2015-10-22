@@ -70,6 +70,9 @@
 {
     [super viewWillDisappear:animated];
     NSLog(@"viewWillDisappear");
+//    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//    [tempAppDelegate.leftSlideVC setPanEnabled:NO];
+    
     AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [tempAppDelegate.leftSlideVC setPanEnabled:NO];
 }
@@ -78,8 +81,10 @@
 {
     [super viewWillAppear:animated];
     NSLog(@"viewWillAppear");
+//    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//    [tempAppDelegate.leftSlideVC setPanEnabled:YES];
     AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [tempAppDelegate.leftSlideVC setPanEnabled:YES];
+    [tempAppDelegate.leftSlideVC setPanEnabled:NO];
 }
 
 

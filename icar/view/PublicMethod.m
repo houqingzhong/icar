@@ -49,21 +49,22 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval) {
         NSString *sql = [NSString stringWithFormat:@"select * from history where album_id = %@ and  track_id = %@", album[@"id"], track[@"id"]];
         [app.queue inDatabase:^(FMDatabase *db) {
             FMResultSet *rs = [db executeQuery:sql];
-            NSString *sql_ = nil;
+
             if([rs next])
             {
-                sql_ = [NSString stringWithFormat:@"update history set time = 0, album_info = '%@', track_info = '%@', timestamp = %lld where track_id = %@ and album_id = %@", [album JSONString], [track JSONString], [PublicMethod getTimeNow], track[@"id"], album[@"id"]];
                 
+                [db executeUpdate:@"update history set time = ?, album_info = ?, track_info = ?, timestamp = ? where track_id = ? and album_id = ?", @(0), [album JSONString], [track JSONString], @([PublicMethod getTimeNow]), track[@"id"], album[@"id"]];
+
             }
             //向数据库中插入一条数据
             else
             {
-                sql_ = [NSString stringWithFormat:@"INSERT INTO history (album_id, track_id, album_info, track_info, timestamp) VALUES (%@, %@, '%@', '%@', %llu)", album[@"id"], track[@"id"], [album JSONString], [track JSONString], [PublicMethod getTimeNow]];
+                
+                [db executeUpdate:@"INSERT INTO history (album_id, track_id, album_info, track_info, timestamp) VALUES (?, ?, ?, ?, ?)", album[@"id"], track[@"id"], [album JSONString], [track JSONString],  @([PublicMethod getTimeNow])];
             }
             
             [rs close];
 
-            [db executeUpdate:sql_];
 
 
         }];
@@ -83,18 +84,14 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval) {
             
             FMResultSet *rs = [db executeQuery:sql];
             
-            NSString *sql_ = nil;
             if([rs next])
             {
-                sql_ = [NSString stringWithFormat:@"update history set time = 0, timestamp = %lld where album_id = %@ and track_id = %@", [PublicMethod getTimeNow], albumId, trackId];
                 
+                [db executeUpdate:@"update history set time = ?, timestamp = ? where album_id = ? and track_id = ?", @(0),  @([PublicMethod getTimeNow]), albumId, trackId];
             }
             
             [rs close];
-            
-            if (sql_) {
-                [db executeUpdate:sql_];
-            }
+
             
             if (callback) {
                 callback();
@@ -116,19 +113,15 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval) {
             
             FMResultSet *rs = [db executeQuery:sql];
             
-            NSString *sql_ = nil;
             if([rs next])
             {
-                sql_ = [NSString stringWithFormat:@"update download set progress = %lf, timestamp = %lld, download_state = %ld where track_id = %@ and album_id = %@", progress, [PublicMethod getTimeNow], (unsigned long)state, trackId, albumId];
                 
+                [db executeUpdate:@"update download set progress = ?, timestamp = ?, download_state = ? where track_id = ? and album_id = ?", @(progress), @([PublicMethod getTimeNow]),  @(state), trackId, albumId];
+
             }
             
             [rs close];
-            
-            if (sql_) {
-                [db executeUpdate:sql_];
-            }
-            
+
             if (callback) {
                 callback();
             }
@@ -143,33 +136,76 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval) {
         
         App(app);
         
-        NSString *sql = [NSString stringWithFormat:@"select * from download where album_id = %@ and  track_id = %@", album[@"id"], track[@"id"]];
         
         [app.queue inDatabase:^(FMDatabase *db) {
 
-            FMResultSet *rs = [db executeQuery:sql];
+            FMResultSet *rs = [db executeQuery:@"select * from download where album_id = ? and  track_id = ?", album[@"id"], track[@"id"]];
             
-            NSString *sql_ = nil;
             if([rs next])
             {
-                sql_ = [NSString stringWithFormat:@"update download set progress = %lf, album_info = '%@', track_info = '%@', timestamp = %lld, download_state = %ld where track_id = %@ and album_id = %@", progress,[album JSONString], [track JSONString], [PublicMethod getTimeNow], (unsigned long)state,  track[@"id"], album[@"id"] ];
-                
+                [db executeUpdate:@"update download set progress = ?, album_info = ?, track_info = ?, timestamp = ?, download_state = ? where track_id = ? and album_id = ?", @(progress),[album JSONString], [track JSONString],  @([PublicMethod getTimeNow]),  @(state),  track[@"id"], album[@"id"]];
+
             }
             //向数据库中插入一条数据
             else
             {
-                sql_ = [NSString stringWithFormat:@"INSERT INTO download (album_id, track_id, album_info, track_info, progress, download_state, timestamp) VALUES (%@, %@, '%@', '%@', %lf, %ld, %llu)", album[@"id"], track[@"id"], [album JSONString], [track JSONString], progress, (unsigned long)state, [PublicMethod getTimeNow]];
+                [db executeUpdate:@"INSERT INTO download (album_id, track_id, album_info, track_info, progress, download_state, timestamp) VALUES (?, ?, ?, ?, ?, ?, ?)", album[@"id"], track[@"id"], [album JSONString], [track JSONString],  @(progress), @(state),  @([PublicMethod getTimeNow])];
+
             }
-            
             
             [rs close];
 
-            [db executeUpdate:sql_];
 
         }];
     }
 }
 
++ (void)deleteDownloadAlbum:(NSString *)albumId callback:(void (^)(BOOL))callback
+{
+    App(app);
+    
+    
+    [app.queue inDatabase:^(FMDatabase *db) {
+        
+        FMResultSet *rs = [db executeQuery:@"delete from download where album_id = ?", albumId];
+        
+        if([rs next])
+        {
+            
+        }
+        
+        [rs close];
+        
+        if (callback) {
+            callback(YES);
+        }
+        
+    }];
+}
+
++ (void)deleteDownloadTrack:(NSString *)trackId callback:(void (^)(BOOL))callback
+{
+    App(app);
+    
+    
+    [app.queue inDatabase:^(FMDatabase *db) {
+        
+        FMResultSet *rs = [db executeQuery:@"delete from download where  track_id = ?", trackId];
+        
+        if([rs next])
+        {
+            
+        }
+        
+        [rs close];
+        
+        if (callback) {
+            callback(YES);
+        }
+        
+    }];
+
+}
 + (void)getDownloadTracks:(NSString *)albumId callback:(void (^)(NSArray*))callback
 {
     App(app);
@@ -300,15 +336,75 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval) {
     }];
 }
 
++ (void)getDownloadTask:(NSString *)trackId callback:(void (^)(NSDictionary*))callback;
+{
+    App(app);
+    
+    NSString *sql = [NSString stringWithFormat:@"select * from download where track_id = %@ limit 1", trackId];
+    [app.queue inDatabase:^(FMDatabase *db) {
+        FMResultSet *rs = [db executeQuery:sql];
+        
+        NSMutableDictionary *dict = nil;
+        while ([rs next]) {
+            NSDictionary* track = [[rs stringForColumn:@"track_info"] objectFromJSONString];
+            dict = [NSMutableDictionary dictionaryWithDictionary:track];
+            dict[@"time"] = @([rs doubleForColumn:@"time"]);
+        }
+        
+        [rs close];
+        
+        
+        if (callback) {
+            callback(dict);
+        }
+    }];
+    
+}
 
++ (void)deleteHistory:(NSString *)trackId callback:(void (^)(BOOL))callback
+{
+    App(app);
+    
+    [app.queue inDatabase:^(FMDatabase *db) {
+        FMResultSet *rs = [db executeQuery:@"delete from history where track_id = ?", trackId];
+        
+        while ([rs next]) {
+            NSLog(@"%@", rs);
+        }
+        
+        [rs close];
+        
+        
+        if (callback) {
+            callback(YES);
+        }
+    }];
+
+}
+
++ (void)deleteHistoryAlbum:(NSString *)albumId callback:(void (^)(BOOL))callback
+{
+    App(app);
+    
+    [app.queue inDatabase:^(FMDatabase *db) {
+        FMResultSet *rs = [db executeQuery:@"delete from history where album_id = ?", albumId];
+        
+        [rs close];
+        
+        
+        if (callback) {
+            callback(YES);
+        }
+    }];
+    
+}
 
 + (void)getHistoryTrack:(NSString *)trackId callback:(void (^)(NSDictionary*))callback;
 {
     App(app);
     
-    NSString *sql = [NSString stringWithFormat:@"select * from history where track_id = %@ limit 1", trackId];
     [app.queue inDatabase:^(FMDatabase *db) {
-        FMResultSet *rs = [db executeQuery:sql];
+        FMResultSet *rs = [db executeQuery:@"select * from history where track_id = ? limit 1", trackId];
         
         NSMutableDictionary *dict = nil;
         while ([rs next]) {

@@ -127,7 +127,7 @@ NSString * const APPURLSessionDownloadTaskDidFailToMoveFileNotification = @"APPU
             
             if (ws.callback) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    ws.callback(progress, albumId, trackId);
+                    ws.callback(progress, albumId, trackId, totalBytesWritten, totalBytesExpectedToWrite);
                 });
 
             }

@@ -11,4 +11,7 @@
 @interface BaseCell : UITableViewCell
 
 - (void)setData:(NSDictionary *)dict;
+
+- (void)layout;
+
 @end

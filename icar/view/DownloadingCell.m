@@ -191,7 +191,7 @@
 - (void)click
 {
     if (_callback) {
-        [_icon setImage:[UIImage imageNamed:@"finished_flag"] forState:UIControlStateNormal];
+        [_icon setImage:[UIImage imageNamed:@"btn_downloaded"] forState:UIControlStateNormal];
         _callback(_dict);
     }
     

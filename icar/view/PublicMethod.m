@@ -387,7 +387,12 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval) {
     App(app);
     
     [app.queue inDatabase:^(FMDatabase *db) {
+        
         FMResultSet *rs = [db executeQuery:@"delete from history where album_id = ?", albumId];
+
+        while ([rs next]) {
+            NSLog(@"%@", rs);
+        }
         
         [rs close];
         

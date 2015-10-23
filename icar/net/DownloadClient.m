@@ -514,6 +514,34 @@ NSString * const APPURLSessionDownloadTaskDidFailToMoveFileNotification = @"APPU
     return GCNetworkReachabilityStatusNotReachable != app.reachability.currentReachabilityStatus;
     
 }
+
+-(void)isDownloading:(void (^)(BOOL))callback;
+{
+
+    [_downloadManager.session getTasksWithCompletionHandler:^(NSArray<NSURLSessionDataTask *> * _Nonnull dataTasks, NSArray<NSURLSessionUploadTask *> * _Nonnull uploadTasks, NSArray<NSURLSessionDownloadTask *> * _Nonnull downloadTasks) {
+
+        __block BOOL flag = (downloadTasks.count > 0) ? YES : NO;
+        
+        if (!flag) {
+            [PublicMethod getDownloadTask:^(NSDictionary *dict) {
+                flag = dict ? YES : NO;
+                
+                if (callback) {
+                    callback(flag);
+                }
+            }];
+        }
+        else
+        {
+            if (callback) {
+                callback(flag);
+            }
+        }
+    }];
+}
+
+
+
 //
 //- (BOOL)getDownloadPath:(NSDictionary *)album
 //{

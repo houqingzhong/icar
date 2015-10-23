@@ -330,9 +330,10 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval) {
     NSString *sql = [NSString stringWithFormat:@"select * from download where download_state != %lu order by timestamp DESC limit 1", (unsigned long)DownloadStateDownloadFinish];
     [app.queue inDatabase:^(FMDatabase *db) {
         FMResultSet *rs = [db executeQuery:sql];
-        NSMutableDictionary *newDic = [NSMutableDictionary new];
+        NSMutableDictionary *newDic = nil;
         while ([rs next]) {
             if ([rs doubleForColumn:@"download_state"] > 0) {
+                newDic = [NSMutableDictionary new];
                 NSDictionary *album = [[rs stringForColumn:@"album_info"] objectFromJSONString];
                 NSDictionary *track = [[rs stringForColumn:@"track_info"] objectFromJSONString];
                 newDic[@"album"] = album;

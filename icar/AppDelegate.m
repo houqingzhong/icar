@@ -238,7 +238,6 @@
     [PublicMethod getHistoryTrack:track[@"id"] callback:^(NSDictionary * localTrack) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [[BABAudioPlayer sharedPlayer] play];
             
             if (localTrack) {
                 
@@ -256,6 +255,9 @@
             app.isPlayed = YES;
             
             self.currentPlayInfo = @{@"album":album, @"track":track};
+            
+            [[BABAudioPlayer sharedPlayer] play];
+
             
         });
         

@@ -71,24 +71,6 @@
     }
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    NSLog(@"viewWillDisappear");
-    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [tempAppDelegate.leftSlideVC setPanEnabled:NO];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    NSLog(@"viewWillAppear");
-    
-    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [tempAppDelegate.leftSlideVC setPanEnabled:NO];
-}
-
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return _dataArray.count;
@@ -132,7 +114,7 @@
 - (void)updateList:(NSDictionary *)dict pageNum:(NSInteger)pageNum
 {
     
-    if (0 == pageNum) {
+    if (1 == pageNum) {
         
         self.dataArray = nil;
         

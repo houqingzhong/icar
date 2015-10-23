@@ -31,4 +31,7 @@
 - (NSURL *)getDownloadFile:(NSDictionary *)album track:(NSDictionary *)track;
 
 - (BOOL)hasNetwork;
+
+-(void)isDownloading:(void (^)(BOOL))callback;
+
 @end

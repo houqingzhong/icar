@@ -187,7 +187,6 @@
 {
     
     if (![[DownloadClient sharedInstance] hasNetwork]) {
-        
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         return;
     }
@@ -245,7 +244,7 @@
 - (void)updateList:(NSDictionary *)dict  pageNum:(NSInteger)pageNum
 {
     
-    if (0 == pageNum) {
+    if (1 == pageNum) {
         
         self.dataArray = nil;
         

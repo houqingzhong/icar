@@ -50,18 +50,7 @@
     [self.tableview addPullToRefreshWithActionHandler:^{
         [ws updateRecommend];
     }];
-
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    NSLog(@"viewWillAppear");
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
+    
     [self updateRecommend];
 
 }

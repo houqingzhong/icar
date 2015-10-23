@@ -14,7 +14,6 @@
 
 @property (nonatomic, assign) ViewContrllerType viewContrllerType;
 
-@property (nonatomic, strong) NSIndexPath   *currentIndexPath;
 @end
 
 @implementation HistoryViewController
@@ -105,52 +104,15 @@
     return cell;
 }
 
-- (nullable NSIndexPath *)tableView:(UITableView *)tableView willDeselectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (![[DownloadClient sharedInstance] hasNetwork]) {
-        return indexPath;
-    }
-    return nil;
-}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (_currentIndexPath) {
-        HistoryCell *cell = [tableView cellForRowAtIndexPath:_currentIndexPath];
-        
-        NSDictionary *dict = _dataArray[_currentIndexPath.row];
-        NSMutableDictionary *newDict = [NSMutableDictionary dictionaryWithDictionary:dict];
-        newDict[@"is_playing"] = @(NO);
-        [_dataArray replaceObjectAtIndex:_currentIndexPath.row withObject:newDict];
-        
-        [cell setData:newDict];
-    }
-
+    
     NSDictionary *dict = _dataArray[indexPath.row];
-    NSMutableDictionary *newDict = [NSMutableDictionary dictionaryWithDictionary:dict];
-
     App(app);
-    HistoryCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    BOOL isPlay = [app play:dict track:dict[@"track"] target:self slider:nil];
-    if (isPlay) {
-        [self startPlayAnimation];
-        
-        newDict[@"is_playing"] = @(YES);
-        
-        
-    }
-    else
-    {
-        newDict[@"is_playing"] = @(NO);
-    }
+    [app play:dict track:dict[@"track"] target:self slider:nil];
     
-    self.currentIndexPath = indexPath;
-    
-    [_dataArray replaceObjectAtIndex:_currentIndexPath.row withObject:newDict];
-
-    [cell setData:newDict];
-    
+    [app.playViewController updateList:dict pageNum:1];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
@@ -224,6 +186,7 @@
 
     }];
 }
+
 
 - (void)setPlayState
 {

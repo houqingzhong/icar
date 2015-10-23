@@ -13,7 +13,7 @@
 @interface DownloadViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
-
+@property (nonatomic, assign) BOOL isDownling;
 @end
 
 @implementation DownloadViewController
@@ -62,20 +62,9 @@
     }
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    NSLog(@"viewWillDisappear");
-    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [tempAppDelegate.leftSlideVC setPanEnabled:NO];
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    NSLog(@"viewWillAppear");
-    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [tempAppDelegate.leftSlideVC setPanEnabled:NO];
     
     [self updateList];
     
@@ -83,6 +72,11 @@
     __block NSInteger currentDownloadTrackId = 0;
     __block NSDictionary *currentDownloadTrack = nil;
     [[DownloadClient sharedInstance] setCallback:^(CGFloat progress, NSString *albumId, NSString *trackId, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
+        
+        if (progress >= 1) {
+            [ws performSelector:@selector(showOrHiddenDownligView) withObject:nil];
+            [ws performSelector:@selector(showOrHiddenDownligView) withObject:nil afterDelay:2];
+        }
         
         NSString *downloadSize = [NSString stringWithFormat:@"%0.2f", (float)totalBytesWritten/1024/1024];
         NSString *totalSize = [NSString stringWithFormat:@"%0.2f", (float)totalBytesExpectedToWrite/1024/1024];
@@ -94,7 +88,10 @@
                 dict[@"progress"] = @(progress);
                 dict[@"size"] = [NSString stringWithFormat:@"%@/%@", downloadSize, totalSize];
                 currentDownloadTrack = dict;
-                [ws updateHeader:dict];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self updateHeader:dict];
+                });
 
             }];
         }
@@ -104,9 +101,36 @@
             dict[@"progress"] = @(progress);
             dict[@"size"] = [NSString stringWithFormat:@"%@/%@", downloadSize, totalSize];
             currentDownloadTrack = dict;
-            [ws updateHeader:dict];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self updateHeader:dict];
+            });
         }
         
+    }];
+    
+    [[DownloadClient sharedInstance] isDownloading:^(BOOL flag) {
+       
+        ws.isDownling = flag;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableview reloadData];
+        });
+
+        
+    }];
+    
+}
+
+- (void)showOrHiddenDownligView
+{
+    WS(ws);
+    [[DownloadClient sharedInstance] isDownloading:^(BOOL hasTask) {
+        if (!hasTask) {
+            ws.isDownling = hasTask;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableview reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+            });
+        }
     }];
 }
 
@@ -120,7 +144,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     
-    if (0 == section) {
+    if (self.isDownling && 0 == section) {
         return 130*XA;
     }
     

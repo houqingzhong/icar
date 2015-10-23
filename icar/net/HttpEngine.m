@@ -23,6 +23,7 @@
 {
     if(![[DownloadClient sharedInstance] hasNetwork])
     {
+        
         [TSMessage showNotificationWithTitle:nil
                                     subtitle:NetworkError
                                         type:TSMessageNotificationTypeMessage];

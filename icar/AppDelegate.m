@@ -19,10 +19,8 @@
 
 @implementation AppDelegate
 
-
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-
+- (void)setup
+{
     AVAudioSession *session = [AVAudioSession sharedInstance];
     NSError *setCategoryError = nil;
     [session setCategory:AVAudioSessionCategoryPlayback error:&setCategoryError];
@@ -60,10 +58,10 @@
                            forState:UIControlStateHighlighted];
     // 5.设置状态栏样式
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-
+    
     
     self.queue = [FMDatabaseQueue databaseQueueWithPath:dataBasePath];
-
+    
     [_queue inDatabase:^(FMDatabase *db) {
         if (![db tableExists:@"history"]) {
             if ([db executeUpdate:@"CREATE TABLE history (id INTEGER PRIMARY KEY AUTOINCREMENT, album_id INTEGER, track_id INTEGER, album_info text, track_info text, time DOUBLE, timestamp INTEGER)"]) {
@@ -85,7 +83,25 @@
             NSLog(@"table is already exist:download");
         }
     }];
+    
+    [[TSMessageView appearance] setTintColor:[UIColor colorWithHexString:@"ff7d3d"]];
 
+}
+
+- (void)startDownload
+{
+    [[DownloadClient sharedInstance] clearOnLanch];
+    
+    if ([[DownloadClient sharedInstance] hasNetwork]) {
+        [[DownloadClient sharedInstance] startDownload];
+    }
+}
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // Override point for customization after application launch.
+
+    [self setup];
+    [self startDownload];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];   //设置通用背景颜色
@@ -99,7 +115,6 @@
     
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithHexString:@"#ff7d3d"]];
 
-    [[DownloadClient sharedInstance] clearOnLanch];
     
     return YES;
 }

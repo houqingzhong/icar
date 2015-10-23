@@ -50,27 +50,21 @@
     [self.tableview addPullToRefreshWithActionHandler:^{
         [ws updateRecommend];
     }];
-    [ws updateRecommend];
-}
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    NSLog(@"viewWillDisappear");
-    
-    App(app);
-    [app.leftSlideVC setPanEnabled:NO];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     NSLog(@"viewWillAppear");
-    App(app);
-    [app.leftSlideVC setPanEnabled:NO];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self updateRecommend];
+
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

@@ -110,7 +110,6 @@
 
     App(app);
     [app play:dict track:dict[@"track"] target:self slider:nil];
-    
     [self startPlayAnimation];
     
 }

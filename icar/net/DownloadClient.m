@@ -23,7 +23,6 @@ NSString * const APPURLSessionDownloadTaskDidFailToMoveFileNotification = @"APPU
 
 @implementation DownloadClient
 
-
 + (DownloadClient *)sharedInstance {
     static DownloadClient *sharedManager = nil;
     static dispatch_once_t onceToken;

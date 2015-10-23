@@ -305,6 +305,8 @@
                     [ws.tableview insertRowsAtIndexPaths:arrCells withRowAnimation:UITableViewRowAnimationAutomatic];
                 }
                 
+                [ws setPlayState:dict];
+                
             });
             
         }];
@@ -315,4 +317,39 @@
     
 }
 
+- (void)setPlayState:(NSDictionary *)album
+{
+    App(app);
+    if(app.isPlayed)
+    {
+        
+        NSDictionary *lastPlayalbum = app.currentPlayInfo[@"album"];
+        NSDictionary *lastPlaytrack = app.currentPlayInfo[@"track"];
+        
+        if (lastPlayalbum && [lastPlayalbum[@"id"] integerValue] == [album[@"id"] integerValue]) {
+            
+            BOOL isExist = NO;
+            NSInteger index = 0;
+            for(NSInteger i = 0; i < self.dataArray.count; i++)
+            {
+                NSDictionary *track = self.dataArray[i];
+                if ([track[@"id"] integerValue] == [lastPlaytrack[@"id"] integerValue]) {
+                    isExist = YES;
+                    index = i;
+                    break;
+                }
+                
+            }
+            
+            if (isExist) {
+                
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+                [self.tableview selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+                
+            }
+            
+        }
+        
+    }
+}
 @end

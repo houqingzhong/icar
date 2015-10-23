@@ -26,7 +26,7 @@
                   moduleName = "icar"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jingxin/icar/Pods/BABAudioPlayer/Pod/Classes/BABAudioPlayer.m"
-                  timestampString = "467284063.231426"
+                  timestampString = "467285468.265292"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "252"
@@ -41,7 +41,7 @@
                   moduleName = "icar"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jingxin/icar/Pods/BABAudioPlayer/Pod/Classes/BABAudioPlayer.m"
-                  timestampString = "467284063.23159"
+                  timestampString = "467285468.265522"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "252"
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "icar/controller/TrackViewController.m"
-            timestampString = "467283969.800824"
+            timestampString = "467285640.671445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "290"
-            endingLineNumber = "290"
+            startingLineNumber = "299"
+            endingLineNumber = "299"
             landmarkName = "-updateList:pageNum:"
             landmarkType = "5">
             <Locations>
@@ -90,11 +90,11 @@
                   moduleName = "icar"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jingxin/icar/icar/controller/TrackViewController.m"
-                  timestampString = "467284063.233003"
+                  timestampString = "467285468.267086"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "290"
-                  endingLineNumber = "290"
+                  startingLineNumber = "297"
+                  endingLineNumber = "297"
                   offsetFromSymbolStart = "1424">
                </Location>
                <Location
@@ -105,11 +105,11 @@
                   moduleName = "icar"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jingxin/icar/icar/controller/TrackViewController.m"
-                  timestampString = "467284063.233121"
+                  timestampString = "467285468.267223"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "290"
-                  endingLineNumber = "290"
+                  startingLineNumber = "297"
+                  endingLineNumber = "297"
                   offsetFromSymbolStart = "76">
                </Location>
             </Locations>
@@ -122,61 +122,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "icar/controller/TrackViewController.m"
-            timestampString = "467283969.800824"
+            timestampString = "467285640.671445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "275"
-            endingLineNumber = "275"
+            startingLineNumber = "284"
+            endingLineNumber = "284"
             landmarkName = "-updateList:pageNum:"
             landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "icar/controller/AlbumListViewController.m"
-            timestampString = "467284063.175212"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "152"
-            endingLineNumber = "152"
-            landmarkName = "-updateList:pageNum:"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[AlbumListViewController updateList:pageNum:]"
-                  moduleName = "icar"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jingxin/icar/icar/controller/AlbumListViewController.m"
-                  timestampString = "467284063.191533"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "152"
-                  endingLineNumber = "152"
-                  offsetFromSymbolStart = "600">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__46-[AlbumListViewController updateList:pageNum:]_block_invoke"
-                  moduleName = "icar"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jingxin/icar/icar/controller/AlbumListViewController.m"
-                  timestampString = "467284063.191704"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "152"
-                  endingLineNumber = "152"
-                  offsetFromSymbolStart = "76">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -186,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "icar/controller/TrackViewController.m"
-            timestampString = "467284068.542396"
+            timestampString = "467285640.671445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "254"
-            endingLineNumber = "254"
+            startingLineNumber = "263"
+            endingLineNumber = "263"
             landmarkName = "-updateList:pageNum:"
             landmarkType = "5">
             <Locations>
@@ -202,11 +154,11 @@
                   moduleName = "icar"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jingxin/icar/icar/controller/TrackViewController.m"
-                  timestampString = "467284068.553273"
+                  timestampString = "467285468.268619"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "254"
-                  endingLineNumber = "254"
+                  startingLineNumber = "261"
+                  endingLineNumber = "261"
                   offsetFromSymbolStart = "600">
                </Location>
                <Location
@@ -217,14 +169,62 @@
                   moduleName = "icar"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jingxin/icar/icar/controller/TrackViewController.m"
-                  timestampString = "467284068.55347"
+                  timestampString = "467285468.26876"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "254"
-                  endingLineNumber = "254"
+                  startingLineNumber = "261"
+                  endingLineNumber = "261"
                   offsetFromSymbolStart = "76">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "icar/AppDelegate.m"
+            timestampString = "467285724.75989"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
+            landmarkName = "-play:track:target:slider:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "icar/controller/HistoryViewController.m"
+            timestampString = "467285451.458813"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "icar/view/HistoryCell.m"
+            timestampString = "467285500.293911"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
+            landmarkName = "-startAnimation"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

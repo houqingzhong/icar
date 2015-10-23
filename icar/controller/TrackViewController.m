@@ -39,6 +39,8 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
+    self.navigationItem.rightBarButtonItem = nil;
+    
     self.tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetMaxX(self.view.frame), CGRectGetMaxY(self.view.frame) - 120*XA) style:UITableViewStylePlain];
     self.tableview.dataSource = self;
     self.tableview.delegate  = self;
@@ -182,6 +184,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    if (![[DownloadClient sharedInstance] hasNetwork]) {
+        
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        return;
+    }
+    
     self.indexPath = indexPath;
 
     NSDictionary *dict = _dataArray[indexPath.row];

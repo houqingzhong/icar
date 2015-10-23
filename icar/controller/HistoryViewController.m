@@ -106,11 +106,25 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+
+    if (![[DownloadClient sharedInstance] hasNetwork]) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+    
+    
     NSDictionary *dict = _dataArray[indexPath.row];
 
     App(app);
-    [app play:dict track:dict[@"track"] target:self slider:nil];
-    [self startPlayAnimation];
+    HistoryCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    BOOL isPlay = [app play:dict track:dict[@"track"] target:self slider:nil];
+    if (isPlay) {
+        [self startPlayAnimation];
+        [cell startAnimation];
+    }
+    else
+    {
+        [cell stopAnimation];
+    }
     
 }
 

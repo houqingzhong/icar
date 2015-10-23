@@ -27,7 +27,7 @@
 @property (strong, nonatomic) NSDictionary  *currentPlayInfo;
 
 //- (void)play:(NSDictionary *)album track:(NSDictionary *)track;
-- (void)play:(NSDictionary *)album track:(NSDictionary *)track target:(id<BABAudioPlayerDelegate>)target slider:(UISlider *)slider;
+- (BOOL)play:(NSDictionary *)album track:(NSDictionary *)track target:(id<BABAudioPlayerDelegate>)target slider:(UISlider *)slider;
 
 - (void)jumpToPlayViewController:(NSDictionary *)album;
 

@@ -17,6 +17,8 @@
     UILabel     *_desc;
     UILabel     *_trackTitile;
     UILabel     *_playTime;
+    
+    NavPlayButton   *_animationBtn;
 }
 @end
 
@@ -52,6 +54,10 @@
         [self addSubview:_playTime];
         [self addSubview:_trackTitile];
         
+        
+        _animationBtn = [NavPlayButton buttonWithType:UIButtonTypeCustom];
+
+        [_header addSubview:_animationBtn];
         
     }
     
@@ -103,6 +109,9 @@
     [_playTime alignToTheRightOf:_trackTitile withLeftPadding:leftPadding bottomPadding:bottomPadding width:width height:height];
     
     
+    width = 60*XA;
+    height = width;
+    [_animationBtn anchorInCenterWithWidth:width height:height];
 }
 
 - (void)setData:(NSDictionary *)dict
@@ -130,4 +139,13 @@
     _playTime.text = [NSObject getDurationText:time];
 }
 
+- (void)startAnimation
+{
+    [_animationBtn startAnimation];
+}
+
+- (void)stopAnimation
+{
+    [_animationBtn stopAnimation];
+}
 @end

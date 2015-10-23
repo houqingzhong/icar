@@ -86,6 +86,14 @@
     
     [[TSMessageView appearance] setTintColor:[UIColor colorWithHexString:@"ff7d3d"]];
 
+    
+    
+    if (nil == [BABAudioPlayer sharedPlayer]) {
+        BABAudioPlayer *player = [BABAudioPlayer new];
+        player.allowsBackgroundAudio = YES;
+        [BABAudioPlayer setSharedPlayer:player];
+        
+    }
 }
 
 - (void)startDownload
@@ -152,31 +160,31 @@
     
 }
 
-- (void)play:(NSDictionary *)album track:(NSDictionary *)track target:(id<BABAudioPlayerDelegate>)target slider:(UISlider *)slider
+- (BOOL)play:(NSDictionary *)album track:(NSDictionary *)track target:(id<BABAudioPlayerDelegate>)target slider:(UISlider *)slider
 {
     if (!album || !track) {
-        return;
+        return NO;
     }
     
-    
-    [PublicMethod saveHistory:album track:track callback:nil];
-    
+    BOOL isPlay = NO;
     
     if (![NSObject isNull:track[@"play_path_32"]]) {
-        
-        if (nil == [BABAudioPlayer sharedPlayer]) {
-            BABAudioPlayer *player = [BABAudioPlayer new];
-            player.allowsBackgroundAudio = YES;
-            [BABAudioPlayer setSharedPlayer:player];
-            
-        }
-        
+
         BOOL isLocal = YES;
         NSURL *url = [[DownloadClient sharedInstance] getDownloadFile:album track:track];
         
         if (nil == url) {
             url = [NSURL URLWithString:track[@"play_path_32"]];
             isLocal = NO;
+            
+            if (![[DownloadClient sharedInstance] hasNetwork]) {
+
+                [TSMessage showNotificationWithTitle:nil
+                                            subtitle:NetworkError
+                                                type:TSMessageNotificationTypeMessage];
+                
+                return NO;
+            }
         }
         
         BABAudioItem *item = [BABAudioItem audioItemWithURL:url];
@@ -185,46 +193,45 @@
         
     }
     
+    [PublicMethod saveHistory:album track:track callback:nil];
+
     
     [BABAudioPlayer sharedPlayer].delegate = target;
     
     BABConfigureSliderForAudioPlayer(slider, [BABAudioPlayer sharedPlayer]);
     
+    isPlay = YES;
+    
     App(app);
     
-    if(!app.isStoped)
-    {
+    [PublicMethod getHistoryTrack:track[@"id"] callback:^(NSDictionary * localTrack) {
         
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[BABAudioPlayer sharedPlayer] play];
+            
+            if (localTrack) {
+                
+                float value = [localTrack[@"time"] doubleValue]/[track[@"duration"] floatValue];
+                
+                
+                [[BABAudioPlayer sharedPlayer] seekToTime:[localTrack[@"time"] doubleValue]];
+                
+                
+                slider.value = value;
+                
+                
+            }
+            
+            app.isPlayed = YES;
+            
+            self.currentPlayInfo = @{@"album":album, @"track":track};
+            
+        });
         
-        [PublicMethod getHistoryTrack:track[@"id"] callback:^(NSDictionary * localTrack) {
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[BABAudioPlayer sharedPlayer] play];
-
-                if (localTrack) {
-                    
-                    float value = [localTrack[@"time"] doubleValue]/[track[@"duration"] floatValue];
-                    
-                
-                    [[BABAudioPlayer sharedPlayer] seekToTime:[localTrack[@"time"] doubleValue]];
-
-                    
-                    slider.value = value;
-                    
-                    
-                }
-
-                
-                app.isPlayed = YES;
-                
-                self.currentPlayInfo = @{@"album":album, @"track":track};
-
-                
-            });
-            
-        }];
-    }
+    }];
     
+    
+    return isPlay;
 }
 
 

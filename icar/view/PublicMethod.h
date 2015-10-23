@@ -14,8 +14,6 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval);
 
 @interface PublicMethod : NSObject
 
-+ (NSString *)getDataKey:(ServerDataRequestType)type;
-
 + (id)getLocalData:(NSString *)key;
 + (void)saveDataToLocal:(id)obj key:(NSString *)key;
 

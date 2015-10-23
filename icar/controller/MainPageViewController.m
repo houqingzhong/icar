@@ -108,7 +108,8 @@
 - (void)updateRecommend
 {
     WS(ws);
-    [HttpEngine getDataFromServer:[NSString stringWithFormat:@"%@recommend", HOST] type:ServerDataRequestTypeRecommend callback:^(NSArray *albums) {
+    NSString *key = [NSString stringWithFormat:@"%@:%@", @(ServerDataRequestTypeRecommend),  @(0)];
+    [HttpEngine getDataFromServer:[NSString stringWithFormat:@"%@recommend", HOST] key:key callback:^(NSArray *albums) {
         
       
         ws.dataArray = albums;

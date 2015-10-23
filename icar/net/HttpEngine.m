@@ -19,22 +19,8 @@
 @implementation HttpEngine
 
 
-+ (void)getDataFromServer:(NSString *)strURL type:(ServerDataRequestType)type callback:(void (^)(NSArray *))callback;
++ (void)getDataFromServer:(NSString *)strURL key:(NSString *)key callback:(void (^)(NSArray *))callback
 {
-    if(![[DownloadClient sharedInstance] hasNetwork])
-    {
-        
-        [TSMessage showNotificationWithTitle:nil
-                                    subtitle:NetworkError
-                                        type:TSMessageNotificationTypeMessage];
-
-        NSArray *localData = (NSArray *)[PublicMethod getLocalData:[PublicMethod getDataKey:type]];
-        if (callback) {
-            callback(localData);
-        }
-        return;
-    }
-
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = nil;
@@ -43,13 +29,13 @@
         NSDictionary *dict = (NSDictionary *)responseObject;
         if ([dict[@"code"] integerValue] == 0) {
             
-            [PublicMethod saveDataToLocal:dict[@"data"] key:[PublicMethod getDataKey:type]];
+            [PublicMethod saveDataToLocal:dict[@"data"] key:key];
             
             callback(dict[@"data"]);
         }
         else
         {
-            NSArray *localData = (NSArray *)[PublicMethod getLocalData:[PublicMethod getDataKey:type]];
+            NSArray *localData = (NSArray *)[PublicMethod getLocalData:key];
             if (callback) {
                 callback(localData);
             }
@@ -57,7 +43,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSArray *localData = (NSArray *)[PublicMethod getLocalData:[PublicMethod getDataKey:type]];
+        NSArray *localData = (NSArray *)[PublicMethod getLocalData:key];
         if (callback) {
             callback(localData);
         }

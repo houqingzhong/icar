@@ -131,15 +131,25 @@
 
 - (void)updateList:(NSDictionary *)dict pageNum:(NSInteger)pageNum
 {
+    
+    if (0 == pageNum) {
+        
+        self.dataArray = nil;
+        
+        [self.tableview reloadData];
+        
+    }
+    
     self.pageNum = pageNum;
     
     self.dict = dict;
     self.title = dict[@"title"];
 
-    //NSString *url = [NSString stringWithFormat:@"%@category_album/%@/％ld/%ld", HOST, dict[@"tag"], (long)self.pageNum, (long)PageSize];
-    
     WS(ws);
-    [HttpEngine getDataFromServer:[NSString stringWithFormat:@"%@category_album/%@/%ld/%ld", HOST, dict[@"tag"], (long)self.pageNum, (long)PageSize] type:ServerDataRequestTypeCategory callback:^(NSArray *albums) {
+    
+    NSString *key = [NSString stringWithFormat:@"%@:%@:%@", @(ServerDataRequestTypeAlbum), dict[@"id"], @(pageNum)];
+    
+    [HttpEngine getDataFromServer:[NSString stringWithFormat:@"%@category_album/%@/%ld/%ld", HOST, dict[@"tag"], (long)self.pageNum, (long)PageSize] key:key callback:^(NSArray *albums) {
         [self.tableview.pullToRefreshView stopAnimating];
         [self.tableview.infiniteScrollingView stopAnimating];
 

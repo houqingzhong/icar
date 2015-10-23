@@ -234,15 +234,24 @@
 
 - (void)updateList:(NSDictionary *)dict  pageNum:(NSInteger)pageNum
 {
+    
+    if (0 == pageNum) {
         
+        self.dataArray = nil;
+        
+        [self.tableview reloadData];
+        
+    }
+    self.pageNum = pageNum;
+    
     self.album = dict;
     
     self.title = dict[@"title"];
     
     
     WS(ws);
-    
-    [HttpEngine getDataFromServer:[NSString stringWithFormat:@"%@tracks/%@/%ld/%ld", HOST, dict[@"id"], (long)self.pageNum, (long)PageSize] type:ServerDataRequestTypeTrack callback:^(NSArray *arr) {
+    NSString *key = [NSString stringWithFormat:@"%@:%@:%@", @(ServerDataRequestTypeTrack), dict[@"id"], @(pageNum)];
+    [HttpEngine getDataFromServer:[NSString stringWithFormat:@"%@tracks/%@/%ld/%ld", HOST, dict[@"id"], (long)self.pageNum, (long)PageSize] key:key callback:^(NSArray *arr) {
         
         [ws.tableview.pullToRefreshView stopAnimating];
         [self.tableview.infiniteScrollingView stopAnimating];

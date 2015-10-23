@@ -40,26 +40,6 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval) {
 
 @implementation PublicMethod
 
-+ (NSString *)getDataKey:(ServerDataRequestType)type
-{
-    NSString *typeName = nil;
-    switch (type) {
-        case ServerDataRequestTypeRecommend:
-            typeName = @"ServerDataRequestTypeRecommend";
-            break;
-        case ServerDataRequestTypeTrack:
-            typeName = @"ServerDataRequestTypeTrack";
-            break;
-        case ServerDataRequestTypeCategory:
-            typeName = @"ServerDataRequestTypeCategory";
-            break;
-        default:
-            break;
-    }
-    
-    return typeName;
-}
-
 + (void)saveDataToLocal:(id)obj key:(NSString *)key
 {
     if (obj && key) {

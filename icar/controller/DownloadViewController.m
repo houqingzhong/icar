@@ -12,7 +12,6 @@
 
 @interface DownloadViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-@property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic, strong) NSMutableArray *dataArray;
 
 @end

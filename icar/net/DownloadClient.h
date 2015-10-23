@@ -29,5 +29,5 @@
 
 - (NSURL *)getDownloadFile:(NSDictionary *)album track:(NSDictionary *)track;
 
-
+- (BOOL)hasNetwork;
 @end

@@ -58,6 +58,8 @@ NSString * const APPURLSessionDownloadTaskDidFailToMoveFileNotification = @"APPU
 
         
         [self createFolder:folder];
+        
+        self.downloadManager;
 
     }
     
@@ -97,16 +99,19 @@ NSString * const APPURLSessionDownloadTaskDidFailToMoveFileNotification = @"APPU
 
 - (void)invalidSession
 {
+    
     [_downloadManager invalidateSessionCancelingTasks:YES];
+    [_downloadManager.reachabilityManager stopMonitoring];
+    
     _downloadManager = nil;
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     
-    [self performSelector:@selector(reconnectSession) withObject:nil afterDelay:2];
+    [self performSelector:@selector(reset) withObject:nil afterDelay:2];
 
 }
 
-- (void)reconnectSession
+- (void)reset
 {
     self.downloadManager;
     [self startDownload];
@@ -211,15 +216,18 @@ NSString * const APPURLSessionDownloadTaskDidFailToMoveFileNotification = @"APPU
         switch (status) {
             case AFNetworkReachabilityStatusReachableViaWWAN:
                 NSLog(@"-------AFNetworkReachabilityStatusReachableViaWWAN------");
-                
+                [ws startDownload];
                 break;
                 
             case AFNetworkReachabilityStatusReachableViaWiFi:
                 NSLog(@"-------AFNetworkReachabilityStatusReachableViaWiFi------");
-                
+                [ws startDownload];
                 break;
             case AFNetworkReachabilityStatusNotReachable:
                 NSLog(@"-------AFNetworkReachabilityStatusNotReachable------");
+                [ws stopDownload:^(BOOL finshed) {
+                    
+                }];
                 
                 break;
             default:
@@ -232,6 +240,16 @@ NSString * const APPURLSessionDownloadTaskDidFailToMoveFileNotification = @"APPU
 
 - (void)startTask:(NSDictionary *)album track:(NSDictionary *)track
 {
+    
+    if(![[DownloadClient sharedInstance] hasNetwork])
+    {
+        [TSMessage showNotificationWithTitle:nil
+                                    subtitle:NetworkError
+                                        type:TSMessageNotificationTypeMessage];
+        
+        return;
+    }
+    
     NSString * url =  track[@"play_path"];
     if([NSObject isNull:url])
     {
@@ -295,6 +313,19 @@ NSString * const APPURLSessionDownloadTaskDidFailToMoveFileNotification = @"APPU
 
 }
 
+- (void)stopDownload:(void (^)(BOOL))callback
+{
+    [_downloadManager.session getTasksWithCompletionHandler:^(NSArray<NSURLSessionDataTask *> * _Nonnull dataTasks, NSArray<NSURLSessionUploadTask *> * _Nonnull uploadTasks, NSArray<NSURLSessionDownloadTask *> * _Nonnull downloadTasks) {
+        
+        for (NSURLSessionDownloadTask *task in downloadTasks) {
+            [task cancel];
+        }
+        
+        if (callback) {
+            callback(YES);
+        }
+    }];
+}
 //- (void)delayDownload
 //{
 //    if(self.currentTask)
@@ -477,22 +508,17 @@ NSString * const APPURLSessionDownloadTaskDidFailToMoveFileNotification = @"APPU
     
     [self createFolder:folder];
 
-    //NSString *file = [NSString stringWithFormat:@"%@/%@.m4a", folder, track[@"id"]];
-    
-//    NSURL *filePath = [NSURL URLWithString:file];
-//    
-//    if([fileManager fileExistsAtPath:filePath.absoluteString])
-//    {
-//        
-//        return filePath;
-//    }
-//    else
-//    {
-//        return nil;
-//    }
-
     return folder;
     
+}
+
+- (BOOL)hasNetwork
+{
+    if (AFNetworkReachabilityStatusReachableViaWiFi == _downloadManager.reachabilityManager.networkReachabilityStatus || AFNetworkReachabilityStatusReachableViaWWAN == _downloadManager.reachabilityManager.networkReachabilityStatus) {
+        return YES;
+    }
+    
+    return NO;
 }
 //
 //- (BOOL)getDownloadPath:(NSDictionary *)album

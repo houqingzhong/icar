@@ -12,6 +12,6 @@
 
 @interface AlbumListViewController : BaseViewController
 
-- (void)updateList:(NSDictionary *)dict;
+- (void)updateList:(NSDictionary *)dict pageNum:(NSInteger)pageNum;
 
 @end

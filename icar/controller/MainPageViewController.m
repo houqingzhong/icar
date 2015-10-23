@@ -12,7 +12,6 @@
 
 @interface MainPageViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-@property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic, strong) NSArray *dataArray;
 
 @end
@@ -46,45 +45,30 @@
     self.tableview.dataSource = self;
     self.tableview.delegate  = self;
     [self.view addSubview:self.tableview];
-
     
-    [self updateRecommend];
-    
-}
-
-- (void) openOrCloseLeftList
-{
-    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    if (tempAppDelegate.leftSlideVC.closed)
-    {
-        [tempAppDelegate.leftSlideVC openLeftView];
-    }
-    else
-    {
-        [tempAppDelegate.leftSlideVC closeLeftView];
-    }
+    WS(ws);
+    [self.tableview addPullToRefreshWithActionHandler:^{
+        [ws updateRecommend];
+    }];
+    [ws updateRecommend];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     NSLog(@"viewWillDisappear");
-//    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-//    [tempAppDelegate.leftSlideVC setPanEnabled:NO];
     
-    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [tempAppDelegate.leftSlideVC setPanEnabled:NO];
+    App(app);
+    [app.leftSlideVC setPanEnabled:NO];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     NSLog(@"viewWillAppear");
-//    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-//    [tempAppDelegate.leftSlideVC setPanEnabled:YES];
-    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [tempAppDelegate.leftSlideVC setPanEnabled:NO];
+    App(app);
+    [app.leftSlideVC setPanEnabled:NO];
 }
 
 
@@ -126,14 +110,18 @@
 
 #pragma method
 
+
 - (void)updateRecommend
 {
-    [HttpEngine recommend:[NSString stringWithFormat:@"%@recommend", HOST] callback:^(NSArray *albums) {
+    WS(ws);
+    [HttpEngine getDataFromServer:[NSString stringWithFormat:@"%@recommend", HOST] type:ServerDataRequestTypeRecommend callback:^(NSArray *albums) {
         
       
-        self.dataArray = albums;
+        ws.dataArray = albums;
         
-        [self.tableview reloadData];
+        [ws.tableview.pullToRefreshView stopAnimating];
+        
+        [ws.tableview reloadData];
         
     }];
     

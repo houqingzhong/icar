@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface BaseViewController : UIViewController
-
+@property (nonatomic,strong) UITableView *tableview;
+@property (nonatomic,assign) NSInteger      pageNum;
 - (void)startPlayAnimation;
+
+- (void) openOrCloseLeftList;
 
 @end

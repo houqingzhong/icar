@@ -220,7 +220,7 @@
         self.playViewController = [TrackViewController new];
     }
     
-    [self.playViewController updateList:album];
+    [self.playViewController updateList:album pageNum:1];
     
     [self.mainNavigationController pushViewController:self.playViewController animated:YES];
 }

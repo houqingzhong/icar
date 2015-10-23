@@ -26,7 +26,7 @@
                   moduleName = "icar"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jingxin/icar/Pods/BABAudioPlayer/Pod/Classes/BABAudioPlayer.m"
-                  timestampString = "467265289.335511"
+                  timestampString = "467280908.88567"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "252"
@@ -41,7 +41,7 @@
                   moduleName = "icar"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jingxin/icar/Pods/BABAudioPlayer/Pod/Classes/BABAudioPlayer.m"
-                  timestampString = "467265289.335683"
+                  timestampString = "467280908.88588"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "252"
@@ -57,75 +57,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pods/BABAudioPlayer/Pod/Classes/BABAudioPlayer.m"
-            timestampString = "467187722.471582"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "451"
-            endingLineNumber = "451"
-            landmarkName = "-observeValueForKeyPath:ofObject:change:context:"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__65-[BABAudioPlayer observeValueForKeyPath:ofObject:change:context:]_block_invoke218"
-                  moduleName = "icar"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jingxin/icar/Pods/BABAudioPlayer/Pod/Classes/BABAudioPlayer.m"
-                  timestampString = "467265289.336547"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "453"
-                  endingLineNumber = "453"
-                  offsetFromSymbolStart = "444">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__copy_helper_block_219"
-                  moduleName = "icar"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jingxin/icar/Pods/BABAudioPlayer/Pod/Classes/BABAudioPlayer.m"
-                  timestampString = "467265289.336683"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "24">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__destroy_helper_block_220"
-                  moduleName = "icar"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jingxin/icar/Pods/BABAudioPlayer/Pod/Classes/BABAudioPlayer.m"
-                  timestampString = "467265289.33679"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "20">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "icar/controller/DownloadViewController.m"
-            timestampString = "467211509.008612"
+            timestampString = "467278119.409637"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
             landmarkName = "-tableView:commitEditingStyle:forRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -136,13 +73,45 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "icar/AppDelegate.m"
-            timestampString = "467265237.581995"
+            filePath = "icar/controller/TrackViewController.m"
+            timestampString = "467281157.146045"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "219"
-            endingLineNumber = "219"
-            landmarkName = "-jumpToPlayViewController:"
+            startingLineNumber = "271"
+            endingLineNumber = "271"
+            landmarkName = "-updateList:pageNum:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "icar/controller/AlbumListViewController.m"
+            timestampString = "467281157.146045"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
+            landmarkName = "-updateList:pageNum:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "icar/net/HttpEngine.m"
+            timestampString = "467281003.840103"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "+getDataFromServer:type:callback:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

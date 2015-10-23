@@ -21,6 +21,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.pageNum = 1;
     self.view.backgroundColor = [UIColor whiteColor];
     
     NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName, nil];
@@ -43,7 +44,37 @@
 {
     [super viewWillAppear:animated];
     [_rightBtn startAnimation];
+    
+    App(app);
+    [app.leftSlideVC setPanEnabled:NO];
+
 }
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    NSLog(@"viewWillDisappear");
+    
+    App(app);
+    [app.leftSlideVC setPanEnabled:NO];
+    
+    [self.tableview.pullToRefreshView stopAnimating];
+}
+
+- (void) openOrCloseLeftList
+{
+    App(app);
+    
+    if (app.leftSlideVC.closed)
+    {
+        [app.leftSlideVC openLeftView];
+    }
+    else
+    {
+        [app.leftSlideVC closeLeftView];
+    }
+}
+
 /*
 #pragma mark - Navigation
 

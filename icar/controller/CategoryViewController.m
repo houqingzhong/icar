@@ -11,7 +11,6 @@
 
 @interface CategoryViewController()<UITableViewDelegate,UITableViewDataSource>
 
-@property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) AlbumListViewController *listViewController;
 @end
@@ -99,45 +98,24 @@
     self.tableview = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableview.dataSource = self;
     self.tableview.delegate  = self;
-    _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableview];
 
 }
 
-- (void) openOrCloseLeftList
-{
-    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    if (tempAppDelegate.leftSlideVC.closed)
-    {
-        [tempAppDelegate.leftSlideVC openLeftView];
-    }
-    else
-    {
-        [tempAppDelegate.leftSlideVC closeLeftView];
-    }    
-}
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     NSLog(@"viewWillDisappear");
-//    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-//    [tempAppDelegate.leftSlideVC setPanEnabled:NO];
-    
-    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [tempAppDelegate.leftSlideVC setPanEnabled:NO];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     NSLog(@"viewWillAppear");
-//    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-//    [tempAppDelegate.leftSlideVC setPanEnabled:YES];
-    
-    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [tempAppDelegate.leftSlideVC setPanEnabled:NO];
+
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -216,7 +194,7 @@
         if (nil == self.listViewController) {
             self.listViewController = [AlbumListViewController new];
         }
-        [_listViewController updateList:dict];
+        [_listViewController updateList:dict pageNum:1];
         
         [self.navigationController pushViewController:_listViewController animated:YES];
     }

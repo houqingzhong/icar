@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Public.h"
 
 @interface HttpEngine : NSObject
 
-
-+ (void)recommend:(NSString *)strURL callback:(void (^)(NSArray *))callback;
++ (void)getDataFromServer:(NSString *)strURL type:(ServerDataRequestType)type callback:(void (^)(NSArray *))callback;
 
 
 @end

@@ -40,6 +40,46 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval) {
 
 @implementation PublicMethod
 
++ (NSString *)getDataKey:(ServerDataRequestType)type
+{
+    NSString *typeName = nil;
+    switch (type) {
+        case ServerDataRequestTypeRecommend:
+            typeName = @"ServerDataRequestTypeRecommend";
+            break;
+        case ServerDataRequestTypeTrack:
+            typeName = @"ServerDataRequestTypeTrack";
+            break;
+        case ServerDataRequestTypeCategory:
+            typeName = @"ServerDataRequestTypeCategory";
+            break;
+        default:
+            break;
+    }
+    
+    return typeName;
+}
+
++ (void)saveDataToLocal:(id)obj key:(NSString *)key
+{
+    if (obj && key) {
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:obj];
+        [[NSUserDefaults standardUserDefaults] setObject:data forKey:key];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+
+}
+
++ (id)getLocalData:(NSString *)key
+{
+    if (key) {
+        id obj = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+        return [NSKeyedUnarchiver unarchiveObjectWithData:obj];
+    }
+
+    return nil;
+}
+
 + (void)saveHistory:(NSDictionary *)album track:(NSDictionary *)track callback:(void (^)(void))callback
 {
     if (album && track) {

@@ -12,7 +12,6 @@
 
 @interface TrackViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-@property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,strong) PlayerView  *playerView;
 
 @property (nonatomic, strong) NSArray *dataArray;
@@ -105,6 +104,21 @@
             }
         }
     }];
+    
+    
+    [self.tableview addPullToRefreshWithActionHandler:^{
+        ws.pageNum ++;
+        [ws updateList:ws.album pageNum:ws.pageNum];
+    }];
+    
+    [self.tableview addInfiniteScrollingWithActionHandler:^{
+        ws.pageNum ++;
+        
+        [ws updateList:ws.album pageNum:ws.pageNum];
+        
+        
+    }];
+
 }
 
 - (void) openOrCloseLeftList
@@ -218,29 +232,55 @@
 
 #pragma method
 
-- (void)updateList:(NSDictionary *)dict
+- (void)updateList:(NSDictionary *)dict  pageNum:(NSInteger)pageNum
 {
         
     self.album = dict;
     
     self.title = dict[@"title"];
     
-    self.dataArray = nil;
-    [self.tableview reloadData];
-    
     
     WS(ws);
     
-    [HttpEngine recommend:[NSString stringWithFormat:@"%@tracks/%@", HOST, dict[@"id"]] callback:^(NSArray *arr) {
+    [HttpEngine getDataFromServer:[NSString stringWithFormat:@"%@tracks/%@/%ld/%ld", HOST, dict[@"id"], (long)self.pageNum, (long)PageSize] type:ServerDataRequestTypeTrack callback:^(NSArray *arr) {
         
-
+        [ws.tableview.pullToRefreshView stopAnimating];
+        [self.tableview.infiniteScrollingView stopAnimating];
+        
         if (nil == arr) {
             return ;
         }
         
+        if (arr.count == 0) {
+            
+            [TSMessage showNotificationWithTitle:nil
+                                        subtitle:NoMoreData
+                                            type:TSMessageNotificationTypeMessage];
+
+            return;
+        }
+        
+        NSMutableArray *newTracks = nil;
+        NSMutableArray *arrCells=[NSMutableArray array];
+        
+        if (1 == ws.pageNum) {
+            newTracks = [NSMutableArray arrayWithArray:arr];;
+        }
+        else
+        {
+            newTracks = [NSMutableArray arrayWithArray:ws.dataArray];
+            
+            NSUInteger count = ws.dataArray.count;
+            for (NSDictionary *moreDict in arr) {
+                [arrCells addObject:[NSIndexPath indexPathForRow:count inSection:0]];
+                [newTracks insertObject:moreDict atIndex:count++];
+            }
+        }
+
+        
         [PublicMethod getDownloadTracks:dict[@"id"] callback:^(NSArray *ts) {
-            NSMutableArray *newTracks = [NSMutableArray new];
-            [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+
+            [newTracks enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 
                 NSMutableDictionary *newTrack = [NSMutableDictionary dictionaryWithDictionary:obj];
                 
@@ -251,46 +291,18 @@
                     }
                 }];
                 
-                [newTracks addObject:newTrack];
+                [newTracks replaceObjectAtIndex:idx withObject:newTrack];
             }];
-
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.dataArray = newTracks;
-                [self.tableview reloadData];
+                ws.dataArray = newTracks;
                 
-                App(app);
-                if(app.isPlayed)
+                if (1 == ws.pageNum) {
+                    [ws.tableview reloadData];
+                }
+                else
                 {
-
-                    NSDictionary *lastPlayalbum = app.currentPlayInfo[@"album"];
-                    NSDictionary *lastPlaytrack = app.currentPlayInfo[@"track"];
-                    
-                    if (lastPlayalbum && [lastPlayalbum[@"id"] integerValue] == [dict[@"id"] integerValue]) {
-                        
-                        BOOL isExist = NO;
-                        NSInteger index = 0;
-                        for(NSInteger i = 0; i < ws.dataArray.count; i++)
-                        {
-                            NSDictionary *track = ws.dataArray[i];
-                            if ([track[@"id"] integerValue] == [lastPlaytrack[@"id"] integerValue]) {
-                                isExist = YES;
-                                index = i;
-                                break;
-                            }
-                            
-                        }
-                        
-                        if (isExist) {
-                            
-                            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-                            [ws.tableview selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
-                            [ws.playerView setAlbum:lastPlayalbum track:lastPlaytrack];
-                            
-                        }
-                        
-                    }
-                    
+                    [ws.tableview insertRowsAtIndexPaths:arrCells withRowAnimation:UITableViewRowAnimationAutomatic];
                 }
                 
             });

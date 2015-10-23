@@ -12,8 +12,8 @@
 
 @interface AlbumListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-@property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic, strong) NSArray *dataArray;
+@property (nonatomic, strong) NSDictionary *dict;
 
 @end
 
@@ -40,6 +40,21 @@
     self.tableview.delegate  = self;
     [self.view addSubview:self.tableview];
     
+    
+    WS(ws);
+    [self.tableview addPullToRefreshWithActionHandler:^{
+        ws.pageNum = 1;
+        
+        [ws updateList:ws.dict pageNum:ws.pageNum];
+    }];
+    
+    [self.tableview addInfiniteScrollingWithActionHandler:^{
+        ws.pageNum ++;
+        
+        [ws updateList:ws.dict pageNum:ws.pageNum];
+
+
+    }];
 }
 
 - (void) openOrCloseLeftList
@@ -114,18 +129,59 @@
 
 #pragma method
 
-- (void)updateList:(NSDictionary *)dict
+- (void)updateList:(NSDictionary *)dict pageNum:(NSInteger)pageNum
 {
+    self.pageNum = pageNum;
+    
+    self.dict = dict;
     self.title = dict[@"title"];
-    self.dataArray = nil;
-    [self.tableview reloadData];
 
-    [HttpEngine recommend:[NSString stringWithFormat:@"%@category_album/%@", HOST, dict[@"tag"]] callback:^(NSArray *albums) {
+    //NSString *url = [NSString stringWithFormat:@"%@category_album/%@/％ld/%ld", HOST, dict[@"tag"], (long)self.pageNum, (long)PageSize];
+    
+    WS(ws);
+    [HttpEngine getDataFromServer:[NSString stringWithFormat:@"%@category_album/%@/%ld/%ld", HOST, dict[@"tag"], (long)self.pageNum, (long)PageSize] type:ServerDataRequestTypeCategory callback:^(NSArray *albums) {
+        [self.tableview.pullToRefreshView stopAnimating];
+        [self.tableview.infiniteScrollingView stopAnimating];
+
+        if (albums == nil) {
+            
+            return ;
+        }
         
+        if (albums.count == 0) {
+            
+            [TSMessage showNotificationWithTitle:nil
+                                        subtitle:NoMoreData
+                                            type:TSMessageNotificationTypeMessage];
+            
+            return;
+        }
         
-        self.dataArray = albums;
+        NSMutableArray *newalbums = nil;
+        NSMutableArray *arrCells=[NSMutableArray array];
+        if (1 == ws.pageNum) {
+            newalbums = [NSMutableArray arrayWithArray:albums];;
+        }
+        else
+        {
+            newalbums = [NSMutableArray arrayWithArray:ws.dataArray];
+            
+            NSUInteger count = ws.dataArray.count;
+            for (NSDictionary *moreDict in albums) {
+                [arrCells addObject:[NSIndexPath indexPathForRow:count inSection:0]];
+                [newalbums insertObject:moreDict atIndex:count++];
+            }
+        }
+
+        ws.dataArray = newalbums;
         
-        [self.tableview reloadData];
+        if (1 == ws.pageNum) {
+            [ws.tableview reloadData];
+        }
+        else
+        {
+            [ws.tableview insertRowsAtIndexPaths:arrCells withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
         
     }];
     

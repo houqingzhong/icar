@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
+@interface TrackViewController : BaseViewController
 
-@interface TrackViewController : UIViewController
-
-- (void)updateList:(NSDictionary *)dict;
+- (void)updateList:(NSDictionary *)dict  pageNum:(NSInteger)pageNum;
 
 @end

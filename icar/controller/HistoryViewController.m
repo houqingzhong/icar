@@ -10,7 +10,6 @@
 
 @interface HistoryViewController ()<UITableViewDelegate,UITableViewDataSource, BABAudioPlayerDelegate>
 
-@property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic, strong) NSMutableArray *dataArray;
 
 @property (nonatomic, assign) ViewContrllerType viewContrllerType;
@@ -199,7 +198,7 @@
     }];
     
     NSInteger trackid = [track[@"id"] integerValue];
-    for (HistoryCell *cell in _tableview.visibleCells) {
+    for (HistoryCell *cell in self.tableview.visibleCells) {
         
         NSDictionary *ctrack = cell.dict[@"track"];
         NSInteger ctrackid = [ctrack[@"id"] integerValue];

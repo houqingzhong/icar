@@ -19,20 +19,47 @@
 @implementation HttpEngine
 
 
-+ (void)recommend:(NSString *)strURL callback:(void (^)(NSArray *))callback
++ (void)getDataFromServer:(NSString *)strURL type:(ServerDataRequestType)type callback:(void (^)(NSArray *))callback;
 {
+    if(![[DownloadClient sharedInstance] hasNetwork])
+    {
+        [TSMessage showNotificationWithTitle:nil
+                                    subtitle:NetworkError
+                                        type:TSMessageNotificationTypeMessage];
+
+        NSArray *localData = (NSArray *)[PublicMethod getLocalData:[PublicMethod getDataKey:type]];
+        if (callback) {
+            callback(localData);
+        }
+        return;
+    }
+
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = nil;
 
     [manager GET:strURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
         if ([dict[@"code"] integerValue] == 0) {
+            
+            [PublicMethod saveDataToLocal:dict[@"data"] key:[PublicMethod getDataKey:type]];
+            
             callback(dict[@"data"]);
+        }
+        else
+        {
+            NSArray *localData = (NSArray *)[PublicMethod getLocalData:[PublicMethod getDataKey:type]];
+            if (callback) {
+                callback(localData);
+            }
         }
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        callback(nil);
+        NSArray *localData = (NSArray *)[PublicMethod getLocalData:[PublicMethod getDataKey:type]];
+        if (callback) {
+            callback(localData);
+        }
     }];
 }
 

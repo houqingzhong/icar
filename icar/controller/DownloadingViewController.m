@@ -14,7 +14,6 @@
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) NSDictionary *album;
-@property (nonatomic,strong) UITableView *tableview;
 
 @end
 

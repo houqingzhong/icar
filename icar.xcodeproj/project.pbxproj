@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		1D90051E1BD4C59400769476 /* DownloadClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D90051D1BD4C59400769476 /* DownloadClient.m */; };
 		1D9005201BD4FBF600769476 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF59C5591BD320BD00858FE2 /* AVFoundation.framework */; };
-		1D9005401BD8E32C00769476 /* ShowDownloadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D90053F1BD8E32C00769476 /* ShowDownloadingCell.m */; settings = {ASSET_TAGS = (); }; };
-		1D9005431BD9010B00769476 /* AddNewDownloadHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9005421BD9010B00769476 /* AddNewDownloadHeaderView.m */; settings = {ASSET_TAGS = (); }; };
+		1D9005401BD8E32C00769476 /* ShowDownloadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D90053F1BD8E32C00769476 /* ShowDownloadingCell.m */; };
+		1D9005431BD9010B00769476 /* AddNewDownloadHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9005421BD9010B00769476 /* AddNewDownloadHeaderView.m */; };
 		917D8FF6E2F42A1190138338 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D37CE3D38DCCC55E90F75AE /* libPods.a */; };
 		FF1F9F1C1BD3691B0099D1F0 /* ProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF1F9F1B1BD3691B0099D1F0 /* ProgressView.m */; };
 		FF1F9F1F1BD3819F0099D1F0 /* PublicMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = FF1F9F1E1BD3819F0099D1F0 /* PublicMethod.m */; };
@@ -39,7 +39,7 @@
 		FF59C5501BD2998200858FE2 /* DownloadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FF59C54F1BD2998200858FE2 /* DownloadingCell.m */; };
 		FF59C5531BD3004D00858FE2 /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF59C5521BD3004D00858FE2 /* PlayerViewController.m */; };
 		FF59C5561BD3012200858FE2 /* PlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF59C5551BD3012200858FE2 /* PlayerView.m */; };
-		FFC07DD51BD9358E0001C671 /* HistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DD41BD9358E0001C671 /* HistoryCell.m */; settings = {ASSET_TAGS = (); }; };
+		FFC07DD51BD9358E0001C671 /* HistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DD41BD9358E0001C671 /* HistoryCell.m */; };
 		FFC9461C1BD1CA32001B2B8A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC9461B1BD1CA32001B2B8A /* main.m */; };
 		FFC9461F1BD1CA32001B2B8A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC9461E1BD1CA32001B2B8A /* AppDelegate.m */; };
 		FFC946251BD1CA32001B2B8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFC946231BD1CA32001B2B8A /* Main.storyboard */; };
@@ -383,7 +383,6 @@
 				FFC946131BD1CA32001B2B8A /* Frameworks */,
 				FFC946141BD1CA32001B2B8A /* Resources */,
 				76F1A37E33F750734ACC09C8 /* Copy Pods Resources */,
-				C6931B1C99A99B23F0C3D30F /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -489,21 +488,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C6931B1C99A99B23F0C3D30F /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD995172632020EA13A9E8FA /* Check Pods Manifest.lock */ = {

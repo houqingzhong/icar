@@ -24,6 +24,8 @@
 
 #define HOST @"http://www.zhiyurencai.cn/music/api/"
 
+#define NetworkError @"亲，您的手机网络不太顺畅喔～"
+#define NoMoreData @"亲，您已经看到最后一条了喔～"
 typedef enum : NSUInteger {
     DownloadStateDownloadWait = 1,
     DownloadStateDownloadPause,
@@ -37,21 +39,32 @@ typedef enum : NSUInteger {
     ViewContrllerTypeMenu,
 } ViewContrllerType;
 
+typedef enum : NSUInteger {
+    ServerDataRequestTypeRecommend,
+    ServerDataRequestTypeCategory,
+    ServerDataRequestTypeAlbum,
+    ServerDataRequestTypeTrack,
+} ServerDataRequestType;
+
+const NSInteger PageSize  = 20;
 
 #import <JSONKit.h>
 #import <FMDB.h>
 #import <AFNetworking.h>
 #import <UIImageView+AFNetworking.h>
+#import <UIScrollView+SVPullToRefresh.h>
+#import <UIScrollView+SVInfiniteScrolling.h>
 #import <BABAudioPlayer.h>
 #import <BABAudioUtilities.h>
+#import <TSMessage.h>
 #import "BABAudioItem.h"
-#import "PublicMethod.h"
 #import "UIView+Facade.h"
 #import "NSString+Extension.h"
 #import "UIColor+Hex.h"
 #import "NSObject+Extend.h"
 
 #import "DownloadClient.h"
+#import "PublicMethod.h"
 
 #import "CategroyView.h"
 #import "HttpEngine.h"

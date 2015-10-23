@@ -43,11 +43,20 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [_rightBtn startAnimation];
+    
+    
     
     App(app);
     [app.leftSlideVC setPanEnabled:NO];
 
+    if(app.isPlayed)
+    {
+        [_rightBtn startAnimation];
+    }
+    else
+    {
+        [_rightBtn stopAnimation];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated

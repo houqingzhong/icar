@@ -138,7 +138,7 @@
                   moduleName = "icar"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/lizhuzhu/icar/icar/controller/DownloadViewController.m"
-                  timestampString = "467306360.7299"
+                  timestampString = "467306738.913437"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "115"
@@ -153,7 +153,7 @@
                   moduleName = "icar"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/lizhuzhu/icar/icar/controller/DownloadViewController.m"
-                  timestampString = "467306360.730231"
+                  timestampString = "467306738.913726"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "115"
@@ -161,6 +161,22 @@
                   offsetFromSymbolStart = "24">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "icar/controller/HistoryViewController.m"
+            timestampString = "467306695.78932"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

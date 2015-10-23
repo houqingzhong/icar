@@ -50,13 +50,6 @@
 
 - (void)startAnimation
 {
-    App(app);
-    
-    if (!app.isPlayed) {
-        [self stopAnimation];
-        return;
-    }
-    
     [_animTimer invalidate];
     _animTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(changeImage) userInfo:nil repeats:YES];
 }

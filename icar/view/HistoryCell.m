@@ -40,10 +40,11 @@
         
         //_desc.font = [UIFont systemFontOfSize:12];
         //_desc.textColor = [UIColor colorWithHexString:@"#959595"];
-        
-        _trackTitile.font = [UIFont systemFontOfSize:12];
+        _title.font = [UIFont systemFontOfSize:28*XA];
+        _title.textColor = [UIColor colorWithHexString:@"#333333"];
+        _trackTitile.font = [UIFont systemFontOfSize:22*XA];
         _trackTitile.textColor = [UIColor colorWithHexString:@"#959595"];
-        _playTime.font = [UIFont systemFontOfSize:12];
+        _playTime.font = [UIFont systemFontOfSize:22*XA];
         _playTime.textColor = [UIColor colorWithHexString:@"#959595"];
         
         _icon.image = [UIImage imageNamed:@"bg_album_flag.png"];
@@ -88,10 +89,10 @@
     topPadding = (20 + 8)*XA;
     [_icon alignToTheRightOf:_header withLeftPadding:leftPadding topPadding:topPadding width:width height:height];
     
-    
-    width = ScreenSize.width - (8 + 20 + 120 + 28 + 20 + 8)*XA;
+    leftPadding = 10*XA;
+    width = ScreenSize.width -_icon.xMax - 2*leftPadding;
     height = 28*XA;
-    
+
     [_title alignToTheRightOf:_icon matchingCenterWithLeftPadding:leftPadding width:width height:height];
     
     CGFloat bottomPadding = 20*XA;
@@ -124,8 +125,8 @@
         [_header setImage:[UIImage imageNamed:@"album_cover_bg"]];
     }
     
-    _title.text = dict[@"title"];
-    _trackTitile.text = dict[@"track"][@"title"];
+    _trackTitile.text = dict[@"title"];
+    _title.text = dict[@"track"][@"title"];
     _playTime.text = [NSObject getDurationText:[dict[@"track"][@"time"] floatValue]];
     
     BOOL isPlaying = [dict[@"is_playing"] boolValue];

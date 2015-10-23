@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "625F3DD3D892BF17F306892A"
-               BuildableName = "libSVPullToRefreshImprove.a"
-               BlueprintName = "SVPullToRefreshImprove"
+               BlueprintIdentifier = "F885AE006F123036014979C7"
+               BuildableName = "libGCNetworkReachability.a"
+               BlueprintName = "GCNetworkReachability"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

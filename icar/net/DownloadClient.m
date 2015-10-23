@@ -153,6 +153,29 @@ NSString * const APPURLSessionDownloadTaskDidFailToMoveFileNotification = @"APPU
     }];
     
     [_downloadManager setTaskDidCompleteBlock:^(NSURLSession * _Nonnull session, NSURLSessionTask * _Nonnull task, NSError * _Nullable error) {
+        
+        ws.currentTask = nil;
+        if (error) {
+            NSInteger statusCode = [(NSHTTPURLResponse *)task.response statusCode];
+            if ((-1 == error.code && 0 == statusCode) || (2 == error.code && 200 == statusCode)) {
+
+                [ws invalidSession];
+                
+            }
+            else if (kCFURLErrorCancelled == error.code) {
+
+            }
+            else if (kCFURLErrorBackgroundSessionWasDisconnected == error.code) {
+                
+            }
+            else
+            {
+                [ws startDownload];
+            }
+            
+            return ;
+        }
+        
         NSString *albumId = nil;
         NSString *trackId = nil;
         [ws parseInfoFromTask:task.taskDescription albumId:&albumId trackId:&trackId];
@@ -161,7 +184,6 @@ NSString * const APPURLSessionDownloadTaskDidFailToMoveFileNotification = @"APPU
                 NSLog(@"fail: %@  %@  %@", albumId, trackId, error);
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    ws.currentTask = nil;
                     
                     [ws startDownload];
                     
@@ -210,31 +232,6 @@ NSString * const APPURLSessionDownloadTaskDidFailToMoveFileNotification = @"APPU
         });
     }];
     
-    
-    [_downloadManager.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        switch (status) {
-            case AFNetworkReachabilityStatusReachableViaWWAN:
-                NSLog(@"-------AFNetworkReachabilityStatusReachableViaWWAN------");
-                [ws startDownload];
-                break;
-                
-            case AFNetworkReachabilityStatusReachableViaWiFi:
-                NSLog(@"-------AFNetworkReachabilityStatusReachableViaWiFi------");
-                [ws startDownload];
-                break;
-            case AFNetworkReachabilityStatusNotReachable:
-                NSLog(@"-------AFNetworkReachabilityStatusNotReachable------");
-                [ws stopDownload:^(BOOL finshed) {
-                    
-                }];
-                
-                break;
-            default:
-                break;
-        }
-    }];
-    
-    [_downloadManager.reachabilityManager startMonitoring];
 }
 
 - (void)startTask:(NSDictionary *)album track:(NSDictionary *)track
@@ -513,11 +510,9 @@ NSString * const APPURLSessionDownloadTaskDidFailToMoveFileNotification = @"APPU
 
 - (BOOL)hasNetwork
 {
-    if (AFNetworkReachabilityStatusReachableViaWiFi == _downloadManager.reachabilityManager.networkReachabilityStatus || AFNetworkReachabilityStatusReachableViaWWAN == _downloadManager.reachabilityManager.networkReachabilityStatus) {
-        return YES;
-    }
+    App(app);
+    return GCNetworkReachabilityStatusNotReachable != app.reachability.currentReachabilityStatus;
     
-    return NO;
 }
 //
 //- (BOOL)getDownloadPath:(NSDictionary *)album

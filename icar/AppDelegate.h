@@ -26,6 +26,8 @@
 @property (strong, nonatomic) FMDatabaseQueue *queue;
 @property (strong, nonatomic) NSDictionary  *currentPlayInfo;
 
+
+@property (strong, nonatomic) GCNetworkReachability *reachability;
 //- (void)play:(NSDictionary *)album track:(NSDictionary *)track;
 - (BOOL)play:(NSDictionary *)album track:(NSDictionary *)track target:(id<BABAudioPlayerDelegate>)target slider:(UISlider *)slider;
 

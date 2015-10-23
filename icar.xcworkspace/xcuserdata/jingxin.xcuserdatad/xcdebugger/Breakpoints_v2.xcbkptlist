@@ -26,7 +26,7 @@
                   moduleName = "icar"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jingxin/icar/Pods/BABAudioPlayer/Pod/Classes/BABAudioPlayer.m"
-                  timestampString = "467285468.265292"
+                  timestampString = "467289977.994524"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "252"
@@ -41,7 +41,7 @@
                   moduleName = "icar"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jingxin/icar/Pods/BABAudioPlayer/Pod/Classes/BABAudioPlayer.m"
-                  timestampString = "467285468.265522"
+                  timestampString = "467289977.994689"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "252"
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "icar/controller/TrackViewController.m"
-            timestampString = "467285640.671445"
+            timestampString = "467290544.469735"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "299"
-            endingLineNumber = "299"
+            startingLineNumber = "300"
+            endingLineNumber = "300"
             landmarkName = "-updateList:pageNum:"
             landmarkType = "5">
             <Locations>
@@ -90,11 +90,11 @@
                   moduleName = "icar"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jingxin/icar/icar/controller/TrackViewController.m"
-                  timestampString = "467285468.267086"
+                  timestampString = "467289977.996082"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "297"
-                  endingLineNumber = "297"
+                  startingLineNumber = "299"
+                  endingLineNumber = "299"
                   offsetFromSymbolStart = "1424">
                </Location>
                <Location
@@ -105,11 +105,11 @@
                   moduleName = "icar"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jingxin/icar/icar/controller/TrackViewController.m"
-                  timestampString = "467285468.267223"
+                  timestampString = "467289977.996198"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "297"
-                  endingLineNumber = "297"
+                  startingLineNumber = "299"
+                  endingLineNumber = "299"
                   offsetFromSymbolStart = "76">
                </Location>
             </Locations>
@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "icar/controller/TrackViewController.m"
-            timestampString = "467285640.671445"
+            timestampString = "467290544.469735"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "284"
-            endingLineNumber = "284"
+            startingLineNumber = "285"
+            endingLineNumber = "285"
             landmarkName = "-updateList:pageNum:"
             landmarkType = "5">
          </BreakpointContent>
@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "icar/controller/TrackViewController.m"
-            timestampString = "467285640.671445"
+            timestampString = "467290544.469735"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "263"
-            endingLineNumber = "263"
+            startingLineNumber = "264"
+            endingLineNumber = "264"
             landmarkName = "-updateList:pageNum:"
             landmarkType = "5">
             <Locations>
@@ -154,11 +154,11 @@
                   moduleName = "icar"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jingxin/icar/icar/controller/TrackViewController.m"
-                  timestampString = "467285468.268619"
+                  timestampString = "467289977.997582"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "261"
-                  endingLineNumber = "261"
+                  startingLineNumber = "263"
+                  endingLineNumber = "263"
                   offsetFromSymbolStart = "600">
                </Location>
                <Location
@@ -169,11 +169,11 @@
                   moduleName = "icar"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jingxin/icar/icar/controller/TrackViewController.m"
-                  timestampString = "467285468.26876"
+                  timestampString = "467289977.997699"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "261"
-                  endingLineNumber = "261"
+                  startingLineNumber = "263"
+                  endingLineNumber = "263"
                   offsetFromSymbolStart = "76">
                </Location>
             </Locations>
@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "icar/AppDelegate.m"
-            timestampString = "467285724.75989"
+            timestampString = "467289280.420864"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176"
+            startingLineNumber = "207"
+            endingLineNumber = "207"
             landmarkName = "-play:track:target:slider:"
             landmarkType = "5">
          </BreakpointContent>
@@ -202,28 +202,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "icar/controller/HistoryViewController.m"
-            timestampString = "467285451.458813"
+            timestampString = "467290019.667617"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "icar/view/HistoryCell.m"
-            timestampString = "467285500.293911"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
-            landmarkName = "-startAnimation"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
+            landmarkName = "-tableView:willDeselectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

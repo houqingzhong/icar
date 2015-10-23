@@ -16,6 +16,7 @@
 + (DownloadClient *)sharedInstance;
 
 - (void)startDownload;
+- (void)stopDownload:(void (^)(BOOL))callback;
 
 - (void)setCompleteHandler:(void (^)())completionHandler identifier:(NSString *)identifier;
 

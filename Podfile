@@ -5,3 +5,4 @@ pod 'JSONKit-NoWarning', '~> 1.2'
 pod 'BABAudioPlayer', '~> 0.1.0'
 pod "TSMessages"
 pod 'SVPullToRefreshImprove', '~> 0.5'
+pod 'GCNetworkReachability', '~> 1.3.2'

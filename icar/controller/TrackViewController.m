@@ -57,6 +57,7 @@
     [_playerView setCallback:^(PlayerActionType actionType, PlayModeType playMode) {
         
     }];
+    
     [_playerView setCallback:^(PlayerActionType actionType, PlayModeType playMode) {
         if (ws.dataArray.count == 0) {
             return ;

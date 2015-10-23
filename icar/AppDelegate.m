@@ -21,6 +21,7 @@
 
 - (void)setup
 {
+    
     AVAudioSession *session = [AVAudioSession sharedInstance];
     NSError *setCategoryError = nil;
     [session setCategory:AVAudioSessionCategoryPlayback error:&setCategoryError];
@@ -86,14 +87,33 @@
     
     [[TSMessageView appearance] setTintColor:[UIColor colorWithHexString:@"ff7d3d"]];
 
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+
+    self.reachability = [GCNetworkReachability reachabilityForInternetConnection];
+    [self.reachability startMonitoringNetworkReachabilityWithHandler:^(GCNetworkReachabilityStatus status) {
+        switch (status) {
+            case GCNetworkReachabilityStatusWWAN:
+                NSLog(@"-------GCNetworkReachabilityStatusWWAN------");
+                [[DownloadClient sharedInstance] startDownload];
+                break;
+                
+            case GCNetworkReachabilityStatusWiFi:
+                NSLog(@"-------GCNetworkReachabilityStatusWiFi------");
+                [[DownloadClient sharedInstance] startDownload];
+                break;
+            case GCNetworkReachabilityStatusNotReachable:
+                NSLog(@"-------GCNetworkReachabilityStatusNotReachable------");
+                [[DownloadClient sharedInstance] stopDownload:^(BOOL finshed) {
+                    
+                }];
+                
+                break;
+            default:
+                break;
+        }
+    }];
     
     
-    if (nil == [BABAudioPlayer sharedPlayer]) {
-        BABAudioPlayer *player = [BABAudioPlayer new];
-        player.allowsBackgroundAudio = YES;
-        [BABAudioPlayer setSharedPlayer:player];
-        
-    }
 }
 
 - (void)startDownload
@@ -162,8 +182,18 @@
 
 - (BOOL)play:(NSDictionary *)album track:(NSDictionary *)track target:(id<BABAudioPlayerDelegate>)target slider:(UISlider *)slider
 {
+    
+    self.isPlayed = NO;
+    
     if (!album || !track) {
         return NO;
+    }
+    
+    
+    if (nil == [BABAudioPlayer sharedPlayer]) {
+        BABAudioPlayer *player = [BABAudioPlayer new];
+        player.allowsBackgroundAudio = YES;
+        [BABAudioPlayer setSharedPlayer:player];
     }
     
     BOOL isPlay = NO;
@@ -183,6 +213,7 @@
                                             subtitle:NetworkError
                                                 type:TSMessageNotificationTypeMessage];
                 
+                [[BABAudioPlayer sharedPlayer] stop];
                 return NO;
             }
         }

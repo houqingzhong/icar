@@ -14,8 +14,5 @@
 
 - (void)updateTime:(NSTimeInterval)time;
 
-- (void)startAnimation;
-
-- (void)stopAnimation;
 
 @end

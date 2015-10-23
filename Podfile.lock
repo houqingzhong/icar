@@ -26,6 +26,7 @@ PODS:
   - FMDB/common (2.5)
   - FMDB/standard (2.5):
     - FMDB/common
+  - GCNetworkReachability (1.3.2)
   - HexColors (2.2.1)
   - JSONKit-NoWarning (1.2)
   - SVPullToRefreshImprove (0.5)
@@ -36,6 +37,7 @@ DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - BABAudioPlayer (~> 0.1.0)
   - FMDB (~> 2.5)
+  - GCNetworkReachability (~> 1.3.2)
   - JSONKit-NoWarning (~> 1.2)
   - SVPullToRefreshImprove (~> 0.5)
   - TSMessages
@@ -44,6 +46,7 @@ SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   BABAudioPlayer: 90acdcc8b8123733dfd4cc1c2e23df75986c6a33
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
+  GCNetworkReachability: 2a7dd53d362220326b3e38df68c91b3ef84418d1
   HexColors: abfd172e329dab59888614ccba6f216cec59289d
   JSONKit-NoWarning: 3d27e6f9e6846ecf741e8c64dcadd7d5aa7193cb
   SVPullToRefreshImprove: 5b0760edd107d6ef96c7e09c86fe2d67f6c842a5

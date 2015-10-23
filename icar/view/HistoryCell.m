@@ -94,20 +94,18 @@
     
     [_title alignToTheRightOf:_icon matchingCenterWithLeftPadding:leftPadding width:width height:height];
     
-    
     CGFloat bottomPadding = 20*XA;
-    CGSize size = [_trackTitile.text sizeWithFont:_trackTitile.font maxSize:CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))];
+    CGSize  size = [_playTime.text sizeWithFont:_playTime.font maxSize:CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))];
     width = size.width;
     height = size.height;
-    bottomPadding = 28*XA;
-    [_trackTitile alignToTheRightOf:_header withLeftPadding:leftPadding bottomPadding:bottomPadding width:width height:height];
+    [_playTime alignUnder:_title withRightPadding:leftPadding topPadding:topPadding width:width height:height];
     
     bottomPadding = 28*XA;
-    size = [_playTime.text sizeWithFont:_playTime.font maxSize:CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))];
-    width = size.width;
-    height = size.height;
-    [_playTime alignToTheRightOf:_trackTitile withLeftPadding:leftPadding bottomPadding:bottomPadding width:width height:height];
+   
+    width = _playTime.xMin - leftPadding - _icon.xMin;
     
+    bottomPadding = 28*XA;
+    [_trackTitile alignToTheLeftOf:_playTime matchingCenterWithRightPadding:leftPadding width:width height:height];
     
     width = 60*XA;
     height = width;
@@ -130,6 +128,15 @@
     _trackTitile.text = dict[@"track"][@"title"];
     _playTime.text = [NSObject getDurationText:[dict[@"track"][@"time"] floatValue]];
     
+    BOOL isPlaying = [dict[@"is_playing"] boolValue];
+    if (isPlaying) {
+        [self startAnimation];
+    }
+    else
+    {
+        [self stopAnimation];
+    }
+    
     [self setNeedsLayout];
     
 }
@@ -141,11 +148,13 @@
 
 - (void)startAnimation
 {
+    _animationBtn.hidden = NO;
     [_animationBtn startAnimation];
 }
 
 - (void)stopAnimation
 {
+    _animationBtn.hidden = YES;
     [_animationBtn stopAnimation];
 }
 @end

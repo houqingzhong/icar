@@ -58,6 +58,8 @@ const NSInteger PageSize  = 20;
 #import <BABAudioUtilities.h>
 #import <TSMessage.h>
 #import <TSMessageView.h>
+#import <GCNetworkReachability.h>
+
 #import "BABAudioItem.h"
 #import "UIView+Facade.h"
 #import "NSString+Extension.h"

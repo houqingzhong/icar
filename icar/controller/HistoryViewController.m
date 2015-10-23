@@ -14,6 +14,7 @@
 
 @property (nonatomic, assign) ViewContrllerType viewContrllerType;
 
+@property (nonatomic, strong) NSIndexPath   *currentIndexPath;
 @end
 
 @implementation HistoryViewController
@@ -104,27 +105,50 @@
     return cell;
 }
 
+- (nullable NSIndexPath *)tableView:(UITableView *)tableView willDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (![[DownloadClient sharedInstance] hasNetwork]) {
+        return indexPath;
+    }
+    return nil;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-    if (![[DownloadClient sharedInstance] hasNetwork]) {
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (_currentIndexPath) {
+        HistoryCell *cell = [tableView cellForRowAtIndexPath:_currentIndexPath];
+        
+        NSDictionary *dict = _dataArray[_currentIndexPath.row];
+        NSMutableDictionary *newDict = [NSMutableDictionary dictionaryWithDictionary:dict];
+        newDict[@"is_playing"] = @(NO);
+        [_dataArray replaceObjectAtIndex:_currentIndexPath.row withObject:newDict];
+        
+        [cell setData:newDict];
     }
-    
-    
+
     NSDictionary *dict = _dataArray[indexPath.row];
+    NSMutableDictionary *newDict = [NSMutableDictionary dictionaryWithDictionary:dict];
 
     App(app);
     HistoryCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     BOOL isPlay = [app play:dict track:dict[@"track"] target:self slider:nil];
     if (isPlay) {
         [self startPlayAnimation];
-        [cell startAnimation];
+        
+        newDict[@"is_playing"] = @(YES);
+        
+        
     }
     else
     {
-        [cell stopAnimation];
+        newDict[@"is_playing"] = @(NO);
     }
+    
+    self.currentIndexPath = indexPath;
+    
+    [_dataArray replaceObjectAtIndex:_currentIndexPath.row withObject:newDict];
+
+    [cell setData:newDict];
     
 }
 
@@ -170,7 +194,7 @@
     
     App(app);
     [app.queue inDatabase:^(FMDatabase *db) {
-        FMResultSet *rs = [db executeQuery:@"select * from history order by timestamp DESC"];
+        FMResultSet *rs = [db executeQuery:@"select * from history group by album_id order by timestamp DESC"];
         
         NSMutableArray *arr = [NSMutableArray new];
         while ([rs next]) {
@@ -193,12 +217,46 @@
             self.dataArray = arr;
             [self.tableview reloadData];
 
+            [self setPlayState];
         });
         
 
     }];
 }
 
+- (void)setPlayState
+{
+    App(app);
+    if(app.isPlayed)
+    {
+        
+        NSDictionary *lastPlayalbum = app.currentPlayInfo[@"album"];
+
+        BOOL isExist = NO;
+        NSInteger index = 0;
+        for(NSInteger i = 0; i < self.dataArray.count; i++)
+        {
+            NSDictionary *album = self.dataArray[i];
+            
+            if (lastPlayalbum && [lastPlayalbum[@"id"] integerValue] == [album[@"id"] integerValue]) {
+                if ([album[@"id"] integerValue] == [lastPlayalbum[@"id"] integerValue]) {
+                    isExist = YES;
+                    index = i;
+                    break;
+                }
+            }
+        }
+        
+        if (isExist) {
+            
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+            [self.tableview selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+            
+        }
+        
+    }
+    
+}
 
 #pragma BABAudioPlayerDelegate
 - (void)audioPlayer:(BABAudioPlayer *)player didChangeElapsedTime:(NSTimeInterval)elapsedTime percentage:(float)percentage
@@ -210,12 +268,12 @@
         
     }];
     
-    NSInteger trackid = [track[@"id"] integerValue];
+    NSInteger albumid = [album[@"id"] integerValue];
     for (HistoryCell *cell in self.tableview.visibleCells) {
         
-        NSDictionary *ctrack = cell.dict[@"track"];
-        NSInteger ctrackid = [ctrack[@"id"] integerValue];
-        if (trackid == ctrackid) {
+        NSDictionary *calbum = cell.dict;
+        NSInteger calbumid = [calbum[@"id"] integerValue];
+        if (calbumid == albumid) {
             [cell updateTime:elapsedTime];
             break;
         }

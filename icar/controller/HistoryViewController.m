@@ -115,6 +115,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (_currentIndexPath) {
         HistoryCell *cell = [tableView cellForRowAtIndexPath:_currentIndexPath];
         

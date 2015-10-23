@@ -17,7 +17,7 @@ NSString * const APPURLSessionDownloadTaskDidFailToMoveFileNotification = @"APPU
     NSProgress  *_progress;
 }
 @property (nonatomic, strong) AFURLSessionManager *downloadManager;
-
+@property (nonatomic, assign)   AFNetworkReachabilityStatus status;
 @property (nonatomic, strong) NSURLSessionDownloadTask *currentTask;
 @end
 
@@ -51,8 +51,6 @@ NSString * const APPURLSessionDownloadTaskDidFailToMoveFileNotification = @"APPU
                                                      name:kConfigCanDownloadStateChanged
                                                    object:nil];
 
-        self.downloadManager;
-        
         NSArray *array = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *docDir = [array lastObject];
         
@@ -207,6 +205,29 @@ NSString * const APPURLSessionDownloadTaskDidFailToMoveFileNotification = @"APPU
 
         });
     }];
+    
+    
+    [_downloadManager.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        switch (status) {
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+                NSLog(@"-------AFNetworkReachabilityStatusReachableViaWWAN------");
+                
+                break;
+                
+            case AFNetworkReachabilityStatusReachableViaWiFi:
+                NSLog(@"-------AFNetworkReachabilityStatusReachableViaWiFi------");
+                
+                break;
+            case AFNetworkReachabilityStatusNotReachable:
+                NSLog(@"-------AFNetworkReachabilityStatusNotReachable------");
+                
+                break;
+            default:
+                break;
+        }
+    }];
+    
+    [_downloadManager.reachabilityManager startMonitoring];
 }
 
 - (void)startTask:(NSDictionary *)album track:(NSDictionary *)track

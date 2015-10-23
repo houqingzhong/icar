@@ -10,25 +10,26 @@
 #import "Public.h"
 
 @class HistoryViewController;
-@class PlayerView;
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) LeftSlideViewController *leftSlideVC;
-@property (strong, nonatomic) UINavigationController *mainNavigationController;
-@property (strong, nonatomic) CategoryViewController *categoryViewController;
+@property (strong, nonatomic) LeftSlideViewController  *leftSlideVC;
+@property (strong, nonatomic) UINavigationController   *mainNavigationController;
+@property (strong, nonatomic) CategoryViewController  *categoryViewController;
 @property (strong, nonatomic) DownloadViewController *downloadViewController;
-@property (strong, nonatomic) HistoryViewController  *historyViewController;
+@property (strong, nonatomic) HistoryViewController      *historyViewController;
+@property (strong, nonatomic) TrackViewController          *playViewController;
+
 @property (assign, nonatomic) BOOL    isPlayed;
 @property (assign, nonatomic) BOOL    isStoped;
 @property (strong, nonatomic) FMDatabaseQueue *queue;
-
-
-@property (strong, nonatomic) PlayerView    *playerView;
 @property (strong, nonatomic) NSDictionary  *currentPlayInfo;
 
 //- (void)play:(NSDictionary *)album track:(NSDictionary *)track;
 - (void)play:(NSDictionary *)album track:(NSDictionary *)track target:(id<BABAudioPlayerDelegate>)target slider:(UISlider *)slider;
+
+- (void)jumpToPlayViewController:(NSDictionary *)album;
 
 @end
 

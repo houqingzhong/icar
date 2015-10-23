@@ -15,8 +15,40 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "251"
             endingLineNumber = "251"
-            landmarkName = "-queueItem:"
+            landmarkName = "-queueItems:"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[BABAudioPlayer queueItems:]"
+                  moduleName = "icar"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jingxin/icar/Pods/BABAudioPlayer/Pod/Classes/BABAudioPlayer.m"
+                  timestampString = "467265289.335511"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "252"
+                  endingLineNumber = "252"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[BABAudioPlayer queueItems:]"
+                  moduleName = "icar"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jingxin/icar/Pods/BABAudioPlayer/Pod/Classes/BABAudioPlayer.m"
+                  timestampString = "467265289.335683"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "252"
+                  endingLineNumber = "252"
+                  offsetFromSymbolStart = "76">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -33,6 +65,53 @@
             endingLineNumber = "451"
             landmarkName = "-observeValueForKeyPath:ofObject:change:context:"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__65-[BABAudioPlayer observeValueForKeyPath:ofObject:change:context:]_block_invoke218"
+                  moduleName = "icar"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jingxin/icar/Pods/BABAudioPlayer/Pod/Classes/BABAudioPlayer.m"
+                  timestampString = "467265289.336547"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "453"
+                  endingLineNumber = "453"
+                  offsetFromSymbolStart = "444">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__copy_helper_block_219"
+                  moduleName = "icar"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jingxin/icar/Pods/BABAudioPlayer/Pod/Classes/BABAudioPlayer.m"
+                  timestampString = "467265289.336683"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__destroy_helper_block_220"
+                  moduleName = "icar"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jingxin/icar/Pods/BABAudioPlayer/Pod/Classes/BABAudioPlayer.m"
+                  timestampString = "467265289.33679"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -48,6 +127,22 @@
             startingLineNumber = "201"
             endingLineNumber = "201"
             landmarkName = "-tableView:commitEditingStyle:forRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "icar/AppDelegate.m"
+            timestampString = "467265237.581995"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "219"
+            endingLineNumber = "219"
+            landmarkName = "-jumpToPlayViewController:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

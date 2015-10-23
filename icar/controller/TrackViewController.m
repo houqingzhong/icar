@@ -46,10 +46,7 @@
     //_tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableview];
     
-    App(app);
-    [app.playerView removeFromSuperview];
-    
-    self.playerView = app.playerView;
+    self.playerView = [PlayerView new];
     [self.view addSubview:self.playerView];
     
     [_playerView anchorBottomCenterFillingWidthWithLeftAndRightPadding:0 bottomPadding:0 height:120*XA];

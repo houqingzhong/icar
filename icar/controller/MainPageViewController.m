@@ -112,12 +112,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NSDictionary *dict = _dataArray[indexPath.row];
-    TrackViewController *tc = [TrackViewController new];
-    [tc updateList:dict];
-    
-    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [tempAppDelegate.mainNavigationController pushViewController:tc animated:YES];
-    
+    App(app);
+    [app jumpToPlayViewController:dict];
     
 }
 

@@ -255,11 +255,8 @@
 - (void)showTrackViewController
 {
     
-    TrackViewController *tc = [TrackViewController new];
-    [tc updateList:self.album];
-    
     App(app);
-    [app.mainNavigationController pushViewController:tc animated:YES];
+    [app jumpToPlayViewController:self.album];
 
 }
 

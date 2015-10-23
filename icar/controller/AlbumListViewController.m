@@ -96,14 +96,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    NSDictionary *dict = _dataArray[indexPath.row];
-    TrackViewController *tc = [TrackViewController new];
-    [tc updateList:dict];
-    
-    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [tempAppDelegate.mainNavigationController pushViewController:tc animated:YES];
 
+    NSDictionary *dict = _dataArray[indexPath.row];
+
+    App(app);
+    [app jumpToPlayViewController:dict];
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath

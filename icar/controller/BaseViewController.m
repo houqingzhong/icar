@@ -42,11 +42,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
     [_rightBtn startAnimation];
-    App(app);
-    
-    [BABAudioPlayer sharedPlayer].delegate = app.playerView;
 }
 /*
 #pragma mark - Navigation
@@ -68,10 +64,8 @@
         NSDictionary *dict = app.currentPlayInfo;
         NSDictionary *album = dict[@"album"];
         
-        TrackViewController *trackvc = [TrackViewController new];
-        [trackvc updateList:album];
-        [app.mainNavigationController pushViewController:trackvc animated:YES];
-
+        App(app);
+        [app jumpToPlayViewController:album];
         
     }
 

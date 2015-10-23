@@ -90,9 +90,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];   //设置通用背景颜色
     [self.window makeKeyAndVisible];
-    
-    _playerView = [PlayerView new];
-    
+        
     MainPageViewController *mainVC = [[MainPageViewController alloc] init];
     self.mainNavigationController = [[UINavigationController alloc] initWithRootViewController:mainVC];
     LeftSortsViewController *leftVC = [[LeftSortsViewController alloc] init];
@@ -214,6 +212,18 @@
     
 }
 
+
+- (void)jumpToPlayViewController:(NSDictionary *)album
+{
+    
+    if (nil == self.playViewController) {
+        self.playViewController = [TrackViewController new];
+    }
+    
+    [self.playViewController updateList:album];
+    
+    [self.mainNavigationController pushViewController:self.playViewController animated:YES];
+}
 /*
 - (void)play:(NSDictionary *)album track:(NSDictionary *)track
 {

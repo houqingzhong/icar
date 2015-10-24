@@ -95,9 +95,9 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     NSDictionary *dict = _dataArray[indexPath.row];
-
     App(app);
-    [app jumpToPlayViewController:dict];
+    [app updateTrackViewControler:dict pageNum:1];
+    [app jumpToPlayViewController];
     
 }
 
@@ -131,7 +131,7 @@
     
     NSString *key = [NSString stringWithFormat:@"%@:%@:%@", @(ServerDataRequestTypeAlbum), dict[@"id"], @(pageNum)];
     
-    [HttpEngine getDataFromServer:[NSString stringWithFormat:@"%@category_album/%@/%ld/%ld", HOST, dict[@"tag"], (long)self.pageNum, (long)PageSize] key:key callback:^(NSArray *albums) {
+    [HttpEngine getDataFromServer:[NSString stringWithFormat:@"%@category_album/%@/%ld/%ld", HOST, dict[@"tag"], (long)self.pageNum, (long)MPageSize] key:key callback:^(NSArray *albums) {
         [self.tableview.pullToRefreshView stopAnimating];
         [self.tableview.infiniteScrollingView stopAnimating];
 

@@ -151,12 +151,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *dict = _dataArray[indexPath.row];    
-//    App(app);
-//    [app play:self.album track:dict target:nil slider:nil];
+    NSDictionary *dict = _dataArray[indexPath.row];
     
     App(app);
-    [app play:self.album track:dict target:nil slider:nil];
+    [app updateTrackViewControler:self.album pageNum:1];
+    [app play:self.album track:dict];
     
     NavPlayButton *btn = self.navigationItem.rightBarButtonItem.customView;
     [btn startAnimation];
@@ -274,7 +273,7 @@
 {
     
     App(app);
-    [app jumpToPlayViewController:self.album];
+    [app jumpToPlayViewController];
 
 }
 

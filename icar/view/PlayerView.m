@@ -155,38 +155,17 @@
     [_activityView anchorInCenterWithWidth:20*XA height:XA*20];
 }
 
-- (void)setAlbum:(NSDictionary *)album track:(NSDictionary *)track
+- (void)setData:(NSDictionary *)album track:(NSDictionary *)track
 {
     
     self.album = album;
     self.track = track;
-
-    [self setNeedsLayout];
-
-}
-
-- (void)setData:(NSDictionary *)dict album:(NSDictionary *)album time:(NSTimeInterval)time
-{
-    
-    [self setAlbum:album track:dict];
     
     
     _timeLeft.text = [NSObject getDurationText:0];
-    _timeRight.text = [NSObject getDurationText:[dict[@"duration"] floatValue]];
+    _timeRight.text = [NSObject getDurationText:[track[@"duration"] floatValue]];
     
-    App(app);
-    
-    [app play:album track:dict target:self slider:_progressView];
-    
-    if(!app.isStoped)
-    {
-        [_playButtton setImage:[UIImage imageNamed:@"widget_pause_pressed"] forState:UIControlStateNormal];
-    }
-    else
-    {
-        [_playButtton setImage:[UIImage imageNamed:@"widget_play_pressed"] forState:UIControlStateNormal];
-    }
-    
+     
     [self setNeedsLayout];
 }
 
@@ -293,6 +272,10 @@
     [_playButtton setImage:[UIImage imageNamed:@"widget_play_pressed"] forState:UIControlStateNormal];
     
     if (_callback) {
+        App(app);
+
+        app.isPlayed = NO;
+        
         _callback(PlayerActionTypeNext, _playModeType);
     }
 }
@@ -309,3 +292,21 @@
 }
 
 @end
+/*
+ 
+ App(app);
+ 
+ if(!app.isStoped)
+ {
+ [_playButtton setImage:[UIImage imageNamed:@"widget_pause_pressed"] forState:UIControlStateNormal];
+ [[BABAudioPlayer sharedPlayer] play];
+ app.isStoped = NO;
+ }
+ else
+ {
+ [_playButtton setImage:[UIImage imageNamed:@"widget_play_pressed"] forState:UIControlStateNormal];
+ [[BABAudioPlayer sharedPlayer] pause];
+ app.isStoped = YES;
+ }
+
+ */

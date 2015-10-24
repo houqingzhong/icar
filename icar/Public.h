@@ -55,7 +55,7 @@ typedef enum : NSUInteger {
     ServerDataRequestTypeTrack,
 } ServerDataRequestType;
 
-const NSInteger PageSize  = 20;
+#define MPageSize 20
 
 #import <JSONKit.h>
 #import <FMDB.h>

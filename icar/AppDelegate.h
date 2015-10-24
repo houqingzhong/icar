@@ -24,14 +24,17 @@
 @property (assign, nonatomic) BOOL    isPlayed;
 @property (assign, nonatomic) BOOL    isStoped;
 @property (strong, nonatomic) FMDatabaseQueue *queue;
-@property (strong, nonatomic) NSDictionary  *currentPlayInfo;
+
 @property (strong, nonatomic) YTKKeyValueStore  *localStore;
 
 @property (strong, nonatomic) GCNetworkReachability *reachability;
 //- (void)play:(NSDictionary *)album track:(NSDictionary *)track;
-- (BOOL)play:(NSDictionary *)album track:(NSDictionary *)track target:(id<BABAudioPlayerDelegate>)target slider:(UISlider *)slider;
 
-- (void)jumpToPlayViewController:(NSDictionary *)album;
+- (void)jumpToPlayViewController;
+
+- (void)play:(NSDictionary *)album track:(NSDictionary *)track;
+
+- (void)updateTrackViewControler:(NSDictionary *)album pageNum:(NSInteger)pageNum;
 
 @end
 

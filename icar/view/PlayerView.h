@@ -22,9 +22,8 @@ typedef enum : NSUInteger {
 @interface PlayerView : UIView<BABAudioPlayerDelegate>
 @property(nonatomic, copy) void(^callback)(PlayerActionType, PlayModeType);
 
-- (void)setAlbum:(NSDictionary *)album track:(NSDictionary *)track;
 
-- (void)setData:(NSDictionary *)dict album:(NSDictionary *)album time:(NSTimeInterval)time;
+- (void)setData:(NSDictionary *)album track:(NSDictionary *)track;
 
 - (ProgressView *)getProgressView;
 @end

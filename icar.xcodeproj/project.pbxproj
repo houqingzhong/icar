@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1D90051E1BD4C59400769476 /* DownloadClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D90051D1BD4C59400769476 /* DownloadClient.m */; };
-		1D9005201BD4FBF600769476 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF59C5591BD320BD00858FE2 /* AVFoundation.framework */; };
 		1D9005401BD8E32C00769476 /* ShowDownloadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D90053F1BD8E32C00769476 /* ShowDownloadingCell.m */; };
 		1D9005431BD9010B00769476 /* AddNewDownloadHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9005421BD9010B00769476 /* AddNewDownloadHeaderView.m */; };
 		917D8FF6E2F42A1190138338 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D37CE3D38DCCC55E90F75AE /* libPods.a */; };
@@ -60,21 +59,10 @@
 		FFC9461F1BD1CA32001B2B8A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC9461E1BD1CA32001B2B8A /* AppDelegate.m */; };
 		FFC946251BD1CA32001B2B8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFC946231BD1CA32001B2B8A /* Main.storyboard */; };
 		FFC9462A1BD1CA32001B2B8A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFC946281BD1CA32001B2B8A /* LaunchScreen.xib */; };
-		FFC946361BD1CA32001B2B8A /* icarTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC946351BD1CA32001B2B8A /* icarTests.m */; };
 		FFC946501BD1CEDC001B2B8A /* LeftSlideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC9464D1BD1CEDC001B2B8A /* LeftSlideViewController.m */; };
 		FFC946511BD1CEDC001B2B8A /* UIView_extra.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC9464F1BD1CEDC001B2B8A /* UIView_extra.m */; };
 		FFE3E1C31BD5EA4700C7EE95 /* DownloadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FFE3E1C21BD5EA4700C7EE95 /* DownloadCell.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		FFC946301BD1CA32001B2B8A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FFC9460E1BD1CA32001B2B8A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = FFC946151BD1CA32001B2B8A;
-			remoteInfo = icar;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1D90051C1BD4C59400769476 /* DownloadClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadClient.h; sourceTree = "<group>"; };
@@ -179,14 +167,13 @@
 		FFC07E081BDB28C60001C671 /* MSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSettingViewController.m; sourceTree = "<group>"; };
 		FFC07E0A1BDB32C20001C671 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutViewController.h; path = ../view/AboutViewController.h; sourceTree = "<group>"; };
 		FFC07E0B1BDB32C20001C671 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutViewController.m; path = ../view/AboutViewController.m; sourceTree = "<group>"; };
-		FFC946161BD1CA32001B2B8A /* icar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = icar.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FFC946161BD1CA32001B2B8A /* 车载音乐台.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "车载音乐台.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC9461A1BD1CA32001B2B8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FFC9461B1BD1CA32001B2B8A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FFC9461D1BD1CA32001B2B8A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FFC9461E1BD1CA32001B2B8A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		FFC946241BD1CA32001B2B8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FFC946291BD1CA32001B2B8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		FFC9462F1BD1CA32001B2B8A /* icarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = icarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC946341BD1CA32001B2B8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FFC946351BD1CA32001B2B8A /* icarTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = icarTests.m; sourceTree = "<group>"; };
 		FFC9464A1BD1CD27001B2B8A /* Public.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Public.h; sourceTree = "<group>"; };
@@ -203,15 +190,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D9005201BD4FBF600769476 /* AVFoundation.framework in Frameworks */,
 				917D8FF6E2F42A1190138338 /* libPods.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FFC9462C1BD1CA32001B2B8A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,8 +408,7 @@
 		FFC946171BD1CA32001B2B8A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FFC946161BD1CA32001B2B8A /* icar.app */,
-				FFC9462F1BD1CA32001B2B8A /* icarTests.xctest */,
+				FFC946161BD1CA32001B2B8A /* 车载音乐台.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -515,26 +493,8 @@
 			);
 			name = icar;
 			productName = icar;
-			productReference = FFC946161BD1CA32001B2B8A /* icar.app */;
+			productReference = FFC946161BD1CA32001B2B8A /* 车载音乐台.app */;
 			productType = "com.apple.product-type.application";
-		};
-		FFC9462E1BD1CA32001B2B8A /* icarTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = FFC9463C1BD1CA32001B2B8A /* Build configuration list for PBXNativeTarget "icarTests" */;
-			buildPhases = (
-				FFC9462B1BD1CA32001B2B8A /* Sources */,
-				FFC9462C1BD1CA32001B2B8A /* Frameworks */,
-				FFC9462D1BD1CA32001B2B8A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				FFC946311BD1CA32001B2B8A /* PBXTargetDependency */,
-			);
-			name = icarTests;
-			productName = icarTests;
-			productReference = FFC9462F1BD1CA32001B2B8A /* icarTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -554,10 +514,6 @@
 							};
 						};
 					};
-					FFC9462E1BD1CA32001B2B8A = {
-						CreatedOnToolsVersion = 6.3.2;
-						TestTargetID = FFC946151BD1CA32001B2B8A;
-					};
 				};
 			};
 			buildConfigurationList = FFC946111BD1CA32001B2B8A /* Build configuration list for PBXProject "icar" */;
@@ -574,7 +530,6 @@
 			projectRoot = "";
 			targets = (
 				FFC946151BD1CA32001B2B8A /* icar */,
-				FFC9462E1BD1CA32001B2B8A /* icarTests */,
 			);
 		};
 /* End PBXProject section */
@@ -587,13 +542,6 @@
 				FF23A2EE1BD3BE3E00440792 /* Images.xcassets in Resources */,
 				FFC946251BD1CA32001B2B8A /* Main.storyboard in Resources */,
 				FFC9462A1BD1CA32001B2B8A /* LaunchScreen.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FFC9462D1BD1CA32001B2B8A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -706,23 +654,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FFC9462B1BD1CA32001B2B8A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FFC946361BD1CA32001B2B8A /* icarTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		FFC946311BD1CA32001B2B8A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = FFC946151BD1CA32001B2B8A /* icar */;
-			targetProxy = FFC946301BD1CA32001B2B8A /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		FFC946231BD1CA32001B2B8A /* Main.storyboard */ = {
@@ -832,13 +764,15 @@
 			baseConfigurationReference = DEC02284736AFB0EAE897408 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = icar/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chezai.tingting;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "车载音乐台";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -847,48 +781,14 @@
 			baseConfigurationReference = 537260B9D4BAB35207CE5F11 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = icar/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chezai.tingting;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		FFC9463D1BD1CA32001B2B8A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = icarTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tingting.icar.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/icar.app/icar";
-			};
-			name = Debug;
-		};
-		FFC9463E1BD1CA32001B2B8A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = icarTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tingting.icar.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/icar.app/icar";
+				PRODUCT_NAME = "车载音乐台";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -909,15 +809,6 @@
 			buildConfigurations = (
 				FFC9463A1BD1CA32001B2B8A /* Debug */,
 				FFC9463B1BD1CA32001B2B8A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		FFC9463C1BD1CA32001B2B8A /* Build configuration list for PBXNativeTarget "icarTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				FFC9463D1BD1CA32001B2B8A /* Debug */,
-				FFC9463E1BD1CA32001B2B8A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

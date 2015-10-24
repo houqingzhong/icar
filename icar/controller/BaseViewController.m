@@ -101,12 +101,8 @@
 
     if(app.isPlayed)
     {
-        NSDictionary *dict = app.currentPlayInfo;
-        NSDictionary *album = dict[@"album"];
-        
         App(app);
-        [app jumpToPlayViewController:album];
-        
+        [app jumpToPlayViewController];
     }
 
 }

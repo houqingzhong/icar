@@ -114,6 +114,10 @@
     }];
     
     
+    BABAudioPlayer *player = [BABAudioPlayer new];
+    player.allowsBackgroundAudio = YES;
+    [BABAudioPlayer setSharedPlayer:player];
+    
     self.localStore = [[YTKKeyValueStore alloc] initDBWithName:@"local-key-value"];
     NSString *tableName = server_data_cahce;
     [_localStore createTableWithName:tableName];
@@ -137,6 +141,11 @@
 
     [self setup];
     [self startDownload];
+    
+    
+    
+    _playViewController = [TrackViewController new];
+    
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];   //设置通用背景颜色
@@ -187,180 +196,21 @@
     
 }
 
-- (BOOL)play:(NSDictionary *)album track:(NSDictionary *)track target:(id<BABAudioPlayerDelegate>)target slider:(UISlider *)slider
+- (void)play:(NSDictionary *)album track:(NSDictionary *)track
 {
-    
-    self.isPlayed = NO;
-    
-    if (!album || !track) {
-        return NO;
-    }
-    
-    if ([self.currentPlayInfo[@"track"][@"id"] integerValue] == [track[@"id"] integerValue]) {
-        
-        [[BABAudioPlayer sharedPlayer] play];
-        
-        self.isPlayed = YES;
-        return YES;
-    }
-    
-    if (nil == [BABAudioPlayer sharedPlayer]) {
-        BABAudioPlayer *player = [BABAudioPlayer new];
-        player.allowsBackgroundAudio = YES;
-        [BABAudioPlayer setSharedPlayer:player];
-    }
-    
-    BOOL isPlay = NO;
-    
-    if (![NSObject isNull:track[@"play_path_32"]]) {
+    [_playViewController play:album track:track];
+}
 
-        BOOL isLocal = YES;
-        NSURL *url = [[DownloadClient sharedInstance] getDownloadFile:album track:track];
-        
-        if (nil == url) {
-            url = [NSURL URLWithString:track[@"play_path_32"]];
-            isLocal = NO;
-            
-            if (![[DownloadClient sharedInstance] hasNetwork]) {
-
-                [TSMessage showNotificationWithTitle:nil
-                                            subtitle:NetworkError
-                                                type:TSMessageNotificationTypeMessage];
-                
-                [[BABAudioPlayer sharedPlayer] stop];
-                return NO;
-            }
-            else if (![[DownloadClient sharedInstance] isWifi] && ![PublicMethod isAllowPlayInGprs])
-            {
-                
-                [TSMessage showNotificationWithTitle:nil
-                                            subtitle:NotAllowedPlayError
-                                                type:TSMessageNotificationTypeMessage];
-                
-                [[BABAudioPlayer sharedPlayer] stop];
-                
-                return NO;
-            }
-        }
-        
-        BABAudioItem *item = [BABAudioItem audioItemWithURL:url];
-        [item setLocal:isLocal];
-        [[BABAudioPlayer sharedPlayer] queueItem:item];
-        
-    }
-    
-    [PublicMethod saveHistory:album track:track callback:nil];
-
-    
-    [BABAudioPlayer sharedPlayer].delegate = target;
-    
-    BABConfigureSliderForAudioPlayer(slider, [BABAudioPlayer sharedPlayer]);
-    
-    isPlay = YES;
-    
-    App(app);
-    
-    [PublicMethod getHistoryTrack:track[@"id"] callback:^(NSDictionary * localTrack) {
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            if (localTrack) {
-                
-                float value = [localTrack[@"time"] doubleValue]/[track[@"duration"] floatValue];
-                
-                
-                [[BABAudioPlayer sharedPlayer] seekToTime:[localTrack[@"time"] doubleValue]];
-                
-                
-                slider.value = value;
-                
-                
-            }
-            
-            app.isPlayed = YES;
-            
-            self.currentPlayInfo = @{@"album":album, @"track":track};
-            
-            [[BABAudioPlayer sharedPlayer] play];
-
-            
-        });
-        
-    }];
-    
-    
-    return isPlay;
+- (void)updateTrackViewControler:(NSDictionary *)album pageNum:(NSInteger)pageNum
+{
+    [_playViewController updateList:album pageNum:pageNum];
 }
 
 
-- (void)jumpToPlayViewController:(NSDictionary *)album
+- (void)jumpToPlayViewController
 {
-    
-    if (nil == self.playViewController) {
-        self.playViewController = [TrackViewController new];
-    }
-    
-    [self.playViewController updateList:album pageNum:1];
     
     [self.mainNavigationController pushViewController:self.playViewController animated:YES];
 }
-/*
-- (void)play:(NSDictionary *)album track:(NSDictionary *)track
-{
-    if (!album || !track) {
-        return;
-    }
-    
-    [PublicMethod saveHistory:album track:track callback:nil];
-    
-    
-    if (![NSObject isNull:track[@"play_path_32"]]) {
-    
-        AFSoundItem *playItem = nil;
-        if ([[DownloadClient sharedInstance] isFileDownloaded:album[@"id"] trackId:track[@"id"]]) {;
-            NSString *filePath = [[DownloadClient sharedInstance] getDownloadPath:album];
-            playItem = [[AFSoundItem alloc] initWithLocalResource:[NSString stringWithFormat:@"%@.m4a", track[@"id"]] atPath:filePath];
-        }
-        else
-        {
 
-            playItem = [[AFSoundItem alloc] initWithStreamingURL:[NSURL URLWithString:track[@"play_path_32"]]];
-        
-        }
-
-        if (nil == self.player) {
-            self.player = [[AFSoundPlayback alloc] init];
-        }
-        
-        [self.player playItem:playItem];
-
-        
-    }
-    
-    if(!self.isStoped)
-    {
-        
-        self.currentPlayInfo = @{@"album":album, @"track":track};
-        
-        [PublicMethod getHistoryTrack:track[@"id"] callback:^(NSDictionary * localTrack) {
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (localTrack) {
-                    
-                    NSTimeInterval value = [localTrack[@"time"] doubleValue]/[track[@"duration"] doubleValue];
-                    
-                    [self.player playAtSecond:(NSInteger)value];
-
-                }
-
-                [self.player play];
-                
-                self.isPlayed = YES;
-                
-            });
-            
-        }];
-    }
-}
-*/
 @end

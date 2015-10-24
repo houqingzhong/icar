@@ -18,7 +18,7 @@
 
 @property (nonatomic, strong) NSIndexPath *indexPath;
 
-@property (nonatomic, strong) NSDictionary *album;
+
 @end
 
 @implementation TrackViewController
@@ -73,7 +73,7 @@
                 }
              
                 NSDictionary *dict = ws.dataArray[ws.indexPath.row];
-                [ws play:dict];
+                [ws play:ws.album track:dict];
                 
             }
             else
@@ -82,7 +82,7 @@
                     ws.indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
                     [ws.tableview selectRowAtIndexPath:ws.indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
                     NSDictionary *dict = ws.dataArray[ws.indexPath.row];
-                    [ws play:dict];
+                    [ws play:ws.album track:dict];
 
                 }
                 else if (ws.indexPath.row + 1 <= ws.dataArray.count-1)
@@ -92,14 +92,14 @@
                     [ws.tableview selectRowAtIndexPath:ws.indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
 
                     NSDictionary *dict = ws.dataArray[ws.indexPath.row];
-                    [ws play:dict];
+                    [ws play:ws.album track:dict];
                 }
                 else
                 {
                     if (PlayModeTypeLoop == playMode) {
                         ws.indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
                         NSDictionary *dict = ws.dataArray[ws.indexPath.row];
-                        [ws play:dict];
+                        [ws play:ws.album track:dict];
                     }
 
                 }
@@ -157,6 +157,8 @@
     
     BABConfigureSliderForAudioPlayer([_playerView getProgressView], [BABAudioPlayer sharedPlayer]);
 
+    
+    [self setPlayState:_album];
 }
 
 
@@ -194,7 +196,7 @@
     self.indexPath = indexPath;
 
     NSDictionary *dict = _dataArray[indexPath.row];
-    [self play:dict];
+    [self play:self.album track:dict];
     
     
 }
@@ -206,9 +208,11 @@
 }
 
 
-- (void)play:(NSDictionary *)dict
+- (void)play:(NSDictionary *)album track:(NSDictionary *)track
 {
-    [_playerView setData:dict album:self.album time:0];
+    [_playerView setData:album track:track];
+    
+    [self play:album track:track target:_playerView slider:[_playerView getProgressView]];
 }
 
 
@@ -260,7 +264,7 @@
     
     WS(ws);
     NSString *key = [NSString stringWithFormat:@"%@:%@:%@", @(ServerDataRequestTypeTrack), dict[@"id"], @(pageNum)];
-    [HttpEngine getDataFromServer:[NSString stringWithFormat:@"%@tracks/%@/%ld/%ld", HOST, dict[@"id"], (long)self.pageNum, (long)PageSize] key:key callback:^(NSArray *arr) {
+    [HttpEngine getDataFromServer:[NSString stringWithFormat:@"%@tracks/%@/%ld/%ld", HOST, dict[@"id"], (long)self.pageNum, (long)MPageSize] key:key callback:^(NSArray *arr) {
         
         [ws.tableview.pullToRefreshView stopAnimating];
         [self.tableview.infiniteScrollingView stopAnimating];
@@ -322,18 +326,113 @@
                 {
                     [ws.tableview insertRowsAtIndexPaths:arrCells withRowAnimation:UITableViewRowAnimationAutomatic];
                 }
-                
-                [ws setPlayState:dict];
-                
+
             });
             
         }];
-        
-        
-
     }];
     
 }
+
+- (void)play:(NSDictionary *)album track:(NSDictionary *)track target:(id<BABAudioPlayerDelegate>)target slider:(UISlider *)slider
+{
+    if (!album || !track) {
+        
+        return;
+    }
+
+    App(app);
+    
+    if ([self.track[@"id"] integerValue] == [track[@"id"] integerValue]) {
+        
+        return;
+    }
+    
+    
+    if (![NSObject isNull:track[@"play_path_32"]]) {
+        
+        NSURL *fileUrl = [[DownloadClient sharedInstance] getDownloadFile:album track:track];
+        
+        BABAudioItem *playItem = nil;
+        if (fileUrl) {
+            playItem = [BABAudioItem audioItemWithURL:fileUrl];
+            [playItem setLocal:YES];
+        }
+        else
+        {
+            fileUrl = [NSURL URLWithString:track[@"play_path_32"]];
+            if (![[DownloadClient sharedInstance] hasNetwork]) {
+                
+                [TSMessage showNotificationWithTitle:nil
+                                            subtitle:NetworkError
+                                                type:TSMessageNotificationTypeMessage];
+                
+                [[BABAudioPlayer sharedPlayer] stop];
+                return;
+            }
+            else if (![[DownloadClient sharedInstance] isWifi] && ![PublicMethod isAllowPlayInGprs])
+            {
+                
+                [TSMessage showNotificationWithTitle:nil
+                                            subtitle:NotAllowedPlayError
+                                                type:TSMessageNotificationTypeMessage];
+                
+                [[BABAudioPlayer sharedPlayer] stop];
+                
+                return;
+            }
+            
+            playItem = [BABAudioItem audioItemWithURL:fileUrl];
+
+        }
+
+        [[BABAudioPlayer sharedPlayer] queueItem:playItem];
+        
+    }
+    else
+    {
+        return;
+    }
+    
+    
+    [PublicMethod saveHistory:album track:track callback:nil];
+    
+    [BABAudioPlayer sharedPlayer].delegate = target;
+    
+    BABConfigureSliderForAudioPlayer(slider, [BABAudioPlayer sharedPlayer]);
+    
+    
+    app.isPlayed = YES;
+    app.isStoped = NO;
+
+    self.album = album;
+    self.track = track;
+
+    
+    [PublicMethod getHistoryTrack:track[@"id"] callback:^(NSDictionary * localTrack) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            if (localTrack) {
+                
+                float value = [localTrack[@"time"] doubleValue]/[track[@"duration"] floatValue];
+                
+                
+                [[BABAudioPlayer sharedPlayer] seekToTime:[localTrack[@"time"] doubleValue]];
+                
+                
+                slider.value = value;
+                
+            }
+            
+            [[BABAudioPlayer sharedPlayer] play];
+            
+            [self setPlayState:track];
+        });
+        
+    }];
+}
+
 
 - (void)setPlayState:(NSDictionary *)album
 {
@@ -341,8 +440,8 @@
     if(app.isPlayed)
     {
         
-        NSDictionary *lastPlayalbum = app.currentPlayInfo[@"album"];
-        NSDictionary *lastPlaytrack = app.currentPlayInfo[@"track"];
+        NSDictionary *lastPlayalbum = self.album;
+        NSDictionary *lastPlaytrack = self.track;
         
         if (lastPlayalbum && [lastPlayalbum[@"id"] integerValue] == [album[@"id"] integerValue]) {
             

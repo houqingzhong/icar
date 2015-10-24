@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FFC946151BD1CA32001B2B8A"
-               BuildableName = "icar.app"
+               BuildableName = "&#x8f66;&#x8f7d;&#x97f3;&#x4e50;&#x53f0;.app"
                BlueprintName = "icar"
                ReferencedContainer = "container:icar.xcodeproj">
             </BuildableReference>
@@ -57,7 +57,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FFC946151BD1CA32001B2B8A"
-            BuildableName = "icar.app"
+            BuildableName = "&#x8f66;&#x8f7d;&#x97f3;&#x4e50;&#x53f0;.app"
             BlueprintName = "icar"
             ReferencedContainer = "container:icar.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FFC946151BD1CA32001B2B8A"
-            BuildableName = "icar.app"
+            BuildableName = "&#x8f66;&#x8f7d;&#x97f3;&#x4e50;&#x53f0;.app"
             BlueprintName = "icar"
             ReferencedContainer = "container:icar.xcodeproj">
          </BuildableReference>
@@ -99,7 +99,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FFC946151BD1CA32001B2B8A"
-            BuildableName = "icar.app"
+            BuildableName = "&#x8f66;&#x8f7d;&#x97f3;&#x4e50;&#x53f0;.app"
             BlueprintName = "icar"
             ReferencedContainer = "container:icar.xcodeproj">
          </BuildableReference>

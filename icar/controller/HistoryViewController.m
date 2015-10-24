@@ -109,9 +109,14 @@
 {
     
     NSDictionary *dict = _dataArray[indexPath.row];
+
     App(app);
-    [app play:dict track:dict[@"track"] target:self slider:nil];
-        
+    [app updateTrackViewControler:dict pageNum:1];
+    
+    [app.playViewController play:dict track:dict[@"track"]];
+    
+    [BABAudioPlayer sharedPlayer].delegate = self;
+    
     NavPlayButton *btn = self.navigationItem.rightBarButtonItem.customView;
     [btn startAnimation];
 }
@@ -186,54 +191,19 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             self.dataArray = arr;
             [self.tableview reloadData];
-            [self setPlayState];
         });
         
 
     }];
 }
 
-
-- (void)setPlayState
-{
-    App(app);
-    if(app.isPlayed)
-    {
-        
-        NSDictionary *lastPlayalbum = app.currentPlayInfo[@"album"];
-
-        BOOL isExist = NO;
-        NSInteger index = 0;
-        for(NSInteger i = 0; i < self.dataArray.count; i++)
-        {
-            NSDictionary *album = self.dataArray[i];
-            
-            if (lastPlayalbum && [lastPlayalbum[@"id"] integerValue] == [album[@"id"] integerValue]) {
-                if ([album[@"id"] integerValue] == [lastPlayalbum[@"id"] integerValue]) {
-                    isExist = YES;
-                    index = i;
-                    break;
-                }
-            }
-        }
-        
-        if (isExist) {
-            
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-            [self.tableview selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
-            
-        }
-        
-    }
-    
-}
-
 #pragma BABAudioPlayerDelegate
 - (void)audioPlayer:(BABAudioPlayer *)player didChangeElapsedTime:(NSTimeInterval)elapsedTime percentage:(float)percentage
 {
     App(app);
-    NSDictionary *track = app.currentPlayInfo[@"track"];
-    NSDictionary *album = app.currentPlayInfo[@"album"];
+    NSDictionary *track = app.playViewController.track;
+    NSDictionary *album = app.playViewController.album;
+    
     [PublicMethod updateHistory:album[@"id"] trackId:track[@"id"] time:elapsedTime callback:^{
         
     }];

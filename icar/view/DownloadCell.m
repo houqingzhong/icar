@@ -38,7 +38,9 @@
         
         //_desc.font = [UIFont systemFontOfSize:12];
         //_desc.textColor = [UIColor colorWithHexString:@"#959595"];
-        
+        _header.contentMode = UIViewContentModeScaleAspectFill;
+        _header.clipsToBounds = YES;
+
         _trackCount.font = [UIFont systemFontOfSize:12];
         _trackCount.textColor = [UIColor colorWithHexString:@"#959595"];
         _playCount.font = [UIFont systemFontOfSize:12];
@@ -76,7 +78,7 @@
     CGFloat width = 120* XA;
     CGFloat height = width;
     [_header anchorTopLeftWithLeftPadding:leftPadding topPadding:topPadding width:width height:height];
-    
+
     leftPadding = 20*XA;
     width = height = 28*XA;
     topPadding = (20 + 8)*XA;

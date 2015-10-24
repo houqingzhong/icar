@@ -77,7 +77,8 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval) {
 
             if([rs next])
             {
-                
+                [db executeUpdate:@"update history set timestamp = ? where album_id = ? and track_id = ?",  @([PublicMethod getTimeNow]), album[@"id"], track[@"id"]];
+
             }
             //向数据库中插入一条数据
             else

@@ -35,6 +35,8 @@
         _trackCount = [UILabel new];
         _playCount = [UILabel new];
         
+        _header.contentMode = UIViewContentModeScaleAspectFill;
+        _header.clipsToBounds = YES;
         
         //_desc.font = [UIFont systemFontOfSize:12];
         //_desc.textColor = [UIColor colorWithHexString:@"#959595"];

@@ -165,13 +165,19 @@
         NSMutableArray *arr = [NSMutableArray new];
         while ([rs next]) {
             
+
             NSDictionary *album_ = [[rs stringForColumn:@"album_info"] objectFromJSONString];
             NSMutableDictionary *album = [NSMutableDictionary dictionaryWithDictionary:album_];
-
-            NSDictionary *track_ = [[rs stringForColumn:@"track_info"] objectFromJSONString];
-            NSMutableDictionary *track = [NSMutableDictionary dictionaryWithDictionary:track_];
-            track[@"time"] = @([rs doubleForColumn:@"time"]);
-            album[@"track"] = track;
+            
+            FMResultSet *rs2 = [db executeQuery:@"select * from history where album_id = ? order by timestamp DESC limit 1", [rs stringForColumn:@"album_id"]];
+            if ([rs2 next]) {
+                
+                NSDictionary *track_ = [[rs2 stringForColumn:@"track_info"] objectFromJSONString];
+                NSMutableDictionary *track = [NSMutableDictionary dictionaryWithDictionary:track_];
+                track[@"time"] = @([rs2 doubleForColumn:@"time"]);
+                album[@"track"] = track;
+            }
+            
             
             [arr addObject:album];
             
@@ -182,7 +188,6 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             self.dataArray = arr;
             [self.tableview reloadData];
-
             [self setPlayState];
         });
         

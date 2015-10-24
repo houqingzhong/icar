@@ -34,6 +34,9 @@
         _playTime = [UILabel new];
         
         
+        _header.contentMode = UIViewContentModeScaleAspectFill;
+        _header.clipsToBounds = YES;
+        
         _title.textAlignment = NSTextAlignmentLeft;
         _localIcon.backgroundColor = [UIColor colorWithHexString:@"#ff7d3d"];
         _localIcon.font = [UIFont systemFontOfSize:22*XA];

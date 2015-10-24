@@ -152,9 +152,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *dict = _dataArray[indexPath.row];    
+//    App(app);
+//    [app play:self.album track:dict target:nil slider:nil];
+    
     App(app);
     [app play:self.album track:dict target:nil slider:nil];
     
+    [app.playViewController updateList:dict pageNum:1];
+
+    NavPlayButton *btn = self.navigationItem.rightBarButtonItem.customView;
+    [btn startAnimation];
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath

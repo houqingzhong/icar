@@ -10,6 +10,16 @@
 
 @implementation BaseCell
 
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        self.clipsToBounds = YES;
+    }
+    return self;
+    
+}
+
 - (void)awakeFromNib {
     // Initialization code
 }

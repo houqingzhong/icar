@@ -54,6 +54,11 @@
         [UIImageView clearCache];
         App(app);
         [app.localStore clearTable:server_data_cahce];
+        
+        [TSMessage showNotificationWithTitle:nil
+                                    subtitle:ClearCacheMsg
+                                        type:TSMessageNotificationTypeMessage];
+        
     }];
     
     CFSettingGroup *group1 = [[CFSettingGroup alloc] init];

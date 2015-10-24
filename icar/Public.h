@@ -26,6 +26,7 @@
 
 #define NetworkError @"亲，您的手机网络不太顺畅喔～"
 #define NoMoreData @"亲，您已经看到最后一条了喔～"
+#define ClearCacheMsg @"亲，您的缓存已经清理完成了喔～"
 #define NotAllowedPlayError @"亲，您还没有允许移动网络播放喔～"
 
 #define server_data_cahce  @"server_data_cahce"

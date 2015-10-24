@@ -11,7 +11,10 @@
 #import "otherViewController.h"
 
 @interface LeftSortsViewController () <UITableViewDelegate,UITableViewDataSource>
-
+{
+    UIImageView *_imageview;
+    NSInteger   _pageNum;
+}
 @end
 
 @implementation LeftSortsViewController
@@ -20,9 +23,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    UIImageView *imageview = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    imageview.image = [UIImage imageNamed:@"leftbackiamge"];
-    [self.view addSubview:imageview];
+    _pageNum = 3;
+    _imageview = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    _imageview.image = [UIImage imageNamed:@"backimage2"];
+    [self.view addSubview:_imageview];
 
     UITableView *tableview = [[UITableView alloc] init];
     self.tableview = tableview;
@@ -31,6 +35,11 @@
     tableview.delegate  = self;
     tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:tableview];
+    
+    WS(ws);
+    [self.tableview addPullToRefreshWithActionHandler:^{
+        [ws updateBackgroud];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -147,5 +156,25 @@
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableview.bounds.size.width, 180)];
     view.backgroundColor = [UIColor clearColor];
     return view;
+}
+
+- (void)updateBackgroud
+{
+    if(_pageNum > 5)
+    {
+        _pageNum = 1;
+    }
+    
+    if(_pageNum < 1 )
+    {
+        _pageNum = 1;
+    }
+    
+    _imageview.image = [UIImage imageNamed:[NSString stringWithFormat:@"backimage%@", @(_pageNum)]];
+    
+    _pageNum ++;
+    
+    [self.tableview.pullToRefreshView stopAnimating];
+
 }
 @end

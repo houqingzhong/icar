@@ -26,6 +26,8 @@
 {
     [super viewDidLoad];
     
+    self.title = @"设置";
+
     self.icon_arrow = @"CellArrow";
     
     

@@ -40,6 +40,22 @@
 		FF59C5531BD3004D00858FE2 /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF59C5521BD3004D00858FE2 /* PlayerViewController.m */; };
 		FF59C5561BD3012200858FE2 /* PlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF59C5551BD3012200858FE2 /* PlayerView.m */; };
 		FFC07DD51BD9358E0001C671 /* HistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DD41BD9358E0001C671 /* HistoryCell.m */; };
+		FFC07DF91BDB28870001C671 /* CFSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DD91BDB28860001C671 /* CFSettingTableViewController.m */; settings = {ASSET_TAGS = (); }; };
+		FFC07DFA1BDB28870001C671 /* CFSettingArrowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DDC1BDB28860001C671 /* CFSettingArrowItem.m */; settings = {ASSET_TAGS = (); }; };
+		FFC07DFB1BDB28870001C671 /* CFSettingGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DDE1BDB28860001C671 /* CFSettingGroup.m */; settings = {ASSET_TAGS = (); }; };
+		FFC07DFC1BDB28870001C671 /* CFSettingIconArrowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DE01BDB28860001C671 /* CFSettingIconArrowItem.m */; settings = {ASSET_TAGS = (); }; };
+		FFC07DFD1BDB28870001C671 /* CFSettingIconItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DE21BDB28860001C671 /* CFSettingIconItem.m */; settings = {ASSET_TAGS = (); }; };
+		FFC07DFE1BDB28870001C671 /* CFSettingItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DE41BDB28860001C671 /* CFSettingItem.m */; settings = {ASSET_TAGS = (); }; };
+		FFC07DFF1BDB28870001C671 /* CFSettingLabelArrowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DE61BDB28860001C671 /* CFSettingLabelArrowItem.m */; settings = {ASSET_TAGS = (); }; };
+		FFC07E001BDB28870001C671 /* CFSettingLabelItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DE81BDB28860001C671 /* CFSettingLabelItem.m */; settings = {ASSET_TAGS = (); }; };
+		FFC07E011BDB28870001C671 /* CFSettingSwitchItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DEA1BDB28860001C671 /* CFSettingSwitchItem.m */; settings = {ASSET_TAGS = (); }; };
+		FFC07E021BDB28870001C671 /* CFSaveTool.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DEE1BDB28860001C671 /* CFSaveTool.m */; settings = {ASSET_TAGS = (); }; };
+		FFC07E031BDB28870001C671 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DF11BDB28860001C671 /* UIColor+Hex.m */; settings = {ASSET_TAGS = (); }; };
+		FFC07E041BDB28870001C671 /* CFIconArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DF41BDB28860001C671 /* CFIconArrowView.m */; settings = {ASSET_TAGS = (); }; };
+		FFC07E051BDB28870001C671 /* CFLabelArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DF61BDB28870001C671 /* CFLabelArrowView.m */; settings = {ASSET_TAGS = (); }; };
+		FFC07E061BDB28870001C671 /* CFSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DF81BDB28870001C671 /* CFSettingCell.m */; settings = {ASSET_TAGS = (); }; };
+		FFC07E091BDB28C60001C671 /* MSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07E081BDB28C60001C671 /* MSettingViewController.m */; settings = {ASSET_TAGS = (); }; };
+		FFC07E0C1BDB32C20001C671 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07E0B1BDB32C20001C671 /* AboutViewController.m */; settings = {ASSET_TAGS = (); }; };
 		FFC9461C1BD1CA32001B2B8A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC9461B1BD1CA32001B2B8A /* main.m */; };
 		FFC9461F1BD1CA32001B2B8A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC9461E1BD1CA32001B2B8A /* AppDelegate.m */; };
 		FFC946251BD1CA32001B2B8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFC946231BD1CA32001B2B8A /* Main.storyboard */; };
@@ -129,6 +145,40 @@
 		FF59C5761BD32F8100858FE2 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		FFC07DD31BD9358E0001C671 /* HistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryCell.h; sourceTree = "<group>"; };
 		FFC07DD41BD9358E0001C671 /* HistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryCell.m; sourceTree = "<group>"; };
+		FFC07DD81BDB28860001C671 /* CFSettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFSettingTableViewController.h; sourceTree = "<group>"; };
+		FFC07DD91BDB28860001C671 /* CFSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFSettingTableViewController.m; sourceTree = "<group>"; };
+		FFC07DDB1BDB28860001C671 /* CFSettingArrowItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFSettingArrowItem.h; sourceTree = "<group>"; };
+		FFC07DDC1BDB28860001C671 /* CFSettingArrowItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFSettingArrowItem.m; sourceTree = "<group>"; };
+		FFC07DDD1BDB28860001C671 /* CFSettingGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFSettingGroup.h; sourceTree = "<group>"; };
+		FFC07DDE1BDB28860001C671 /* CFSettingGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFSettingGroup.m; sourceTree = "<group>"; };
+		FFC07DDF1BDB28860001C671 /* CFSettingIconArrowItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFSettingIconArrowItem.h; sourceTree = "<group>"; };
+		FFC07DE01BDB28860001C671 /* CFSettingIconArrowItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFSettingIconArrowItem.m; sourceTree = "<group>"; };
+		FFC07DE11BDB28860001C671 /* CFSettingIconItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFSettingIconItem.h; sourceTree = "<group>"; };
+		FFC07DE21BDB28860001C671 /* CFSettingIconItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFSettingIconItem.m; sourceTree = "<group>"; };
+		FFC07DE31BDB28860001C671 /* CFSettingItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFSettingItem.h; sourceTree = "<group>"; };
+		FFC07DE41BDB28860001C671 /* CFSettingItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFSettingItem.m; sourceTree = "<group>"; };
+		FFC07DE51BDB28860001C671 /* CFSettingLabelArrowItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFSettingLabelArrowItem.h; sourceTree = "<group>"; };
+		FFC07DE61BDB28860001C671 /* CFSettingLabelArrowItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFSettingLabelArrowItem.m; sourceTree = "<group>"; };
+		FFC07DE71BDB28860001C671 /* CFSettingLabelItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFSettingLabelItem.h; sourceTree = "<group>"; };
+		FFC07DE81BDB28860001C671 /* CFSettingLabelItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFSettingLabelItem.m; sourceTree = "<group>"; };
+		FFC07DE91BDB28860001C671 /* CFSettingSwitchItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFSettingSwitchItem.h; sourceTree = "<group>"; };
+		FFC07DEA1BDB28860001C671 /* CFSettingSwitchItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFSettingSwitchItem.m; sourceTree = "<group>"; };
+		FFC07DEB1BDB28860001C671 /* TableViewSettingList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewSettingList.h; sourceTree = "<group>"; };
+		FFC07DED1BDB28860001C671 /* CFSaveTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFSaveTool.h; sourceTree = "<group>"; };
+		FFC07DEE1BDB28860001C671 /* CFSaveTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFSaveTool.m; sourceTree = "<group>"; };
+		FFC07DEF1BDB28860001C671 /* Const.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Const.h; sourceTree = "<group>"; };
+		FFC07DF01BDB28860001C671 /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
+		FFC07DF11BDB28860001C671 /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
+		FFC07DF31BDB28860001C671 /* CFIconArrowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFIconArrowView.h; sourceTree = "<group>"; };
+		FFC07DF41BDB28860001C671 /* CFIconArrowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFIconArrowView.m; sourceTree = "<group>"; };
+		FFC07DF51BDB28860001C671 /* CFLabelArrowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFLabelArrowView.h; sourceTree = "<group>"; };
+		FFC07DF61BDB28870001C671 /* CFLabelArrowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFLabelArrowView.m; sourceTree = "<group>"; };
+		FFC07DF71BDB28870001C671 /* CFSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFSettingCell.h; sourceTree = "<group>"; };
+		FFC07DF81BDB28870001C671 /* CFSettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFSettingCell.m; sourceTree = "<group>"; };
+		FFC07E071BDB28C60001C671 /* MSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSettingViewController.h; sourceTree = "<group>"; };
+		FFC07E081BDB28C60001C671 /* MSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSettingViewController.m; sourceTree = "<group>"; };
+		FFC07E0A1BDB32C20001C671 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutViewController.h; path = ../view/AboutViewController.h; sourceTree = "<group>"; };
+		FFC07E0B1BDB32C20001C671 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutViewController.m; path = ../view/AboutViewController.m; sourceTree = "<group>"; };
 		FFC946161BD1CA32001B2B8A /* icar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = icar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC9461A1BD1CA32001B2B8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FFC9461B1BD1CA32001B2B8A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -242,6 +292,8 @@
 				FF59C5371BD2141600858FE2 /* CategoryViewController.m */,
 				FF59C5291BD20F6600858FE2 /* otherViewController.h */,
 				FF59C52A1BD20F6600858FE2 /* otherViewController.m */,
+				FFC07E0A1BDB32C20001C671 /* AboutViewController.h */,
+				FFC07E0B1BDB32C20001C671 /* AboutViewController.m */,
 				FF59C53F1BD2365C00858FE2 /* AlbumListViewController.h */,
 				FF59C5401BD2365C00858FE2 /* AlbumListViewController.m */,
 				FF59C5481BD2875800858FE2 /* TrackViewController.h */,
@@ -254,6 +306,8 @@
 				FF59C5521BD3004D00858FE2 /* PlayerViewController.m */,
 				FF23A2E71BD3AB2800440792 /* HistoryViewController.h */,
 				FF23A2E81BD3AB2800440792 /* HistoryViewController.m */,
+				FFC07E071BDB28C60001C671 /* MSettingViewController.h */,
+				FFC07E081BDB28C60001C671 /* MSettingViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -291,6 +345,75 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		FFC07DD61BDB28860001C671 /* TableViewSettingList */ = {
+			isa = PBXGroup;
+			children = (
+				FFC07DD71BDB28860001C671 /* Controller */,
+				FFC07DDA1BDB28860001C671 /* Model */,
+				FFC07DEB1BDB28860001C671 /* TableViewSettingList.h */,
+				FFC07DEC1BDB28860001C671 /* Tool */,
+				FFC07DF21BDB28860001C671 /* View */,
+			);
+			path = TableViewSettingList;
+			sourceTree = "<group>";
+		};
+		FFC07DD71BDB28860001C671 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				FFC07DD81BDB28860001C671 /* CFSettingTableViewController.h */,
+				FFC07DD91BDB28860001C671 /* CFSettingTableViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		FFC07DDA1BDB28860001C671 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FFC07DDB1BDB28860001C671 /* CFSettingArrowItem.h */,
+				FFC07DDC1BDB28860001C671 /* CFSettingArrowItem.m */,
+				FFC07DDD1BDB28860001C671 /* CFSettingGroup.h */,
+				FFC07DDE1BDB28860001C671 /* CFSettingGroup.m */,
+				FFC07DDF1BDB28860001C671 /* CFSettingIconArrowItem.h */,
+				FFC07DE01BDB28860001C671 /* CFSettingIconArrowItem.m */,
+				FFC07DE11BDB28860001C671 /* CFSettingIconItem.h */,
+				FFC07DE21BDB28860001C671 /* CFSettingIconItem.m */,
+				FFC07DE31BDB28860001C671 /* CFSettingItem.h */,
+				FFC07DE41BDB28860001C671 /* CFSettingItem.m */,
+				FFC07DE51BDB28860001C671 /* CFSettingLabelArrowItem.h */,
+				FFC07DE61BDB28860001C671 /* CFSettingLabelArrowItem.m */,
+				FFC07DE71BDB28860001C671 /* CFSettingLabelItem.h */,
+				FFC07DE81BDB28860001C671 /* CFSettingLabelItem.m */,
+				FFC07DE91BDB28860001C671 /* CFSettingSwitchItem.h */,
+				FFC07DEA1BDB28860001C671 /* CFSettingSwitchItem.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FFC07DEC1BDB28860001C671 /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				FFC07DED1BDB28860001C671 /* CFSaveTool.h */,
+				FFC07DEE1BDB28860001C671 /* CFSaveTool.m */,
+				FFC07DEF1BDB28860001C671 /* Const.h */,
+				FFC07DF01BDB28860001C671 /* UIColor+Hex.h */,
+				FFC07DF11BDB28860001C671 /* UIColor+Hex.m */,
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
+		FFC07DF21BDB28860001C671 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FFC07DF31BDB28860001C671 /* CFIconArrowView.h */,
+				FFC07DF41BDB28860001C671 /* CFIconArrowView.m */,
+				FFC07DF51BDB28860001C671 /* CFLabelArrowView.h */,
+				FFC07DF61BDB28870001C671 /* CFLabelArrowView.m */,
+				FFC07DF71BDB28870001C671 /* CFSettingCell.h */,
+				FFC07DF81BDB28870001C671 /* CFSettingCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		FFC9460D1BD1CA32001B2B8A = {
 			isa = PBXGroup;
 			children = (
@@ -315,6 +438,7 @@
 		FFC946181BD1CA32001B2B8A /* icar */ = {
 			isa = PBXGroup;
 			children = (
+				FFC07DD61BDB28860001C671 /* TableViewSettingList */,
 				FF59C52F1BD20F8600858FE2 /* view */,
 				FF59C5221BD20F6600858FE2 /* controller */,
 				FF59C51A1BD20F1500858FE2 /* category */,
@@ -383,6 +507,7 @@
 				FFC946131BD1CA32001B2B8A /* Frameworks */,
 				FFC946141BD1CA32001B2B8A /* Resources */,
 				76F1A37E33F750734ACC09C8 /* Copy Pods Resources */,
+				19C1315FA31974B6625BD3DB /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -475,6 +600,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		19C1315FA31974B6625BD3DB /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		76F1A37E33F750734ACC09C8 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -520,19 +660,29 @@
 				FF59C52E1BD20F6600858FE2 /* otherViewController.m in Sources */,
 				FF59C5561BD3012200858FE2 /* PlayerView.m in Sources */,
 				FF59C5471BD2838E00858FE2 /* TrackCell.m in Sources */,
+				FFC07DFA1BDB28870001C671 /* CFSettingArrowItem.m in Sources */,
+				FFC07E0C1BDB32C20001C671 /* AboutViewController.m in Sources */,
+				FFC07E031BDB28870001C671 /* UIColor+Hex.m in Sources */,
 				1D9005431BD9010B00769476 /* AddNewDownloadHeaderView.m in Sources */,
+				FFC07E061BDB28870001C671 /* CFSettingCell.m in Sources */,
 				FF59C5531BD3004D00858FE2 /* PlayerViewController.m in Sources */,
 				FF2A8F171BD5367500A7F403 /* DownloadingViewController.m in Sources */,
 				FF59C52B1BD20F6600858FE2 /* BaseViewController.m in Sources */,
+				FFC07DFC1BDB28870001C671 /* CFSettingIconArrowItem.m in Sources */,
+				FFC07E041BDB28870001C671 /* CFIconArrowView.m in Sources */,
+				FFC07DFB1BDB28870001C671 /* CFSettingGroup.m in Sources */,
 				FF23A2EC1BD3BC1700440792 /* NavPlayButton.m in Sources */,
 				FF59C5411BD2365C00858FE2 /* AlbumListViewController.m in Sources */,
 				FF59C5201BD20F1500858FE2 /* UIColor+Hex.m in Sources */,
 				FFC946511BD1CEDC001B2B8A /* UIView_extra.m in Sources */,
 				FF59C52C1BD20F6600858FE2 /* LeftSortsViewController.m in Sources */,
+				FFC07E011BDB28870001C671 /* CFSettingSwitchItem.m in Sources */,
 				FF59C54D1BD2970900858FE2 /* DownloadViewController.m in Sources */,
 				FFC9461F1BD1CA32001B2B8A /* AppDelegate.m in Sources */,
+				FFC07DF91BDB28870001C671 /* CFSettingTableViewController.m in Sources */,
 				FF59C53E1BD21A6500858FE2 /* CategoryCell.m in Sources */,
 				FF59C5381BD2141600858FE2 /* CategoryViewController.m in Sources */,
+				FFC07E051BDB28870001C671 /* CFLabelArrowView.m in Sources */,
 				FF59C5351BD20F8600858FE2 /* BaseCell.m in Sources */,
 				FFC07DD51BD9358E0001C671 /* HistoryCell.m in Sources */,
 				1D9005401BD8E32C00769476 /* ShowDownloadingCell.m in Sources */,
@@ -540,11 +690,17 @@
 				FF59C52D1BD20F6600858FE2 /* MainPageViewController.m in Sources */,
 				FF23A2E91BD3AB2800440792 /* HistoryViewController.m in Sources */,
 				FF59C5341BD20F8600858FE2 /* AlbumCell.m in Sources */,
+				FFC07E091BDB28C60001C671 /* MSettingViewController.m in Sources */,
 				FF59C5441BD2400500858FE2 /* NSObject+Extend.m in Sources */,
+				FFC07E001BDB28870001C671 /* CFSettingLabelItem.m in Sources */,
+				FFC07DFE1BDB28870001C671 /* CFSettingItem.m in Sources */,
 				FFC9461C1BD1CA32001B2B8A /* main.m in Sources */,
 				FF3287F91BD1E646007A36F1 /* UIView+Facade.m in Sources */,
+				FFC07E021BDB28870001C671 /* CFSaveTool.m in Sources */,
 				FF59C51F1BD20F1500858FE2 /* NSString+Extension.m in Sources */,
+				FFC07DFF1BDB28870001C671 /* CFSettingLabelArrowItem.m in Sources */,
 				FFC946501BD1CEDC001B2B8A /* LeftSlideViewController.m in Sources */,
+				FFC07DFD1BDB28870001C671 /* CFSettingIconItem.m in Sources */,
 				FF59C5501BD2998200858FE2 /* DownloadingCell.m in Sources */,
 				FF1F9F1C1BD3691B0099D1F0 /* ProgressView.m in Sources */,
 			);

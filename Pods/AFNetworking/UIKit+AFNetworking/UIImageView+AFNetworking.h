@@ -113,6 +113,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)cancelImageRequestOperation;
 
++ (void)clearCache;
 @end
 
 #pragma mark -

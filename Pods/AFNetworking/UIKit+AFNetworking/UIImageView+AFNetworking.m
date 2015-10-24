@@ -180,6 +180,15 @@
     self.af_imageRequestOperation = nil;
 }
 
+/**
+ Clear image cache
+ */
++ (void)clearCache {
+    AFImageCache *cache = (AFImageCache *)[UIImageView sharedImageCache];
+
+    [cache removeAllObjects];
+    return;
+}
 @end
 
 #pragma mark -

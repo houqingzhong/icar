@@ -10,7 +10,7 @@
 #import "Public.h"
 #define vBackBarButtonItemName  @"backArrow.png"    //导航条返回默认图片名
 
-@interface MainPageViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface MainPageViewController ()
 
 @property (nonatomic, strong) NSArray *dataArray;
 

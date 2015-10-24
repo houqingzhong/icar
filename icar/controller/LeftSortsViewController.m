@@ -40,7 +40,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -64,7 +64,7 @@
     } else if (indexPath.row == 3) {
         cell.textLabel.text = @"下载管理";
     } else if (indexPath.row == 4) {
-        cell.textLabel.text = @"关于";
+        cell.textLabel.text = @"设置";
     }
     return cell;
 }
@@ -118,6 +118,20 @@
         else
         {
             [app.mainNavigationController pushViewController:app.downloadViewController animated:NO];
+        }
+    }
+    else if (4 == indexPath.row) {
+        if(nil == app.msettingViewController)
+        {
+            app.msettingViewController = [MSettingViewController new];
+        }
+        
+        if (app.msettingViewController.navigationController) {
+            [app.mainNavigationController popToViewController:app.msettingViewController animated:NO];
+        }
+        else
+        {
+            [app.mainNavigationController pushViewController:app.msettingViewController animated:NO];
         }
     }
     

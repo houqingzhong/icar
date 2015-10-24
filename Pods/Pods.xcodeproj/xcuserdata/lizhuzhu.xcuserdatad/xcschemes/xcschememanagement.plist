@@ -8,63 +8,56 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
 		</dict>
 		<key>BABAudioPlayer-BABAudioPlayer.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
 		</dict>
 		<key>BABAudioPlayer.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
 		</dict>
 		<key>FMDB.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>4</integer>
 		</dict>
 		<key>GCNetworkReachability.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>7</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>HexColors.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>8</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>JSONKit-NoWarning.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>5</integer>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>6</integer>
 		</dict>
 		<key>SVPullToRefreshImprove.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>9</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>TSMessages.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>10</integer>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>YTKKeyValueStore.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -74,37 +67,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>18A4BA8BFD66F76A5A3AE5290D46B994</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>1AD0BCD8B83E2404009D021EE060E5D3</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>2753EB527196E11BFF244BC1A7AF8219</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>34691C42A75422F0EF3561E98024E44C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>38E55388604D3B6621FA87D8E030A895</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>410B25DF16EA5C5B3E2698F74F9625FB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>4D68D1A58BDA42C22432A6A47361241A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -114,27 +77,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>66459F9142ECCB40F486774EC9D4D798</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>754CA99F5A3CC782E6F407D2E92D59CF</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>762CA0B1B8C80B0FA256637AFEE45612</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>9F12FB4A63E20F601CFB2E64A65B57C1</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A829EEF16544628C24B3D5428FAD3DA9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -144,7 +87,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D0DF193E71C80DFE05EC09BA49A57192</key>
+		<key>BD8F7AF43C9DCECC444CC2EC466AF63E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D337BF4731DC25EDD24CED236226A613</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E5BB6E65C924D3FF7ACDE0AD6BE92EAE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E9EF397B95762DDB254C71DDCB4B1381</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F014C0ADFFC3A252D49FF2AB15DACA84</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F5153FBB4404804D8E479C637B510109</key>
 		<dict>
 			<key>primary</key>
 			<true/>

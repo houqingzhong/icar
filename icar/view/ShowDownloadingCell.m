@@ -48,7 +48,7 @@
 
         _progressView.backgroundColor = [UIColor clearColor];
         _progressView.progress = 0.0;
-        [_progressView setProgressTintColor:[UIColor colorWithHexString:@"#ff7d3d" alpha:0.9]];
+        [_progressView setProgressTintColor:[UIColor colorWithHexString:@"#ff7d3d"]];
         
         [_icon setImage:[UIImage imageNamed:@"download_file_icon"]];
 

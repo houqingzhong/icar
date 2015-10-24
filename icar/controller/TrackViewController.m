@@ -10,7 +10,7 @@
 
 #import "Public.h"
 
-@interface TrackViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface TrackViewController ()
 
 @property (nonatomic,strong) PlayerView  *playerView;
 

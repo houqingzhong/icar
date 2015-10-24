@@ -26,6 +26,14 @@
 
 #define NetworkError @"亲，您的手机网络不太顺畅喔～"
 #define NoMoreData @"亲，您已经看到最后一条了喔～"
+#define NotAllowedPlayError @"亲，您还没有允许移动网络播放喔～"
+
+#define server_data_cahce  @"server_data_cahce"
+#define setting_data_cache @"setting_data_cache"
+
+#define allow_3g_download   @"allow_3g_download"
+#define allow_3g_play       @"allow_3g_play"
+
 typedef enum : NSUInteger {
     DownloadStateDownloadWait = 1,
     DownloadStateDownloadPause,
@@ -54,11 +62,14 @@ const NSInteger PageSize  = 20;
 #import <UIImageView+AFNetworking.h>
 #import <UIScrollView+SVPullToRefresh.h>
 #import <UIScrollView+SVInfiniteScrolling.h>
+#import <YTKKeyValueStore.h>
 #import <BABAudioPlayer.h>
 #import <BABAudioUtilities.h>
 #import <TSMessage.h>
 #import <TSMessageView.h>
 #import <GCNetworkReachability.h>
+
+#import "TableViewSettingList.h"
 
 #import "BABAudioItem.h"
 #import "UIView+Facade.h"
@@ -95,6 +106,9 @@ const NSInteger PageSize  = 20;
 #import "PlayerViewController.h"
 #import "HistoryViewController.h"
 #import "DownloadingViewController.h"
+#import "AboutViewController.h"
+
+#import "MSettingViewController.h"
 
 #import "AppDelegate.h"
 

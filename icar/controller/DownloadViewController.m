@@ -10,7 +10,7 @@
 
 #import "Public.h"
 
-@interface DownloadViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface DownloadViewController ()
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, assign) BOOL isDownling;

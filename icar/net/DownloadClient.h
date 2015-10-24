@@ -16,6 +16,7 @@
 + (DownloadClient *)sharedInstance;
 
 - (void)startDownload;
+
 - (void)stopDownload:(void (^)(BOOL))callback;
 
 - (void)setCompleteHandler:(void (^)())completionHandler identifier:(NSString *)identifier;
@@ -32,6 +33,10 @@
 
 - (BOOL)hasNetwork;
 
--(void)isDownloading:(void (^)(BOOL))callback;
+- (BOOL)isWifi;
+
+- (void)isDownloading:(void (^)(BOOL))callback;
+
+- (void)allow3GDownload;
 
 @end

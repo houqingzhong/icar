@@ -9,7 +9,7 @@
 #import "CategoryViewController.h"
 #import "Public.h"
 
-@interface CategoryViewController()<UITableViewDelegate,UITableViewDataSource>
+@interface CategoryViewController()
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) AlbumListViewController *listViewController;

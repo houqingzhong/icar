@@ -33,7 +33,7 @@
         _duration = [UILabel new];
 
         _playProgress.progress = 0.3;
-        [_playProgress setProgressTintColor:[UIColor colorWithHexString:@"#ff7d3d" alpha:0.8]];
+        [_playProgress setProgressTintColor:[UIColor colorWithHexString:@"#ff7d3d"]];
         
         _title.font = [UIFont systemFontOfSize:24*XA];
         _duration.font = [UIFont systemFontOfSize:16*XA];

@@ -41,7 +41,7 @@
         _playProgress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
         
         _playProgress.progress = 0.0;
-        [_playProgress setProgressTintColor:[UIColor colorWithHexString:@"#ff7d3d" alpha:0.3]];
+        [_playProgress setProgressTintColor:[UIColor colorWithHexString:@"#ff7d3d"]];
         
         _title.font = [UIFont systemFontOfSize:24*XA];
         _duration.font = [UIFont systemFontOfSize:16*XA];

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BaseViewController : UIViewController
+@interface BaseViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,assign) NSInteger      pageNum;
 - (void)startPlayAnimation;

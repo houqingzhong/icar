@@ -10,7 +10,7 @@
 
 #import "Public.h"
 
-@interface DownloadingViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface DownloadingViewController ()
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) NSDictionary *album;

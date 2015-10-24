@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '9D9FB6B5C28DBAFF71229027'
+               BlueprintIdentifier = '0CDD414EDA59812C53205EED'
                BlueprintName = 'BABAudioPlayer-BABAudioPlayer'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'BABAudioPlayer.bundle'>

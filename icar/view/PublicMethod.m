@@ -43,9 +43,11 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval) {
 + (void)saveDataToLocal:(id)obj key:(NSString *)key
 {
     if (obj && key) {
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:obj];
-        [[NSUserDefaults standardUserDefaults] setObject:data forKey:key];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        //NSData *data = [NSKeyedArchiver archivedDataWithRootObject:obj];
+        //[[NSUserDefaults standardUserDefaults] setObject:data forKey:key];
+        //[[NSUserDefaults standardUserDefaults] synchronize];
+        App(app);
+        [app.localStore putObject:obj withId:key intoTable:server_data_cahce];
     }
 
 }
@@ -53,8 +55,11 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval) {
 + (id)getLocalData:(NSString *)key
 {
     if (key) {
-        id obj = [[NSUserDefaults standardUserDefaults] objectForKey:key];
-        return [NSKeyedUnarchiver unarchiveObjectWithData:obj];
+        App(app);
+        id obj = [app.localStore getObjectById:key fromTable:server_data_cahce];
+
+        //id obj = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+        return obj;//[NSKeyedUnarchiver unarchiveObjectWithData:obj];
     }
 
     return nil;
@@ -504,27 +509,41 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval) {
 
 + (void)allowGprsDownload:(BOOL)flag
 {
-    [[NSUserDefaults standardUserDefaults] setObject:@(flag) forKey:@"allow_3g_download"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+//    [[NSUserDefaults standardUserDefaults] setObject:@(flag) forKey:];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+    App(app);
+    [app.localStore putObject:@{allow_3g_download:@(flag)} withId:allow_3g_download intoTable:setting_data_cache];
 
 }
 
 + (void)allowGprsPlay:(BOOL)flag
 {
-    [[NSUserDefaults standardUserDefaults] setObject:@(flag) forKey:@"allow_3g_play"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-
+//    [[NSUserDefaults standardUserDefaults] setObject:@(flag) forKey:@"allow_3g_play"];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+    App(app);
+    [app.localStore putObject:@{allow_3g_play:@(flag)} withId:allow_3g_play intoTable:setting_data_cache];
 }
 
 + (BOOL)isAllowPlayInGprs
 {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"allow_3g_play"];
+    
+    App(app);
+    NSDictionary *dict = [app.localStore getObjectById:allow_3g_play fromTable:setting_data_cache];
+    BOOL allow = [dict[allow_3g_play] boolValue];
+    //BOOL allow = [[NSUserDefaults standardUserDefaults] boolForKey:@"allow_3g_play"];
+    
+    return allow;
 }
 
 + (BOOL)isAllowDownloadInGprs
 {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"allow_3g_download"];
-
+    App(app);
+    //BOOL allow = [[app.localStore getObjectById:allow_3g_download fromTable:setting_data_cache] boolValue];
+    //return [[NSUserDefaults standardUserDefaults] boolForKey:@"allow_3g_download"];
+    NSDictionary *dict = [app.localStore getObjectById:allow_3g_download fromTable:setting_data_cache];
+    BOOL allow = [dict[allow_3g_download] boolValue];
+    
+    return allow;
 }
 
 //http://developer.apple.com/library/ios/#qa/qa1719/_index.html
@@ -562,4 +581,11 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval) {
     return docDir;
 }
 
++ (NSString *)getDocumentPath
+{
+    NSArray *array = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docDir = [array lastObject];
+    
+    return docDir;
+}
 @end

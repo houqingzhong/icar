@@ -32,6 +32,8 @@ PODS:
   - SVPullToRefreshImprove (0.5)
   - TSMessages (0.9.12):
     - HexColors (~> 2.2.0)
+  - YTKKeyValueStore (0.1.2):
+    - FMDB (~> 2.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
@@ -41,6 +43,7 @@ DEPENDENCIES:
   - JSONKit-NoWarning (~> 1.2)
   - SVPullToRefreshImprove (~> 0.5)
   - TSMessages
+  - YTKKeyValueStore (~> 0.1.2)
 
 SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
@@ -51,5 +54,6 @@ SPEC CHECKSUMS:
   JSONKit-NoWarning: 3d27e6f9e6846ecf741e8c64dcadd7d5aa7193cb
   SVPullToRefreshImprove: 5b0760edd107d6ef96c7e09c86fe2d67f6c842a5
   TSMessages: c8cc7b80f2a833af533872cd02010cac061532cc
+  YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.39.0

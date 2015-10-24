@@ -10,7 +10,7 @@
 
 #import "Public.h"
 
-@interface AlbumListViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface AlbumListViewController ()
 
 @property (nonatomic, strong) NSArray *dataArray;
 @property (nonatomic, strong) NSDictionary *dict;

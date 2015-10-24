@@ -8,7 +8,7 @@
 
 #import "HistoryViewController.h"
 
-@interface HistoryViewController ()<UITableViewDelegate,UITableViewDataSource, BABAudioPlayerDelegate>
+@interface HistoryViewController ()<BABAudioPlayerDelegate>
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
 

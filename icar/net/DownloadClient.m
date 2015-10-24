@@ -100,7 +100,6 @@ NSString * const APPURLSessionDownloadTaskDidFailToMoveFileNotification = @"APPU
 {
     
     [_downloadManager invalidateSessionCancelingTasks:YES];
-    [_downloadManager.reachabilityManager stopMonitoring];
     
     _downloadManager = nil;
     
@@ -515,6 +514,14 @@ NSString * const APPURLSessionDownloadTaskDidFailToMoveFileNotification = @"APPU
     
 }
 
+- (BOOL)isWifi
+{
+    App(app);
+    return GCNetworkReachabilityStatusWiFi == app.reachability.currentReachabilityStatus;
+    
+}
+
+
 -(void)isDownloading:(void (^)(BOOL))callback;
 {
 
@@ -540,7 +547,10 @@ NSString * const APPURLSessionDownloadTaskDidFailToMoveFileNotification = @"APPU
     }];
 }
 
-
+- (void)allow3GDownload
+{
+    [self invalidSession];
+}
 
 //
 //- (BOOL)getDownloadPath:(NSDictionary *)album

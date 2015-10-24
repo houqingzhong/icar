@@ -59,5 +59,6 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval);
 
 + (NSString *)getDownloadPath;
 
++ (NSString *)getDocumentPath;
 
 @end

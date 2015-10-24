@@ -114,6 +114,13 @@
     }];
     
     
+    self.localStore = [[YTKKeyValueStore alloc] initDBWithName:@"local-key-value"];
+    NSString *tableName = server_data_cahce;
+    [_localStore createTableWithName:tableName];
+    
+    tableName = setting_data_cache;
+    [_localStore createTableWithName:tableName];
+
 }
 
 - (void)startDownload
@@ -214,6 +221,17 @@
                                                 type:TSMessageNotificationTypeMessage];
                 
                 [[BABAudioPlayer sharedPlayer] stop];
+                return NO;
+            }
+            else if (![[DownloadClient sharedInstance] isWifi] && ![PublicMethod isAllowPlayInGprs])
+            {
+                
+                [TSMessage showNotificationWithTitle:nil
+                                            subtitle:NotAllowedPlayError
+                                                type:TSMessageNotificationTypeMessage];
+                
+                [[BABAudioPlayer sharedPlayer] stop];
+                
                 return NO;
             }
         }

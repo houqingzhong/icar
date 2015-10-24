@@ -155,22 +155,9 @@
     
     _duration.text = [NSString stringWithFormat:@"时长：%@", _duration.text];
     
-    if(dict[@"download_state"])
-    {
-        [_icon setImage:[UIImage imageNamed:@"btn_downloaded"] forState:UIControlStateNormal];
-    }
-    else
-    {
-        [_icon setImage:[UIImage imageNamed:@"download_location"] forState:UIControlStateNormal];
-    }
-    
-    if ([dict[@"download_state"] integerValue] == DownloadStateDownloadFinish) {
-        _playProgress.progress = 1;
-    }
-    else
-    {
-        _playProgress.progress = [dict[@"progress"] floatValue];
-    }
+
+    [self updateDownloadState:[dict[@"download_state"] integerValue] progress:[dict[@"progress"] floatValue]];
+
     
     [self setNeedsLayout];
     
@@ -180,7 +167,42 @@
 {
     _playProgress.progress = progress;
     
+    DownloadState state = DownloadStateDownloadWait;
+    if (progress >= 1.0) {
+        _playProgress.hidden = YES;
+        state = DownloadStateDownloadFinish;
+    }
+    else
+    {
+        _playProgress.hidden = NO;
+        state = DownloadStateDownloading;
+    }
+    
+
+    
+    [self updateDownloadState:state progress:progress];
+    
     [self setNeedsLayout];
+}
+
+- (void)updateDownloadState:(DownloadState)state progress:(CGFloat)progress
+{
+    if (state == DownloadStateDownloadFinish) {
+        [_icon setTitle:nil forState:UIControlStateNormal];
+        [_icon setImage:[UIImage imageNamed:@"btn_downloaded"] forState:UIControlStateNormal];
+        
+        _playProgress.progress = 1;
+        _playProgress.hidden = YES;
+    }
+    else
+    {
+        [_icon setImage:nil forState:UIControlStateNormal];
+        [_icon setTitle:@"下载中" forState:UIControlStateNormal];
+        [_icon.titleLabel setTextColor:[UIColor colorWithHexString:@"#ff7d3d"]];
+        _playProgress.hidden = NO;
+        _playProgress.progress = progress;
+    }
+
 }
 
 + (CGFloat)height:(NSDictionary *)dict

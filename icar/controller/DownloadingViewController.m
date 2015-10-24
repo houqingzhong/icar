@@ -48,19 +48,17 @@
     [super viewWillDisappear:animated];
     NSLog(@"viewWillDisappear");
     
-    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [tempAppDelegate.leftSlideVC setPanEnabled:NO];
-    
     [[DownloadClient sharedInstance] setCallback:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    NSLog(@"viewWillAppear");
- 
-    AppDelegate *tempAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [tempAppDelegate.leftSlideVC setPanEnabled:NO];
+    
+    
+    [self.tableview reloadData];
+    
+    [self updateList:self.album];
     
     WS(ws);
     [[DownloadClient sharedInstance] setCallback:^(CGFloat progress, NSString *albumId, NSString *trackId, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
@@ -71,6 +69,23 @@
                 DownloadingCell *cell = obj;
                 if([cell.dict[@"id"] integerValue] == trackId.integerValue)
                 {
+                    
+                    DownloadState state = 0;
+                    if (progress >= 1.0) {
+                        state = DownloadStateDownloadFinish;
+                        
+                        NSIndexPath *indexPath = [ws.tableview indexPathForCell:cell];
+                        NSMutableDictionary *newTrack = [NSMutableDictionary dictionaryWithDictionary:cell.dict];
+                        newTrack[@"download_state"] = @(DownloadStateDownloadFinish);
+                        [ws.dataArray replaceObjectAtIndex:indexPath.row withObject:newTrack];
+                    }
+                    else
+                    {
+                        state = DownloadStateDownloading;
+                    }
+                    
+                    [PublicMethod updateDownloadState:albumId trackId:trackId progress:progress state:state callback:nil];
+                    
                     [cell setProgress:progress];
                 }
                 
@@ -217,8 +232,6 @@
 {
     
     self.album = dict;
-    
-//    [self updateHeader:dict];
     
     self.title = dict[@"title"];
     

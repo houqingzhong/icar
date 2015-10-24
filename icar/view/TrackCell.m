@@ -125,15 +125,29 @@
     
     _duration.text = [NSString stringWithFormat:@"时长：%@", _duration.text];
 
-    if(dict[@"download_state"])
+    if ([dict[@"download_state"] integerValue] == DownloadStateDownloadFinish) {
+        [_icon setTitle:nil forState:UIControlStateNormal];
+        [_icon setImage:[UIImage imageNamed:@"btn_downloaded"] forState:UIControlStateNormal];//download_location
+
+        _playProgress.progress = 1;
+        _playProgress.hidden = YES;
+    }
+    else if ([dict[@"download_state"] integerValue] == DownloadStateDownloading)
     {
-        [_icon setImage:[UIImage imageNamed:@"btn_downloaded"] forState:UIControlStateNormal];
+        [_icon setImage:nil forState:UIControlStateNormal];
+        [_icon setTitle:@"下载中" forState:UIControlStateNormal];
+        [_icon.titleLabel setTextColor:[UIColor colorWithHexString:@"#ff7d3d"]];
+
+        _playProgress.hidden = NO;
     }
     else
     {
+        
+        [_icon setTitle:nil forState:UIControlStateNormal];
         [_icon setImage:[UIImage imageNamed:@"download_location"] forState:UIControlStateNormal];
+        _playProgress.hidden = NO;
+        _playProgress.progress = [dict[@"progress"] floatValue];
     }
-
 }
 
 

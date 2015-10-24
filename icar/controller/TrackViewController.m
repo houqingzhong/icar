@@ -348,7 +348,8 @@
         return;
     }
     
-    
+    [[BABAudioPlayer sharedPlayer] pause];
+
     if (![NSObject isNull:track[@"play_path_32"]]) {
         
         NSURL *fileUrl = [[DownloadClient sharedInstance] getDownloadFile:album track:track];

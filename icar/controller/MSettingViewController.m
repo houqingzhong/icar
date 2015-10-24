@@ -30,7 +30,12 @@
 
     self.icon_arrow = @"CellArrow";
     
-    
+    UIButton *menuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    menuBtn.frame = CGRectMake(0, 0, 20, 18);
+    [menuBtn setBackgroundImage:[UIImage imageNamed:@"menu"] forState:UIControlStateNormal];
+    [menuBtn addTarget:self action:@selector(openOrCloseLeftList) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menuBtn];
+
 
     
     CFSettingSwitchItem *allowPlay3G =[CFSettingSwitchItem itemWithIcon:nil title:@"使用2G/3G/4G网络播放"];
@@ -80,6 +85,21 @@
     [self.dataList addObject:group1];
 
     
+}
+
+
+- (void)openOrCloseLeftList
+{
+
+    App(app);
+    if (app.leftSlideVC.closed)
+    {
+        [app.leftSlideVC openLeftView];
+    }
+    else
+    {
+        [app.leftSlideVC closeLeftView];
+    }
 }
 
 @end

@@ -158,8 +158,6 @@
     App(app);
     [app play:self.album track:dict target:nil slider:nil];
     
-    [app.playViewController updateList:dict pageNum:1];
-
     NavPlayButton *btn = self.navigationItem.rightBarButtonItem.customView;
     [btn startAnimation];
 

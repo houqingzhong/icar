@@ -110,18 +110,29 @@
     _title.text = dict[@"track"][@"title"];
     _playTime.text = [NSString stringWithFormat:@"%@/%@", [NSObject getDurationText:[dict[@"track"][@"time"] floatValue]], [NSObject getDurationText:[dict[@"track"][@"duration"] floatValue]]];
     
-    if ([dict[@"track"][@"download_state"] integerValue] == DownloadStateDownloadFinish) {
+
+    DownloadState state = 1;
+    CGFloat progress = 0;
+    NSURL *fileUrl = [[DownloadClient sharedInstance] getDownloadFile:dict track:dict[@"track"]];
+
+    if (fileUrl) {
+        state = DownloadStateDownloadFinish;
+        progress = 1.0;
         _localIcon.text = @"本地";
+        
     }
     else if ([dict[@"track"][@"download_state"] integerValue] > 0)
-
     {
+        state = DownloadStateDownloading;
         _localIcon.text = @"下载中";
     }
     else
     {
+        state = DownloadStateDownloadWait;
         _localIcon.text = @"在线";
     }
+
+    [PublicMethod updateDownloadState:dict[@"id"] trackId:dict[@"track"][@"id"] progress:progress state:state callback:nil];
 
     [self setNeedsLayout];
     

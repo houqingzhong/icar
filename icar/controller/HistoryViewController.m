@@ -111,9 +111,7 @@
     NSDictionary *dict = _dataArray[indexPath.row];
     App(app);
     [app play:dict track:dict[@"track"] target:self slider:nil];
-    
-    [app.playViewController updateList:dict pageNum:1];
-    
+        
     NavPlayButton *btn = self.navigationItem.rightBarButtonItem.customView;
     [btn startAnimation];
 }

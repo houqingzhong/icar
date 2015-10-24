@@ -196,6 +196,13 @@
         return NO;
     }
     
+    if ([self.currentPlayInfo[@"track"][@"id"] integerValue] == [track[@"id"] integerValue]) {
+        
+        [[BABAudioPlayer sharedPlayer] play];
+        
+        self.isPlayed = YES;
+        return YES;
+    }
     
     if (nil == [BABAudioPlayer sharedPlayer]) {
         BABAudioPlayer *player = [BABAudioPlayer new];

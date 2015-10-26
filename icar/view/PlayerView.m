@@ -23,7 +23,6 @@
     
     UIActivityIndicatorView *_activityView;
     
-    PlayModeType    _playModeType;
 }
 
 @property (nonatomic, strong) NSDictionary *album;

@@ -113,12 +113,30 @@
     App(app);
     [app updateTrackViewControler:dict pageNum:1];
     
-    [app.playViewController play:dict track:dict[@"track"]];
+    PlayType playType = [app.playViewController play:dict track:dict[@"track"]];
+    if (PlayTypeNetError == playType) {
+        [self playNextIndexPath:[app.playViewController getPlayMode] currentIndexPath:indexPath dataArray:_dataArray];
+    }
+    
     
     [BABAudioPlayer sharedPlayer].delegate = self;
     
     NavPlayButton *btn = self.navigationItem.rightBarButtonItem.customView;
     [btn startAnimation];
+}
+
+
+- (void)playNextIndexPath:(PlayModeType)playMode currentIndexPath:(NSIndexPath *)currentIndexPath dataArray:(NSArray *)dataArray
+{
+    App(app);
+    NSDictionary *dict = dataArray[currentIndexPath.row];
+    PlayType playType = [app.playViewController play:dict track:dict[@"track"]];
+    while (playType == PlayTypeNetError) {
+        NSIndexPath *newIndexPath = [PublicMethod getNextPlayIndexPath:[app.playViewController getPlayMode] currentIndexPath:currentIndexPath dataArray:_dataArray];
+        if (newIndexPath.row != currentIndexPath.row && newIndexPath.section != currentIndexPath.section) {
+            [self playNextIndexPath:playMode currentIndexPath:newIndexPath dataArray:dataArray];
+        }
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
@@ -196,6 +214,7 @@
 
     }];
 }
+
 
 #pragma BABAudioPlayerDelegate
 - (void)audioPlayer:(BABAudioPlayer *)player didChangeElapsedTime:(NSTimeInterval)elapsedTime percentage:(float)percentage

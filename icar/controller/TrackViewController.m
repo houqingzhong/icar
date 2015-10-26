@@ -188,11 +188,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    if (![[DownloadClient sharedInstance] hasNetwork]) {
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        return;
-    }
-    
     self.indexPath = indexPath;
 
     NSDictionary *dict = _dataArray[indexPath.row];
@@ -208,11 +203,11 @@
 }
 
 
-- (void)play:(NSDictionary *)album track:(NSDictionary *)track
+- (PlayType)play:(NSDictionary *)album track:(NSDictionary *)track
 {
     [_playerView setData:album track:track];
     
-    [self play:album track:track target:_playerView slider:[_playerView getProgressView]];
+    return [self play:album track:track target:_playerView slider:[_playerView getProgressView]];
 }
 
 
@@ -334,22 +329,23 @@
     
 }
 
-- (void)play:(NSDictionary *)album track:(NSDictionary *)track target:(id<BABAudioPlayerDelegate>)target slider:(UISlider *)slider
+- (PlayType)play:(NSDictionary *)album track:(NSDictionary *)track target:(id<BABAudioPlayerDelegate>)target slider:(UISlider *)slider
 {
     if (!album || !track) {
         
-        return;
+        return PlayTypeDataError;
     }
 
     App(app);
     
     if ([self.track[@"id"] integerValue] == [track[@"id"] integerValue]) {
         
-        return;
+        return PlayTypeSame;
     }
     
     [[BABAudioPlayer sharedPlayer] pause];
 
+    PlayType playType = PlayTypeOnline;
     if (![NSObject isNull:track[@"play_path_32"]]) {
         
         NSURL *fileUrl = [[DownloadClient sharedInstance] getDownloadFile:album track:track];
@@ -358,6 +354,7 @@
         if (fileUrl) {
             playItem = [BABAudioItem audioItemWithURL:fileUrl];
             [playItem setLocal:YES];
+            playType = PlayTypeLocal;
         }
         else
         {
@@ -369,7 +366,7 @@
                                                 type:TSMessageNotificationTypeMessage];
                 
                 [[BABAudioPlayer sharedPlayer] stop];
-                return;
+                return PlayTypeNetError;
             }
             else if (![[DownloadClient sharedInstance] isWifi] && ![PublicMethod isAllowPlayInGprs])
             {
@@ -380,11 +377,12 @@
                 
                 [[BABAudioPlayer sharedPlayer] stop];
                 
-                return;
+                return PlayTypeNetError;
             }
             
             playItem = [BABAudioItem audioItemWithURL:fileUrl];
 
+            playType = PlayTypeOnline;
         }
 
         [[BABAudioPlayer sharedPlayer] queueItem:playItem];
@@ -392,7 +390,7 @@
     }
     else
     {
-        return;
+        return PlayTypeDataError;
     }
     
     
@@ -432,6 +430,8 @@
         });
         
     }];
+    
+    return  playType;
 }
 
 
@@ -469,5 +469,10 @@
         }
         
     }
+}
+
+- (PlayModeType)getPlayMode
+{
+    return _playerView.playModeType;
 }
 @end

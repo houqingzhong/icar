@@ -196,9 +196,9 @@
     
 }
 
-- (void)play:(NSDictionary *)album track:(NSDictionary *)track
+- (PlayType)play:(NSDictionary *)album track:(NSDictionary *)track
 {
-    [_playViewController play:album track:track];
+     return [_playViewController play:album track:track];
 }
 
 - (void)updateTrackViewControler:(NSDictionary *)album pageNum:(NSInteger)pageNum

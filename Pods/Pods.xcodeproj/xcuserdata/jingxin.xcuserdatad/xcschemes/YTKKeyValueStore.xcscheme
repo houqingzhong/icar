@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FFC946151BD1CA32001B2B8A"
-               BuildableName = "&#x8f66;&#x8f7d;&#x97f3;&#x4e50;&#x53f0;.app"
-               BlueprintName = "icar"
-               ReferencedContainer = "container:icar.xcodeproj">
+               BlueprintIdentifier = "F5153FBB4404804D8E479C637B510109"
+               BuildableName = "libYTKKeyValueStore.a"
+               BlueprintName = "YTKKeyValueStore"
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,26 +28,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FFC9462E1BD1CA32001B2B8A"
-               BuildableName = "icarTests.xctest"
-               BlueprintName = "icarTests"
-               ReferencedContainer = "container:icar.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FFC946151BD1CA32001B2B8A"
-            BuildableName = "&#x8f66;&#x8f7d;&#x97f3;&#x4e50;&#x53f0;.app"
-            BlueprintName = "icar"
-            ReferencedContainer = "container:icar.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -61,16 +42,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FFC946151BD1CA32001B2B8A"
-            BuildableName = "&#x8f66;&#x8f7d;&#x97f3;&#x4e50;&#x53f0;.app"
-            BlueprintName = "icar"
-            ReferencedContainer = "container:icar.xcodeproj">
+            BlueprintIdentifier = "F5153FBB4404804D8E479C637B510109"
+            BuildableName = "libYTKKeyValueStore.a"
+            BlueprintName = "YTKKeyValueStore"
+            ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -80,16 +60,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FFC946151BD1CA32001B2B8A"
-            BuildableName = "&#x8f66;&#x8f7d;&#x97f3;&#x4e50;&#x53f0;.app"
-            BlueprintName = "icar"
-            ReferencedContainer = "container:icar.xcodeproj">
+            BlueprintIdentifier = "F5153FBB4404804D8E479C637B510109"
+            BuildableName = "libYTKKeyValueStore.a"
+            BlueprintName = "YTKKeyValueStore"
+            ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

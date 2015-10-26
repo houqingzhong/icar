@@ -589,4 +589,39 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval) {
     
     return docDir;
 }
+
++ (NSIndexPath *)getNextPlayIndexPath:(PlayModeType)playMode currentIndexPath:(NSIndexPath *)currentIndexPath dataArray:(NSArray *)dataArray
+{
+    
+    NSIndexPath * indexpath = nil;
+    if (dataArray.count == 0) {
+        return indexpath;
+    }
+    
+    if (PlayModeTypeSingle == playMode) {
+        
+        if (nil == currentIndexPath) {
+            indexpath = [NSIndexPath indexPathForRow:0 inSection:0];
+        }
+        
+    }
+    else
+    {
+        if (nil == currentIndexPath) {
+            indexpath = [NSIndexPath indexPathForRow:0 inSection:0];
+        }
+        else if (currentIndexPath.row + 1 <= dataArray.count-1)
+        {
+            indexpath = [NSIndexPath indexPathForRow:currentIndexPath.row+1 inSection:currentIndexPath.section];
+        }
+        else
+        {
+            if (PlayModeTypeLoop == playMode) {
+                indexpath = [NSIndexPath indexPathForRow:0 inSection:0];
+            }
+        }
+    }
+    return indexpath;
+}
+
 @end

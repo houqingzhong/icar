@@ -55,6 +55,25 @@ typedef enum : NSUInteger {
     ServerDataRequestTypeTrack,
 } ServerDataRequestType;
 
+typedef enum : NSUInteger {
+    PlayTypeLocal,
+    PlayTypeOnline,
+    PlayTypeSame,
+    PlayTypeNetError,
+    PlayTypeDataError,
+} PlayType;
+
+
+typedef enum : NSUInteger {
+    PlayerActionTypeNext,
+} PlayerActionType;
+
+typedef enum : NSUInteger {
+    PlayModeTypeList,
+    PlayModeTypeSingle,
+    PlayModeTypeLoop,
+} PlayModeType;
+
 #define MPageSize 20
 
 #import <JSONKit.h>

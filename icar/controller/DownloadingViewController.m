@@ -155,11 +155,30 @@
     
     App(app);
     [app updateTrackViewControler:self.album pageNum:1];
-    [app play:self.album track:dict];
+    PlayType playType = [app play:self.album track:dict];
+    
+    if (PlayTypeNetError == playType) {
+        [self playNextIndexPath:[app.playViewController getPlayMode] currentIndexPath:indexPath dataArray:_dataArray];
+    }
+    
     
     NavPlayButton *btn = self.navigationItem.rightBarButtonItem.customView;
     [btn startAnimation];
 
+}
+
+
+- (void)playNextIndexPath:(PlayModeType)playMode currentIndexPath:(NSIndexPath *)currentIndexPath dataArray:(NSArray *)dataArray
+{
+    App(app);
+    NSDictionary *dict = dataArray[currentIndexPath.row];
+    PlayType playType = [app play:self.album track:dict];
+    while (playType == PlayTypeNetError) {
+        NSIndexPath *newIndexPath = [PublicMethod getNextPlayIndexPath:[app.playViewController getPlayMode] currentIndexPath:currentIndexPath dataArray:_dataArray];
+        if (newIndexPath.row != currentIndexPath.row && newIndexPath.section != currentIndexPath.section) {
+            [self playNextIndexPath:playMode currentIndexPath:newIndexPath dataArray:dataArray];
+        }
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath

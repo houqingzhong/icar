@@ -10,7 +10,7 @@
 #import "Public.h"
 
 @class HistoryViewController;
-
+@class TrackViewController;
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
@@ -32,7 +32,7 @@
 
 - (void)jumpToPlayViewController;
 
-- (void)play:(NSDictionary *)album track:(NSDictionary *)track;
+- (PlayType)play:(NSDictionary *)album track:(NSDictionary *)track;
 
 - (void)updateTrackViewControler:(NSDictionary *)album pageNum:(NSInteger)pageNum;
 

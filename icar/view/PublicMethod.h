@@ -61,4 +61,5 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval);
 
 + (NSString *)getDocumentPath;
 
++ (NSIndexPath *)getNextPlayIndexPath:(PlayModeType)playMode currentIndexPath:(NSIndexPath *)currentIndexPath dataArray:(NSArray *)dataArray;
 @end

@@ -23,7 +23,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     
     if (self) {
-        
+        _viewContrllerType = ViewContrllerTypeMenu;
     }
     
     return self;

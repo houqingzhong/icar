@@ -196,14 +196,12 @@
     
 }
 
-- (PlayType)play:(NSDictionary *)album track:(NSDictionary *)track
-{
-     return [_playViewController play:album track:track];
-}
-
-- (void)updateTrackViewControler:(NSDictionary *)album pageNum:(NSInteger)pageNum
+- (void)updateTrackViewControler:(NSDictionary *)album track:(NSDictionary *)track pageNum:(NSInteger)pageNum
 {
     [_playViewController updateList:album pageNum:pageNum];
+    if (track) {
+        [_playViewController play:album track:track];
+    }
 }
 
 

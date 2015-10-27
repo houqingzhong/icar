@@ -12,8 +12,9 @@
 @interface TrackViewController : BaseViewController
 @property (nonatomic, strong) NSDictionary *album;
 @property (nonatomic, strong) NSDictionary *track;
+@property (nonatomic, strong) NSMutableDictionary  *playingInfo;
 
-- (void)updateList:(NSDictionary *)dict  pageNum:(NSInteger)pageNum;
+- (void)updateList:(NSDictionary *)album  pageNum:(NSInteger)pageNum;
 
 - (PlayType)play:(NSDictionary *)album track:(NSDictionary *)track;
 

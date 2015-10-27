@@ -13,9 +13,7 @@
 @interface TrackViewController ()
 
 @property (nonatomic,strong) PlayerView  *playerView;
-
 @property (nonatomic, strong) NSArray *dataArray;
-
 @property (nonatomic, strong) NSIndexPath *indexPath;
 
 
@@ -28,7 +26,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     
     if (self) {
-        
+        _playingInfo = [NSMutableDictionary new];
     }
     
     return self;
@@ -44,7 +42,7 @@
     self.tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetMaxX(self.view.frame), CGRectGetMaxY(self.view.frame) - 120*XA) style:UITableViewStylePlain];
     self.tableview.dataSource = self;
     self.tableview.delegate  = self;
-    //_tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+
     [self.view addSubview:self.tableview];
     
     self.playerView = [PlayerView new];
@@ -65,45 +63,18 @@
         
         if (PlayerActionTypeNext == actionType) {
             
-            if (PlayModeTypeSingle == playMode) {
-                
-                if (nil == ws.indexPath) {
-                    ws.indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-                    [ws.tableview selectRowAtIndexPath:ws.indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
-                }
-             
-                NSDictionary *dict = ws.dataArray[ws.indexPath.row];
-                [ws play:ws.album track:dict];
-                
+
+            NSIndexPath *nextPlayIndexPath = [PublicMethod getNextPlayIndexPath:playMode currentIndexPath:ws.indexPath dataArray:ws.dataArray];
+            
+            if (![[DownloadClient sharedInstance] hasNetwork]) {
+                [ws playNextLocal];
             }
             else
             {
-                if (nil == ws.indexPath) {
-                    ws.indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-                    [ws.tableview selectRowAtIndexPath:ws.indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
-                    NSDictionary *dict = ws.dataArray[ws.indexPath.row];
-                    [ws play:ws.album track:dict];
-
-                }
-                else if (ws.indexPath.row + 1 <= ws.dataArray.count-1)
-                {
-                    ws.indexPath = [NSIndexPath indexPathForRow:ws.indexPath.row+1 inSection:ws.indexPath.section];
-                    
-                    [ws.tableview selectRowAtIndexPath:ws.indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
-
-                    NSDictionary *dict = ws.dataArray[ws.indexPath.row];
-                    [ws play:ws.album track:dict];
-                }
-                else
-                {
-                    if (PlayModeTypeLoop == playMode) {
-                        ws.indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-                        NSDictionary *dict = ws.dataArray[ws.indexPath.row];
-                        [ws play:ws.album track:dict];
-                    }
-
-                }
+                NSDictionary *track = ws.dataArray[nextPlayIndexPath.row];
                 
+                [ws play:ws.album track:track];
+
             }
         }
     }];
@@ -240,7 +211,7 @@
 
 #pragma method
 
-- (void)updateList:(NSDictionary *)dict  pageNum:(NSInteger)pageNum
+- (void)updateList:(NSDictionary *)album  pageNum:(NSInteger)pageNum
 {
     
     if (1 == pageNum) {
@@ -252,14 +223,14 @@
     }
     self.pageNum = pageNum;
     
-    self.album = dict;
+    self.album = album;
     
-    self.title = dict[@"title"];
+    self.title = album[@"title"];
     
     
     WS(ws);
-    NSString *key = [NSString stringWithFormat:@"%@:%@:%@", @(ServerDataRequestTypeTrack), dict[@"id"], @(pageNum)];
-    [HttpEngine getDataFromServer:[NSString stringWithFormat:@"%@tracks/%@/%ld/%ld", HOST, dict[@"id"], (long)self.pageNum, (long)MPageSize] key:key callback:^(NSArray *arr) {
+    NSString *key = [NSString stringWithFormat:@"%@:%@:%@", @(ServerDataRequestTypeTrack), album[@"id"], @(pageNum)];
+    [HttpEngine getDataFromServer:[NSString stringWithFormat:@"%@tracks/%@/%ld/%ld", HOST, album[@"id"], (long)self.pageNum, (long)MPageSize] key:key callback:^(NSArray *arr) {
         
         [ws.tableview.pullToRefreshView stopAnimating];
         [self.tableview.infiniteScrollingView stopAnimating];
@@ -295,7 +266,7 @@
         }
 
         
-        [PublicMethod getDownloadTracks:dict[@"id"] callback:^(NSArray *ts) {
+        [PublicMethod getDownloadTracks:album[@"id"] callback:^(NSArray *ts) {
 
             [newTracks enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 
@@ -322,6 +293,7 @@
                     [ws.tableview insertRowsAtIndexPaths:arrCells withRowAnimation:UITableViewRowAnimationAutomatic];
                 }
 
+                [self setPlayState:album];
             });
             
         }];
@@ -404,9 +376,8 @@
     app.isPlayed = YES;
     app.isStoped = NO;
 
-    self.album = album;
-    self.track = track;
-
+    self.playingInfo[@"album_id"] = album[@"id"];
+    self.playingInfo[@"track_id"] = track[@"id"];
     
     [PublicMethod getHistoryTrack:track[@"id"] callback:^(NSDictionary * localTrack) {
         
@@ -416,8 +387,13 @@
                 
                 float value = [localTrack[@"time"] doubleValue]/[track[@"duration"] floatValue];
                 
+                NSTimeInterval time = [localTrack[@"time"] doubleValue];
+                if (value >= 1.0) {
+                    value = 0;
+                    time = 0;
+                }
                 
-                [[BABAudioPlayer sharedPlayer] seekToTime:[localTrack[@"time"] doubleValue]];
+                [[BABAudioPlayer sharedPlayer] seekToTime:time];
                 
                 
                 slider.value = value;
@@ -440,18 +416,14 @@
     App(app);
     if(app.isPlayed)
     {
-        
-        NSDictionary *lastPlayalbum = self.album;
-        NSDictionary *lastPlaytrack = self.track;
-        
-        if (lastPlayalbum && [lastPlayalbum[@"id"] integerValue] == [album[@"id"] integerValue]) {
+        if (album && [album[@"id"] integerValue] == [self.playingInfo[@"album_id"] integerValue]) {
             
             BOOL isExist = NO;
             NSInteger index = 0;
             for(NSInteger i = 0; i < self.dataArray.count; i++)
             {
                 NSDictionary *track = self.dataArray[i];
-                if ([track[@"id"] integerValue] == [lastPlaytrack[@"id"] integerValue]) {
+                if ([track[@"id"] integerValue] == [self.playingInfo[@"track_id"] integerValue]) {
                     isExist = YES;
                     index = i;
                     break;
@@ -462,6 +434,9 @@
             if (isExist) {
                 
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+                
+                self.indexPath = indexPath;
+                
                 [self.tableview selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
                 
             }
@@ -475,4 +450,38 @@
 {
     return _playerView.playModeType;
 }
+
+
+- (void)playNextLocal
+{
+    WS(ws);
+    [_dataArray enumerateObjectsUsingBlock:^(id  _Nonnull track, NSUInteger idx, BOOL * _Nonnull stop)
+    {
+        if (idx > ws.indexPath.row ) {
+            NSURL *fileUrl = [[DownloadClient sharedInstance] getDownloadFile:ws.album track:track];
+            if (fileUrl) {
+                [ws setPlayState:ws.album];
+                [ws play:ws.album track:track];
+            }
+        }
+    }];
+    
+}
+//- (void)playNextIndexPath:(PlayModeType)playMode currentIndexPath:(NSIndexPath *)currentIndexPath dataArray:(NSArray *)dataArray
+//{
+//    NSIndexPath *newIndexPath = [PublicMethod getNextPlayIndexPath:[self getPlayMode] currentIndexPath:currentIndexPath dataArray:_dataArray];
+//    NSDictionary *dict = dataArray[currentIndexPath.row];
+//    PlayType playType = [self play:self.album track:dict];
+//    while (playType == PlayTypeNetError) {
+//        NSIndexPath *newIndexPath = [PublicMethod getNextPlayIndexPath:[self getPlayMode] currentIndexPath:currentIndexPath dataArray:_dataArray];
+//        if (newIndexPath && newIndexPath.row != currentIndexPath.row) {
+//            [self playNextIndexPath:playMode currentIndexPath:newIndexPath dataArray:dataArray];
+//        }
+//        else
+//        {
+//            playType = PlayTypeDataError;
+//        }
+//    }
+//}
+
 @end

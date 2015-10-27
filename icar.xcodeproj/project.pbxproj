@@ -10,6 +10,9 @@
 		1D90051E1BD4C59400769476 /* DownloadClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D90051D1BD4C59400769476 /* DownloadClient.m */; };
 		1D9005401BD8E32C00769476 /* ShowDownloadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D90053F1BD8E32C00769476 /* ShowDownloadingCell.m */; };
 		1D9005431BD9010B00769476 /* AddNewDownloadHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9005421BD9010B00769476 /* AddNewDownloadHeaderView.m */; };
+		1DFBEA711BDFA0BC0026572A /* BackgroundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DFBEA701BDFA0BC0026572A /* BackgroundManager.m */; };
+		1DFBEA741BDFA13A0026572A /* MPAudioSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DFBEA731BDFA13A0026572A /* MPAudioSession.m */; };
+		1DFBEA761BDFA2640026572A /* mute.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1DFBEA751BDFA2640026572A /* mute.mp3 */; };
 		917D8FF6E2F42A1190138338 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D37CE3D38DCCC55E90F75AE /* libPods.a */; };
 		FF1F9F1C1BD3691B0099D1F0 /* ProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF1F9F1B1BD3691B0099D1F0 /* ProgressView.m */; };
 		FF1F9F1F1BD3819F0099D1F0 /* PublicMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = FF1F9F1E1BD3819F0099D1F0 /* PublicMethod.m */; };
@@ -39,22 +42,22 @@
 		FF59C5531BD3004D00858FE2 /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF59C5521BD3004D00858FE2 /* PlayerViewController.m */; };
 		FF59C5561BD3012200858FE2 /* PlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF59C5551BD3012200858FE2 /* PlayerView.m */; };
 		FFC07DD51BD9358E0001C671 /* HistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DD41BD9358E0001C671 /* HistoryCell.m */; };
-		FFC07DF91BDB28870001C671 /* CFSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DD91BDB28860001C671 /* CFSettingTableViewController.m */; settings = {ASSET_TAGS = (); }; };
-		FFC07DFA1BDB28870001C671 /* CFSettingArrowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DDC1BDB28860001C671 /* CFSettingArrowItem.m */; settings = {ASSET_TAGS = (); }; };
-		FFC07DFB1BDB28870001C671 /* CFSettingGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DDE1BDB28860001C671 /* CFSettingGroup.m */; settings = {ASSET_TAGS = (); }; };
-		FFC07DFC1BDB28870001C671 /* CFSettingIconArrowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DE01BDB28860001C671 /* CFSettingIconArrowItem.m */; settings = {ASSET_TAGS = (); }; };
-		FFC07DFD1BDB28870001C671 /* CFSettingIconItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DE21BDB28860001C671 /* CFSettingIconItem.m */; settings = {ASSET_TAGS = (); }; };
-		FFC07DFE1BDB28870001C671 /* CFSettingItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DE41BDB28860001C671 /* CFSettingItem.m */; settings = {ASSET_TAGS = (); }; };
-		FFC07DFF1BDB28870001C671 /* CFSettingLabelArrowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DE61BDB28860001C671 /* CFSettingLabelArrowItem.m */; settings = {ASSET_TAGS = (); }; };
-		FFC07E001BDB28870001C671 /* CFSettingLabelItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DE81BDB28860001C671 /* CFSettingLabelItem.m */; settings = {ASSET_TAGS = (); }; };
-		FFC07E011BDB28870001C671 /* CFSettingSwitchItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DEA1BDB28860001C671 /* CFSettingSwitchItem.m */; settings = {ASSET_TAGS = (); }; };
-		FFC07E021BDB28870001C671 /* CFSaveTool.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DEE1BDB28860001C671 /* CFSaveTool.m */; settings = {ASSET_TAGS = (); }; };
-		FFC07E031BDB28870001C671 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DF11BDB28860001C671 /* UIColor+Hex.m */; settings = {ASSET_TAGS = (); }; };
-		FFC07E041BDB28870001C671 /* CFIconArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DF41BDB28860001C671 /* CFIconArrowView.m */; settings = {ASSET_TAGS = (); }; };
-		FFC07E051BDB28870001C671 /* CFLabelArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DF61BDB28870001C671 /* CFLabelArrowView.m */; settings = {ASSET_TAGS = (); }; };
-		FFC07E061BDB28870001C671 /* CFSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DF81BDB28870001C671 /* CFSettingCell.m */; settings = {ASSET_TAGS = (); }; };
-		FFC07E091BDB28C60001C671 /* MSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07E081BDB28C60001C671 /* MSettingViewController.m */; settings = {ASSET_TAGS = (); }; };
-		FFC07E0C1BDB32C20001C671 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07E0B1BDB32C20001C671 /* AboutViewController.m */; settings = {ASSET_TAGS = (); }; };
+		FFC07DF91BDB28870001C671 /* CFSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DD91BDB28860001C671 /* CFSettingTableViewController.m */; };
+		FFC07DFA1BDB28870001C671 /* CFSettingArrowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DDC1BDB28860001C671 /* CFSettingArrowItem.m */; };
+		FFC07DFB1BDB28870001C671 /* CFSettingGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DDE1BDB28860001C671 /* CFSettingGroup.m */; };
+		FFC07DFC1BDB28870001C671 /* CFSettingIconArrowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DE01BDB28860001C671 /* CFSettingIconArrowItem.m */; };
+		FFC07DFD1BDB28870001C671 /* CFSettingIconItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DE21BDB28860001C671 /* CFSettingIconItem.m */; };
+		FFC07DFE1BDB28870001C671 /* CFSettingItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DE41BDB28860001C671 /* CFSettingItem.m */; };
+		FFC07DFF1BDB28870001C671 /* CFSettingLabelArrowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DE61BDB28860001C671 /* CFSettingLabelArrowItem.m */; };
+		FFC07E001BDB28870001C671 /* CFSettingLabelItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DE81BDB28860001C671 /* CFSettingLabelItem.m */; };
+		FFC07E011BDB28870001C671 /* CFSettingSwitchItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DEA1BDB28860001C671 /* CFSettingSwitchItem.m */; };
+		FFC07E021BDB28870001C671 /* CFSaveTool.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DEE1BDB28860001C671 /* CFSaveTool.m */; };
+		FFC07E031BDB28870001C671 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DF11BDB28860001C671 /* UIColor+Hex.m */; };
+		FFC07E041BDB28870001C671 /* CFIconArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DF41BDB28860001C671 /* CFIconArrowView.m */; };
+		FFC07E051BDB28870001C671 /* CFLabelArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DF61BDB28870001C671 /* CFLabelArrowView.m */; };
+		FFC07E061BDB28870001C671 /* CFSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DF81BDB28870001C671 /* CFSettingCell.m */; };
+		FFC07E091BDB28C60001C671 /* MSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07E081BDB28C60001C671 /* MSettingViewController.m */; };
+		FFC07E0C1BDB32C20001C671 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07E0B1BDB32C20001C671 /* AboutViewController.m */; };
 		FFC9461C1BD1CA32001B2B8A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC9461B1BD1CA32001B2B8A /* main.m */; };
 		FFC9461F1BD1CA32001B2B8A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC9461E1BD1CA32001B2B8A /* AppDelegate.m */; };
 		FFC946251BD1CA32001B2B8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFC946231BD1CA32001B2B8A /* Main.storyboard */; };
@@ -71,6 +74,11 @@
 		1D90053F1BD8E32C00769476 /* ShowDownloadingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowDownloadingCell.m; sourceTree = "<group>"; };
 		1D9005411BD9010B00769476 /* AddNewDownloadHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNewDownloadHeaderView.h; sourceTree = "<group>"; };
 		1D9005421BD9010B00769476 /* AddNewDownloadHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNewDownloadHeaderView.m; sourceTree = "<group>"; };
+		1DFBEA6F1BDFA0BC0026572A /* BackgroundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundManager.h; sourceTree = "<group>"; };
+		1DFBEA701BDFA0BC0026572A /* BackgroundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundManager.m; sourceTree = "<group>"; };
+		1DFBEA721BDFA13A0026572A /* MPAudioSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPAudioSession.h; sourceTree = "<group>"; };
+		1DFBEA731BDFA13A0026572A /* MPAudioSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPAudioSession.m; sourceTree = "<group>"; };
+		1DFBEA751BDFA2640026572A /* mute.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mute.mp3; sourceTree = "<group>"; };
 		4D37CE3D38DCCC55E90F75AE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		537260B9D4BAB35207CE5F11 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		DEC02284736AFB0EAE897408 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -237,6 +245,11 @@
 		FF59C4D91BD1F39700858FE2 /* net */ = {
 			isa = PBXGroup;
 			children = (
+				1DFBEA751BDFA2640026572A /* mute.mp3 */,
+				1DFBEA721BDFA13A0026572A /* MPAudioSession.h */,
+				1DFBEA731BDFA13A0026572A /* MPAudioSession.m */,
+				1DFBEA6F1BDFA0BC0026572A /* BackgroundManager.h */,
+				1DFBEA701BDFA0BC0026572A /* BackgroundManager.m */,
 				FF59C4DA1BD1F3CD00858FE2 /* HttpEngine.h */,
 				FF59C4DB1BD1F3CD00858FE2 /* HttpEngine.m */,
 				1D90051C1BD4C59400769476 /* DownloadClient.h */,
@@ -540,6 +553,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF23A2EE1BD3BE3E00440792 /* Images.xcassets in Resources */,
+				1DFBEA761BDFA2640026572A /* mute.mp3 in Resources */,
 				FFC946251BD1CA32001B2B8A /* Main.storyboard in Resources */,
 				FFC9462A1BD1CA32001B2B8A /* LaunchScreen.xib in Resources */,
 			);
@@ -609,6 +623,7 @@
 				FF59C5561BD3012200858FE2 /* PlayerView.m in Sources */,
 				FF59C5471BD2838E00858FE2 /* TrackCell.m in Sources */,
 				FFC07DFA1BDB28870001C671 /* CFSettingArrowItem.m in Sources */,
+				1DFBEA711BDFA0BC0026572A /* BackgroundManager.m in Sources */,
 				FFC07E0C1BDB32C20001C671 /* AboutViewController.m in Sources */,
 				FFC07E031BDB28870001C671 /* UIColor+Hex.m in Sources */,
 				1D9005431BD9010B00769476 /* AddNewDownloadHeaderView.m in Sources */,
@@ -624,6 +639,7 @@
 				FF59C5201BD20F1500858FE2 /* UIColor+Hex.m in Sources */,
 				FFC946511BD1CEDC001B2B8A /* UIView_extra.m in Sources */,
 				FF59C52C1BD20F6600858FE2 /* LeftSortsViewController.m in Sources */,
+				1DFBEA741BDFA13A0026572A /* MPAudioSession.m in Sources */,
 				FFC07E011BDB28870001C671 /* CFSettingSwitchItem.m in Sources */,
 				FF59C54D1BD2970900858FE2 /* DownloadViewController.m in Sources */,
 				FFC9461F1BD1CA32001B2B8A /* AppDelegate.m in Sources */,

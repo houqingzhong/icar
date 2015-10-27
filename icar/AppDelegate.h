@@ -32,9 +32,7 @@
 
 - (void)jumpToPlayViewController;
 
-- (PlayType)play:(NSDictionary *)album track:(NSDictionary *)track;
-
-- (void)updateTrackViewControler:(NSDictionary *)album pageNum:(NSInteger)pageNum;
+- (void)updateTrackViewControler:(NSDictionary *)album track:(NSDictionary *)track pageNum:(NSInteger)pageNum;
 
 @end
 

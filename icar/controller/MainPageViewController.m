@@ -80,7 +80,7 @@
     
     NSDictionary *dict = _dataArray[indexPath.row];
     App(app);
-    [app updateTrackViewControler:dict pageNum:1];
+    [app updateTrackViewControler:dict track:nil pageNum:1];
     [app jumpToPlayViewController];
     
 }

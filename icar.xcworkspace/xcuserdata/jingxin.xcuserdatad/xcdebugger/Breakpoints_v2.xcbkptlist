@@ -26,7 +26,7 @@
                   moduleName = "&#x8f66;&#x8f7d;&#x97f3;&#x4e50;&#x53f0;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jingxin/icar/Pods/BABAudioPlayer/Pod/Classes/BABAudioPlayer.m"
-                  timestampString = "467642814.763195"
+                  timestampString = "467643886.460721"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "252"
@@ -41,7 +41,7 @@
                   moduleName = "&#x8f66;&#x8f7d;&#x97f3;&#x4e50;&#x53f0;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jingxin/icar/Pods/BABAudioPlayer/Pod/Classes/BABAudioPlayer.m"
-                  timestampString = "467642814.763476"
+                  timestampString = "467643886.460997"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "252"
@@ -64,22 +64,6 @@
             startingLineNumber = "289"
             endingLineNumber = "289"
             landmarkName = "-audioPlayer:didFailPlaybackWithError:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "icar/controller/TrackViewController.m"
-            timestampString = "467642628.989981"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
-            landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

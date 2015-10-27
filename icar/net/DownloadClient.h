@@ -34,7 +34,7 @@
 - (BOOL)hasNetwork;
 
 - (BOOL)isWifi;
-
+- (BOOL)is3G;
 - (void)isDownloading:(void (^)(BOOL))callback;
 
 - (void)allow3GDownload;

@@ -71,15 +71,31 @@
         
         if (PlayerActionTypeNext == actionType) {
             
-            if ([[DownloadClient sharedInstance] hasNetwork]) {
-                NSIndexPath *nextPlayIndexPath = [PublicMethod getNextPlayIndexPath:playMode currentIndexPath:ws.indexPath dataArray:ws.dataArray];
-                NSDictionary *track = ws.dataArray[nextPlayIndexPath.row];
-                [ws play:ws.album track:track];
+            BOOL played = NO;
+            NSIndexPath *nextPlayIndexPath = [PublicMethod getNextPlayIndexPath:playMode currentIndexPath:ws.indexPath dataArray:ws.dataArray];
+            if (nextPlayIndexPath) {
+                NSDictionary *track =  ws.dataArray[nextPlayIndexPath.row];
+                NSURL *fileUrl = [[DownloadClient sharedInstance] getDownloadFile:ws.album track:track];
+                if (!fileUrl) {
+                    if ([[DownloadClient sharedInstance] isWifi] || ([[DownloadClient sharedInstance] is3G] && [PublicMethod isAllowPlayInGprs])) {
+                        played = YES;
+                        NSDictionary *track = ws.dataArray[nextPlayIndexPath.row];
+                        [ws play:ws.album track:track];
+                    }
+                }
+                else
+                {
+                    played = YES;
+                    NSDictionary *track = ws.dataArray[nextPlayIndexPath.row];
+                    [ws play:ws.album track:track];
+                }
             }
-            else
-            {
+
+
+            if (!played) {
                 [ws playNextLocal];
             }
+
         }
     }];
     

@@ -518,7 +518,12 @@ NSString * const APPURLSessionDownloadTaskDidFailToMoveFileNotification = @"APPU
 {
     App(app);
     return GCNetworkReachabilityStatusWiFi == app.reachability.currentReachabilityStatus;
-    
+}
+
+- (BOOL)is3G
+{
+    App(app);
+    return GCNetworkReachabilityStatusWWAN == app.reachability.currentReachabilityStatus;
 }
 
 

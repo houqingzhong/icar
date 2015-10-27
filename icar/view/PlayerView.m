@@ -199,7 +199,7 @@
 - (void)nextItem
 {
     if (_callback) {
-        _callback(PlayerActionTypeNext, _playModeType);
+        _callback(self.album[@"id"], self.track[@"id"], PlayerActionTypeNext, _playModeType);
     }
 }
 
@@ -275,7 +275,7 @@
 
         app.isPlayed = NO;
         
-        _callback(PlayerActionTypeNext, _playModeType);
+        _callback(self.album[@"id"], self.track[@"id"], PlayerActionTypeNext, _playModeType);
     }
 }
 

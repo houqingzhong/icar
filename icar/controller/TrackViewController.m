@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSArray *dataArray;
 @property (nonatomic, strong) NSIndexPath *indexPath;
 
+@property (nonatomic, strong) NSArray *localArray;
 
 @end
 
@@ -50,31 +51,34 @@
     
     [_playerView anchorBottomCenterFillingWidthWithLeftAndRightPadding:0 bottomPadding:0 height:120*XA];
     
-    
     WS(ws);
-    [_playerView setCallback:^(PlayerActionType actionType, PlayModeType playMode) {
+    [_playerView setCallback:^(NSString *albumId, NSString *trackId, PlayerActionType actionType, PlayModeType playMode) {
         
-    }];
-    
-    [_playerView setCallback:^(PlayerActionType actionType, PlayModeType playMode) {
         if (ws.dataArray.count == 0) {
             return ;
         }
         
+        if (nil == ws.indexPath) {
+            
+            [ws.dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([obj[@"id"] integerValue] == trackId.integerValue) {
+                    ws.indexPath = [NSIndexPath indexPathForRow:idx inSection:0];
+                    *stop = YES;
+                }
+            }];
+            
+        }
+        
         if (PlayerActionTypeNext == actionType) {
             
-
-            NSIndexPath *nextPlayIndexPath = [PublicMethod getNextPlayIndexPath:playMode currentIndexPath:ws.indexPath dataArray:ws.dataArray];
-            
-            if (![[DownloadClient sharedInstance] hasNetwork]) {
-                [ws playNextLocal];
+            if ([[DownloadClient sharedInstance] hasNetwork]) {
+                NSIndexPath *nextPlayIndexPath = [PublicMethod getNextPlayIndexPath:playMode currentIndexPath:ws.indexPath dataArray:ws.dataArray];
+                NSDictionary *track = ws.dataArray[nextPlayIndexPath.row];
+                [ws play:ws.album track:track];
             }
             else
             {
-                NSDictionary *track = ws.dataArray[nextPlayIndexPath.row];
-                
-                [ws play:ws.album track:track];
-
+                [ws playNextLocal];
             }
         }
     }];
@@ -211,8 +215,23 @@
 
 #pragma method
 
-- (void)updateList:(NSDictionary *)album  pageNum:(NSInteger)pageNum
+- (void)updateList:(NSDictionary *)album pageNum:(NSInteger)pageNum
 {
+    [self updateList:album localArray:nil pageNum:pageNum];
+}
+
+- (void)updateList:(NSDictionary *)album localArray:(NSArray *)localArray pageNum:(NSInteger)pageNum
+{
+    self.localArray = nil;
+    
+    WS(ws);
+    [PublicMethod getDownloadTracks:album[@"id"] callback:^(NSArray *ts) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            ws.localArray = ts;
+        });
+    }];
+
     
     if (1 == pageNum) {
         
@@ -228,7 +247,6 @@
     self.title = album[@"title"];
     
     
-    WS(ws);
     NSString *key = [NSString stringWithFormat:@"%@:%@:%@", @(ServerDataRequestTypeTrack), album[@"id"], @(pageNum)];
     [HttpEngine getDataFromServer:[NSString stringWithFormat:@"%@tracks/%@/%ld/%ld", HOST, album[@"id"], (long)self.pageNum, (long)MPageSize] key:key callback:^(NSArray *arr) {
         
@@ -292,7 +310,9 @@
                 {
                     [ws.tableview insertRowsAtIndexPaths:arrCells withRowAnimation:UITableViewRowAnimationAutomatic];
                 }
-
+                
+                
+                
                 [self setPlayState:album];
             });
             
@@ -455,33 +475,37 @@
 - (void)playNextLocal
 {
     WS(ws);
-    [_dataArray enumerateObjectsUsingBlock:^(id  _Nonnull track, NSUInteger idx, BOOL * _Nonnull stop)
-    {
-        if (idx > ws.indexPath.row ) {
+   
+    for (int i = 0; i < _dataArray.count; i++) {
+        if (i > ws.indexPath.row) {
+            NSDictionary *track = _dataArray[i];
             NSURL *fileUrl = [[DownloadClient sharedInstance] getDownloadFile:ws.album track:track];
             if (fileUrl) {
                 [ws setPlayState:ws.album];
+                self.indexPath = [NSIndexPath indexPathForRow:i inSection:0];
                 [ws play:ws.album track:track];
+                
+                break;
             }
+            
         }
-    }];
+    }
     
 }
-//- (void)playNextIndexPath:(PlayModeType)playMode currentIndexPath:(NSIndexPath *)currentIndexPath dataArray:(NSArray *)dataArray
-//{
-//    NSIndexPath *newIndexPath = [PublicMethod getNextPlayIndexPath:[self getPlayMode] currentIndexPath:currentIndexPath dataArray:_dataArray];
-//    NSDictionary *dict = dataArray[currentIndexPath.row];
-//    PlayType playType = [self play:self.album track:dict];
-//    while (playType == PlayTypeNetError) {
-//        NSIndexPath *newIndexPath = [PublicMethod getNextPlayIndexPath:[self getPlayMode] currentIndexPath:currentIndexPath dataArray:_dataArray];
-//        if (newIndexPath && newIndexPath.row != currentIndexPath.row) {
-//            [self playNextIndexPath:playMode currentIndexPath:newIndexPath dataArray:dataArray];
-//        }
-//        else
-//        {
-//            playType = PlayTypeDataError;
-//        }
-//    }
-//}
 
+//- (void)setLocalArray
+//{
+//    NSMutableArray *array = [NSMutableArray new];
+//    WS(ws);
+//    [_dataArray enumerateObjectsUsingBlock:^(id  _Nonnull track, NSUInteger idx, BOOL * _Nonnull stop)
+//     {
+//         NSURL *fileUrl = [[DownloadClient sharedInstance] getDownloadFile:ws.album track:track];
+//         if (fileUrl) {
+//             [array addObject:track];
+//         }
+//         
+//     }];
+//    
+//    self.localArray = array;
+//}
 @end

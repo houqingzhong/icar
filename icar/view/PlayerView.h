@@ -11,7 +11,7 @@
 
 @interface PlayerView : UIView<BABAudioPlayerDelegate>
 
-@property(nonatomic, copy) void(^callback)(PlayerActionType, PlayModeType);
+@property(nonatomic, copy) void(^callback)(NSString *, NSString *,PlayerActionType, PlayModeType);
 
 @property(nonatomic, assign) PlayModeType    playModeType;
 

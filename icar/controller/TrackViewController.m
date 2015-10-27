@@ -480,8 +480,9 @@
             NSURL *fileUrl = [[DownloadClient sharedInstance] getDownloadFile:self.album track:track];
             if (fileUrl) {
                 self.indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                [self setPlayState:self.album];
                 [self play:self.album track:track];
+                [self setPlayState:self.album];
+                
                 break;
             }
             

@@ -474,17 +474,14 @@
 
 - (void)playNextLocal
 {
-    WS(ws);
-   
     for (int i = 0; i < _dataArray.count; i++) {
-        if (i > ws.indexPath.row) {
+        if (i > self.indexPath.row) {
             NSDictionary *track = _dataArray[i];
-            NSURL *fileUrl = [[DownloadClient sharedInstance] getDownloadFile:ws.album track:track];
+            NSURL *fileUrl = [[DownloadClient sharedInstance] getDownloadFile:self.album track:track];
             if (fileUrl) {
-                [ws setPlayState:ws.album];
                 self.indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                [ws play:ws.album track:track];
-                
+                [self setPlayState:self.album];
+                [self play:self.album track:track];
                 break;
             }
             

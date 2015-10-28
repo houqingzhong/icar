@@ -10,7 +10,7 @@
 
 #import "Public.h"
 
-@interface DownloadingViewController ()
+@interface DownloadingViewController ()<BABAudioPlayerDelegate>
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) NSDictionary *album;
@@ -59,6 +59,10 @@
     [self.tableview reloadData];
     
     [self updateList:self.album];
+    
+    
+    self.title = self.album[@"title"];
+
     
     WS(ws);
     [[DownloadClient sharedInstance] setCallback:^(CGFloat progress, NSString *albumId, NSString *trackId, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
@@ -151,22 +155,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *dict = _dataArray[indexPath.row];
-    
-//    App(app);
-//    [app updateTrackViewControler:self.album pageNum:1];
-//    PlayType playType = [app play:self.album track:dict];
-//    
-//    if (PlayTypeNetError == playType) {
-//        [self playNextIndexPath:[app.playViewController getPlayMode] currentIndexPath:indexPath dataArray:_dataArray];
-//    }
-    
+    NSDictionary *track = _dataArray[indexPath.row];
     
     App(app);
-    [app updateTrackViewControler:self.album track:dict pageNum:1];
-    [app jumpToPlayViewController];
+    [app.playViewController updateList:self.album track:track];
     
-
     
     NavPlayButton *btn = self.navigationItem.rightBarButtonItem.customView;
     [btn startAnimation];
@@ -250,11 +243,8 @@
     
     self.album = dict;
     
-    self.title = dict[@"title"];
-    
     self.dataArray = nil;
     [self.tableview reloadData];
-    
     
     WS(ws);
     
@@ -283,12 +273,36 @@
 
 - (void)showTrackViewController
 {
-    
+    TrackViewController *tc = [TrackViewController new];
+    [tc updateList:self.album pageNum:1];
     App(app);
-    [app jumpToPlayViewController];
-
+    [app.mainNavigationController pushViewController:tc animated:YES];
 }
 
+
+//#pragma BABAudioPlayerDelegate
+//- (void)audioPlayer:(BABAudioPlayer *)player didChangeElapsedTime:(NSTimeInterval)elapsedTime percentage:(float)percentage
+//{
+//        App(app);
+//        NSDictionary *track = app.playViewController.track;
+//        NSDictionary *album = app.playViewController.album;
+//    
+//        [PublicMethod updateHistory:album[@"id"] trackId:track[@"id"] time:elapsedTime callback:^{
+//    
+//        }];
+//    
+//        NSInteger albumid = [album[@"id"] integerValue];
+//        for (DownloadingCell *cell in self.tableview.visibleCells) {
+//    
+//            NSDictionary *calbum = cell.dict;
+//            NSInteger calbumid = [calbum[@"id"] integerValue];
+//            if (calbumid == albumid) {
+//                [cell updateTime:elapsedTime];
+//                break;
+//            }
+//        }
+//    
+//}
 
 @end
 

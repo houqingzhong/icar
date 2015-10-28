@@ -144,7 +144,7 @@
     
     
     
-    _playViewController = [TrackViewController new];
+    _playViewController = [PlayerViewController new];
     
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -196,19 +196,5 @@
     
 }
 
-- (void)updateTrackViewControler:(NSDictionary *)album track:(NSDictionary *)track pageNum:(NSInteger)pageNum
-{
-    [_playViewController updateList:album pageNum:pageNum];
-    if (track) {
-        [_playViewController play:album track:track];
-    }
-}
-
-
-- (void)jumpToPlayViewController
-{
-    
-    [self.mainNavigationController pushViewController:self.playViewController animated:YES];
-}
 
 @end

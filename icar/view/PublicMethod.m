@@ -229,6 +229,7 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval) {
     }];
 
 }
+
 + (void)getDownloadTracks:(NSString *)albumId callback:(void (^)(NSArray*))callback
 {
     App(app);
@@ -260,6 +261,40 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval) {
     }];
     
 }
+
+
++ (void)getDownloadTracksByIds:(NSArray *)trackIds callback:(void (^)(NSArray*))callback
+{
+    App(app);
+    
+    
+    [app.queue inDatabase:^(FMDatabase *db) {
+        
+        FMResultSet *rs = [db executeQuery:@"select * from download where track_id in (?) order by timestamp DESC", [trackIds JSONString]];
+        
+        NSMutableArray *arr = [NSMutableArray new];
+        while ([rs next]) {
+            if ([rs doubleForColumn:@"download_state"] > 0) {
+                NSDictionary *track = [[rs stringForColumn:@"track_info"] objectFromJSONString];
+                NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:track];
+                dict[@"progress"] = @([rs doubleForColumn:@"progress"]);
+                dict[@"download_state"] = @([rs doubleForColumn:@"download_state"]);
+                
+                [arr addObject:dict];
+            }
+        }
+        [rs close];
+        
+        
+        if (callback) {
+            callback(arr);
+        }
+        
+    }];
+    
+}
+
+
 
 + (void)getDownloadTracks:(NSString *)albumId trackId:(NSString *)trackId  callback:(void (^)(NSDictionary*))callback
 {
@@ -592,9 +627,16 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval) {
 
 + (NSIndexPath *)getNextPlayIndexPath:(PlayModeType)playMode currentIndexPath:(NSIndexPath *)currentIndexPath dataArray:(NSArray *)dataArray
 {
+    NSIndexPath * indexpath = [NSIndexPath indexPathForRow:0 inSection:0];
     
-    NSIndexPath * indexpath = nil;
+    if (currentIndexPath.row < 0) {
+        
+        NSLog(@"next %@", indexpath);
+        return indexpath;
+    }
+    
     if (dataArray.count == 0) {
+        NSLog(@"next %@", indexpath);
         return indexpath;
     }
     
@@ -621,6 +663,7 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval) {
             }
         }
     }
+    NSLog(@"next %@", indexpath);    
     return indexpath;
 }
 

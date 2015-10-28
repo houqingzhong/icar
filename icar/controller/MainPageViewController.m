@@ -78,10 +78,11 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSDictionary *dict = _dataArray[indexPath.row];
+    NSDictionary *album = _dataArray[indexPath.row];
     App(app);
-    [app updateTrackViewControler:dict track:nil pageNum:1];
-    [app jumpToPlayViewController];
+    TrackViewController *tc = [TrackViewController new];
+    [tc updateList:album pageNum:1];
+    [app.mainNavigationController pushViewController:tc animated:YES];
     
 }
 

@@ -26,6 +26,7 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval);
 + (void)getDownloadTracks:(NSString *)albumId trackId:(NSString *)trackId  callback:(void (^)(NSDictionary*))callback;
 
 + (void)getDownloadTracks:(void (^)(NSArray*))callback;
++ (void)getDownloadTracksByIds:(NSArray *)trackIds callback:(void (^)(NSArray*))callback;
 
 + (void)getDownloadTask:(void (^)(NSDictionary*))callback;
 

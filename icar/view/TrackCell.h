@@ -13,7 +13,6 @@
 
 @property(nonatomic, copy) void(^callback)(NSDictionary*);
 
-
 + (CGFloat)height:(NSDictionary *)dict;
 
 @end

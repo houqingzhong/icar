@@ -108,41 +108,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    NSDictionary *dict = _dataArray[indexPath.row];
-
-//    App(app);
-//    [app updateTrackViewControler:dict pageNum:1];
-//    
-//    PlayType playType = [app.playViewController play:dict track:dict[@"track"]];
-//    if (PlayTypeNetError == playType) {
-//        [self playNextIndexPath:[app.playViewController getPlayMode] currentIndexPath:indexPath dataArray:_dataArray];
-//    }
-//    
-//    
-//    [BABAudioPlayer sharedPlayer].delegate = self;
-
-    App(app);
-    [app updateTrackViewControler:dict  track:dict[@"track"] pageNum:1];
-    [app jumpToPlayViewController];
+    NSDictionary *album = _dataArray[indexPath.row];
+    NSDictionary *track = album[@"track"];
     
+    App(app);
+    [app.playViewController updateList:album track:track];
 
+    [BABAudioPlayer sharedPlayer].delegate = self;
+    
     NavPlayButton *btn = self.navigationItem.rightBarButtonItem.customView;
     [btn startAnimation];
 }
-
-
-//- (void)playNextIndexPath:(PlayModeType)playMode currentIndexPath:(NSIndexPath *)currentIndexPath dataArray:(NSArray *)dataArray
-//{
-//    App(app);
-//    NSDictionary *dict = dataArray[currentIndexPath.row];
-//    PlayType playType = [app.playViewController play:dict track:dict[@"track"]];
-//    while (playType == PlayTypeNetError) {
-//        NSIndexPath *newIndexPath = [PublicMethod getNextPlayIndexPath:[app.playViewController getPlayMode] currentIndexPath:currentIndexPath dataArray:_dataArray];
-//        if (newIndexPath.row != currentIndexPath.row && newIndexPath.section != currentIndexPath.section) {
-//            [self playNextIndexPath:playMode currentIndexPath:newIndexPath dataArray:dataArray];
-//        }
-//    }
-//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {

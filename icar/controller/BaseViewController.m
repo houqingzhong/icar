@@ -102,7 +102,13 @@
     if(app.isPlayed)
     {
         App(app);
-        [app jumpToPlayViewController];
+        if (app.playViewController.navigationController) {
+            [app.mainNavigationController popToViewController:app.playViewController animated:YES];
+        }
+        else
+        {
+            [app.mainNavigationController pushViewController:app.playViewController animated:YES];
+        }
     }
 
 }

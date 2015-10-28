@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Public.h"
 
-@interface PlayerViewController : UIViewController
+@interface PlayerViewController : BaseViewController
 
-- (void)updateView:(NSDictionary *)dict;
+@property (nonatomic, strong) NSDictionary *album;
+@property (nonatomic, strong) NSDictionary *track;
+
+- (void)updateList:(NSDictionary *)album track:(NSDictionary *)track;
 
 @end

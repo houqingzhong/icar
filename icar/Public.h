@@ -115,6 +115,9 @@ typedef enum : NSUInteger {
 #import "NavPlayButton.h"
 
 #import "PlayerView.h"
+#import "BaseViewController.h"
+
+#import "PlayerViewController.h"
 
 #import "MainPageViewController.h"
 #import "LeftSortsViewController.h"

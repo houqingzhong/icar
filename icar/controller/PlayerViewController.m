@@ -70,6 +70,7 @@
                 }
                 else
                 {
+                    NSLog(@"next .. play ...1 ... ");
                     played = YES;
                     NSDictionary *track = ws.dataArray[nextPlayIndexPath.row];
                     [ws play:ws.album track:track];

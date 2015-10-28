@@ -210,6 +210,7 @@
             NSDictionary *track = _dataArray[i];
             NSURL *fileUrl = [[DownloadClient sharedInstance] getDownloadFile:self.album track:track];
             if (fileUrl) {
+                NSLog(@"next .. play ...");
                 [self play:self.album track:track];
                 [self setPlayState:self.album];
                 break;

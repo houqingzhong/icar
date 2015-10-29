@@ -174,9 +174,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "346"
-            endingLineNumber = "346"
-            landmarkName = "-play:track:target:slider:"
-            landmarkType = "5">
+            endingLineNumber = "346">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -190,9 +188,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "417"
-            endingLineNumber = "417"
-            landmarkName = "-play:track:target:slider:"
-            landmarkType = "5">
+            endingLineNumber = "417">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

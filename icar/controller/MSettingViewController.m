@@ -75,9 +75,13 @@
     footer.font = [UIFont systemFontOfSize:22*XA];
     footer.textColor = [UIColor colorWithHexString:@"#959595"];
 
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    
+    
+
     footer.textAlignment = NSTextAlignmentCenter;
-    NSString *verText = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleVersionKey];
-    footer.text = [NSString stringWithFormat:@"车载音乐台 v%@", verText];
+    footer.text = [NSString stringWithFormat:@"车载音乐台 v%@", app_Version];
     group1.footerrView = footer;
     group1.footerHeight = 30;
 

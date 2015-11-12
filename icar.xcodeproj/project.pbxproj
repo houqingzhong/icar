@@ -13,6 +13,8 @@
 		1DFBEA711BDFA0BC0026572A /* BackgroundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DFBEA701BDFA0BC0026572A /* BackgroundManager.m */; };
 		1DFBEA741BDFA13A0026572A /* MPAudioSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DFBEA731BDFA13A0026572A /* MPAudioSession.m */; };
 		1DFBEA761BDFA2640026572A /* mute.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1DFBEA751BDFA2640026572A /* mute.mp3 */; };
+		718441361BF46D3E006B8ADF /* libSmtaranSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7184412E1BF46D3E006B8ADF /* libSmtaranSDK.a */; };
+		718441371BF46D3E006B8ADF /* SmtaranSplashAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 718441351BF46D3E006B8ADF /* SmtaranSplashAd.m */; };
 		917D8FF6E2F42A1190138338 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D37CE3D38DCCC55E90F75AE /* libPods.a */; };
 		FF1F9F1C1BD3691B0099D1F0 /* ProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF1F9F1B1BD3691B0099D1F0 /* ProgressView.m */; };
 		FF1F9F1F1BD3819F0099D1F0 /* PublicMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = FF1F9F1E1BD3819F0099D1F0 /* PublicMethod.m */; };
@@ -81,6 +83,15 @@
 		1DFBEA751BDFA2640026572A /* mute.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mute.mp3; sourceTree = "<group>"; };
 		4D37CE3D38DCCC55E90F75AE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		537260B9D4BAB35207CE5F11 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		7184412D1BF46D3E006B8ADF /* FWBaseDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FWBaseDownload.h; sourceTree = "<group>"; };
+		7184412E1BF46D3E006B8ADF /* libSmtaranSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSmtaranSDK.a; sourceTree = "<group>"; };
+		7184412F1BF46D3E006B8ADF /* SmtaranBannerAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmtaranBannerAd.h; sourceTree = "<group>"; };
+		718441301BF46D3E006B8ADF /* SmtaranFactoryAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmtaranFactoryAd.h; sourceTree = "<group>"; };
+		718441311BF46D3E006B8ADF /* SmtaranInterstitialAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmtaranInterstitialAd.h; sourceTree = "<group>"; };
+		718441321BF46D3E006B8ADF /* SmtaranNativeAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmtaranNativeAd.h; sourceTree = "<group>"; };
+		718441331BF46D3E006B8ADF /* SmtaranSDKManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmtaranSDKManager.h; sourceTree = "<group>"; };
+		718441341BF46D3E006B8ADF /* SmtaranSplashAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmtaranSplashAd.h; sourceTree = "<group>"; };
+		718441351BF46D3E006B8ADF /* SmtaranSplashAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmtaranSplashAd.m; sourceTree = "<group>"; };
 		DEC02284736AFB0EAE897408 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		FF1F9F1A1BD3691B0099D1F0 /* ProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressView.h; sourceTree = "<group>"; };
 		FF1F9F1B1BD3691B0099D1F0 /* ProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressView.m; sourceTree = "<group>"; };
@@ -199,6 +210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				917D8FF6E2F42A1190138338 /* libPods.a in Frameworks */,
+				718441361BF46D3E006B8ADF /* libSmtaranSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,6 +236,30 @@
 				4D37CE3D38DCCC55E90F75AE /* libPods.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7184412B1BF46D3E006B8ADF /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				7184412C1BF46D3E006B8ADF /* SmtaranSDK */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		7184412C1BF46D3E006B8ADF /* SmtaranSDK */ = {
+			isa = PBXGroup;
+			children = (
+				7184412D1BF46D3E006B8ADF /* FWBaseDownload.h */,
+				7184412E1BF46D3E006B8ADF /* libSmtaranSDK.a */,
+				7184412F1BF46D3E006B8ADF /* SmtaranBannerAd.h */,
+				718441301BF46D3E006B8ADF /* SmtaranFactoryAd.h */,
+				718441311BF46D3E006B8ADF /* SmtaranInterstitialAd.h */,
+				718441321BF46D3E006B8ADF /* SmtaranNativeAd.h */,
+				718441331BF46D3E006B8ADF /* SmtaranSDKManager.h */,
+				718441341BF46D3E006B8ADF /* SmtaranSplashAd.h */,
+				718441351BF46D3E006B8ADF /* SmtaranSplashAd.m */,
+			);
+			path = SmtaranSDK;
 			sourceTree = "<group>";
 		};
 		FF3287F61BD1E646007A36F1 /* Facade */ = {
@@ -429,6 +465,7 @@
 		FFC946181BD1CA32001B2B8A /* icar */ = {
 			isa = PBXGroup;
 			children = (
+				7184412B1BF46D3E006B8ADF /* lib */,
 				FFC07DD61BDB28860001C671 /* TableViewSettingList */,
 				FF59C52F1BD20F8600858FE2 /* view */,
 				FF59C5221BD20F6600858FE2 /* controller */,
@@ -630,6 +667,7 @@
 			files = (
 				1D90051E1BD4C59400769476 /* DownloadClient.m in Sources */,
 				FFE3E1C31BD5EA4700C7EE95 /* DownloadCell.m in Sources */,
+				718441371BF46D3E006B8ADF /* SmtaranSplashAd.m in Sources */,
 				FF59C53B1BD218F400858FE2 /* CategroyView.m in Sources */,
 				FF59C4DC1BD1F3CD00858FE2 /* HttpEngine.m in Sources */,
 				FF59C54A1BD2875800858FE2 /* TrackViewController.m in Sources */,
@@ -799,10 +837,14 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 25;
 				INFOPLIST_FILE = icar/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/icar/lib/SmtaranSDK",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chezai.tingting;
 				PRODUCT_NAME = "车载音乐台";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -817,10 +859,14 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 25;
 				INFOPLIST_FILE = icar/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/icar/lib/SmtaranSDK",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chezai.tingting;
 				PRODUCT_NAME = "车载音乐台";
 				TARGETED_DEVICE_FAMILY = 1;

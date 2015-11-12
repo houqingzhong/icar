@@ -339,6 +339,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
+## UMengAnalyticsSDK
+
+® 1998 - 2014 UMeng All Rights Reserved.
+
+
 ## YTKKeyValueStore
 
 Copyright (c) 2012-2014 YTKKeyValueStore https://github.com/yuantiku

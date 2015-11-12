@@ -1,23 +1,23 @@
 PODS:
-  - AFNetworking (2.6.0):
-    - AFNetworking/NSURLConnection (= 2.6.0)
-    - AFNetworking/NSURLSession (= 2.6.0)
-    - AFNetworking/Reachability (= 2.6.0)
-    - AFNetworking/Security (= 2.6.0)
-    - AFNetworking/Serialization (= 2.6.0)
-    - AFNetworking/UIKit (= 2.6.0)
-  - AFNetworking/NSURLConnection (2.6.0):
+  - AFNetworking (2.6.3):
+    - AFNetworking/NSURLConnection (= 2.6.3)
+    - AFNetworking/NSURLSession (= 2.6.3)
+    - AFNetworking/Reachability (= 2.6.3)
+    - AFNetworking/Security (= 2.6.3)
+    - AFNetworking/Serialization (= 2.6.3)
+    - AFNetworking/UIKit (= 2.6.3)
+  - AFNetworking/NSURLConnection (2.6.3):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.6.0):
+  - AFNetworking/NSURLSession (2.6.3):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.6.0)
-  - AFNetworking/Security (2.6.0)
-  - AFNetworking/Serialization (2.6.0)
-  - AFNetworking/UIKit (2.6.0):
+  - AFNetworking/Reachability (2.6.3)
+  - AFNetworking/Security (2.6.3)
+  - AFNetworking/Serialization (2.6.3)
+  - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - BABAudioPlayer (0.1.0)
@@ -32,6 +32,7 @@ PODS:
   - SVPullToRefreshImprove (0.5)
   - TSMessages (0.9.12):
     - HexColors (~> 2.2.0)
+  - UMengAnalyticsSDK (3.6.5)
   - YTKKeyValueStore (0.1.2):
     - FMDB (~> 2.0)
 
@@ -43,10 +44,11 @@ DEPENDENCIES:
   - JSONKit-NoWarning (~> 1.2)
   - SVPullToRefreshImprove (~> 0.5)
   - TSMessages
+  - UMengAnalyticsSDK (~> 3.6.5)
   - YTKKeyValueStore (~> 0.1.2)
 
 SPEC CHECKSUMS:
-  AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
+  AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   BABAudioPlayer: 90acdcc8b8123733dfd4cc1c2e23df75986c6a33
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   GCNetworkReachability: 2a7dd53d362220326b3e38df68c91b3ef84418d1
@@ -54,6 +56,7 @@ SPEC CHECKSUMS:
   JSONKit-NoWarning: 3d27e6f9e6846ecf741e8c64dcadd7d5aa7193cb
   SVPullToRefreshImprove: 5b0760edd107d6ef96c7e09c86fe2d67f6c842a5
   TSMessages: c8cc7b80f2a833af533872cd02010cac061532cc
+  UMengAnalyticsSDK: 63e8b331c43072137b212090608f532816c2fece
   YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
 
 COCOAPODS: 0.39.0

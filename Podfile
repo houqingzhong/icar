@@ -7,3 +7,4 @@ pod "TSMessages"
 pod 'SVPullToRefreshImprove', '~> 0.5'
 pod 'GCNetworkReachability', '~> 1.3.2'
 pod 'YTKKeyValueStore', '~> 0.1.2'
+pod 'UMengAnalyticsSDK', '~> 3.6.5'

@@ -13,7 +13,7 @@
 #define dataBaseName @"music.sqlite"
 #define dataBasePath [[(NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)) lastObject]stringByAppendingPathComponent:dataBaseName]
 
-@interface AppDelegate ()
+@interface AppDelegate ()<SmtaranSplashAdDelegate>
 
 @end
 
@@ -138,29 +138,71 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-
+    //5644382e67e58e6eac00084e
+    [MobClick startWithAppkey:@"5644382e67e58e6eac00084e" reportPolicy:BATCH channelId:@"App Store"];
     [self setup];
     [self startDownload];
     
-    
+    [[SmtaranSDKManager getInstance] setPublisherID:MS_PublishID withChannel:@"车载音乐台" auditFlag:MS_Audit_Flag];
     
     _playViewController = [PlayerViewController new];
     
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];   //设置通用背景颜色
-    [self.window makeKeyAndVisible];
+    //[self.window makeKeyAndVisible];
         
     MainPageViewController *mainVC = [[MainPageViewController alloc] init];
     self.mainNavigationController = [[UINavigationController alloc] initWithRootViewController:mainVC];
     LeftSortsViewController *leftVC = [[LeftSortsViewController alloc] init];
     self.leftSlideVC = [[LeftSlideViewController alloc] initWithLeftView:leftVC andMainView:self.mainNavigationController];
-    self.window.rootViewController = self.leftSlideVC;
+    
+    
+    //信息流开屏广告(信息流广告模拟开屏效果)
+    SmtaranSplashAd *sadVC = [[SmtaranSplashAd alloc] initWithSlottoken:MS_Poster delegate:self rootVC:self.leftSlideVC currentWindow:self.window];
+    self.window.rootViewController = sadVC;
+    
+    //self.window.rootViewController = self.leftSlideVC;
     
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithHexString:@"#ff7d3d"]];
 
     
     return YES;
+}
+/**
+ *  adSplash被点击
+ *  @param adSplash
+ */
+- (void)smtaranSplashAdClick:(nonnull SmtaranSplashAd*)adSplash
+{
+    NSLog(@"%s", __func__);
+}
+
+/**
+ *  adSplash请求成功并展示广告
+ *  @param adSplash
+ */
+- (void)smtaranSplashAdSuccessToShowAd:(nonnull SmtaranSplashAd*)adSplash
+{
+    NSLog(@"%s", __func__);
+}
+
+/**
+ *  adSplash请求失败
+ *  @param adSplash
+ */
+- (void)smtaranSplashAdFaildToShowAd:(nonnull SmtaranSplashAd*)adSplash withError:(nullable NSError*) error
+{
+    NSLog(@"%s", __func__);
+}
+
+/**
+ *  AdSplash被关闭
+ *  @param adSplash
+ */
+- (void)smtaranSplashAdClose:(nonnull SmtaranSplashAd*)adSplash
+{
+    NSLog(@"%s", __func__);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

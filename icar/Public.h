@@ -135,6 +135,11 @@ typedef enum : NSUInteger {
 
 #import "AppDelegate.h"
 
+#import "SmtaranSDKManager.h"
+#import "MobClick.h"
+#import "SmtaranBannerAd.h"
+#import "SmtaranSplashAd.h"
+
 //#define FMPlayer(s) AudioPlayer *s = ((AppDelegate *)[[UIApplication sharedApplication] delegate]).player
 
 #define App(s) AppDelegate * s = (AppDelegate *)[[UIApplication sharedApplication] delegate]

@@ -10,4 +10,5 @@
 
 @interface DownloadCell : BaseCell
 
+@property (nonatomic, strong) NSDictionary *dict;
 @end

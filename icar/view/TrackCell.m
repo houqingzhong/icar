@@ -17,7 +17,7 @@
     
     UIProgressView     *_playProgress;
 }
-@property (nonatomic, strong) NSDictionary *dict;
+
 @end
 
 @implementation TrackCell
@@ -151,6 +151,14 @@
 }
 
 
+- (void)updateTime:(NSTimeInterval)time
+{
+    
+    _duration.text = [NSString stringWithFormat:@"%@/%@", [NSObject getDurationText:time], [NSObject getDurationText:[_dict[@"duration"] floatValue]]];
+    
+    [self setNeedsLayout];
+    
+}
 
 
 + (CGFloat)height:(NSDictionary *)dict

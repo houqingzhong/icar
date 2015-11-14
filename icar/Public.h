@@ -35,6 +35,12 @@
 #define allow_3g_download   @"allow_3g_download"
 #define allow_3g_play       @"allow_3g_play"
 
+
+static void *kStatusKVOKey = &kStatusKVOKey;
+static void *kDurationKVOKey = &kDurationKVOKey;
+static void *kBufferingRatioKVOKey = &kBufferingRatioKVOKey;
+static void *kCurrentTimeKVOKey = &kCurrentTimeKVOKey;
+
 typedef enum : NSUInteger {
     DownloadStateDownloadWait = 1,
     DownloadStateDownloadPause,
@@ -65,7 +71,9 @@ typedef enum : NSUInteger {
 
 
 typedef enum : NSUInteger {
+    PlayerActionTypePlay,
     PlayerActionTypeNext,
+    PlayerActionTypeChangeTime,
 } PlayerActionType;
 
 typedef enum : NSUInteger {
@@ -83,15 +91,16 @@ typedef enum : NSUInteger {
 #import <UIScrollView+SVPullToRefresh.h>
 #import <UIScrollView+SVInfiniteScrolling.h>
 #import <YTKKeyValueStore.h>
-#import <BABAudioPlayer.h>
-#import <BABAudioUtilities.h>
+#import <PYAudioKit.h>
+#import <UIColor+MoreColors.h>
+//#import <BABAudioPlayer.h>
+//#import <BABAudioUtilities.h>
 #import <TSMessage.h>
 #import <TSMessageView.h>
 #import <GCNetworkReachability.h>
-
+#import <JxbPlayer.h>
+//#import <DOUAudioStreamer.h>
 #import "TableViewSettingList.h"
-
-#import "BABAudioItem.h"
 #import "UIView+Facade.h"
 #import "NSString+Extension.h"
 #import "UIColor+Hex.h"
@@ -114,7 +123,7 @@ typedef enum : NSUInteger {
 #import "ProgressView.h"
 #import "NavPlayButton.h"
 
-#import "PlayerView.h"
+//#import "PlayerView.h"
 #import "BaseViewController.h"
 
 #import "PlayerViewController.h"

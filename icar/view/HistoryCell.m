@@ -140,10 +140,8 @@
 
 - (void)updateTime:(NSTimeInterval)time
 {
-    //_playTime.text = [NSObject getDurationText:time];
     
     _playTime.text = [NSString stringWithFormat:@"%@/%@", [NSObject getDurationText:time], [NSObject getDurationText:[_dict[@"track"][@"duration"] floatValue]]];
-
     
 }
 

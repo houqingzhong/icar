@@ -645,6 +645,10 @@ NSString *FormattedTimeStringFromTimeInterval(NSTimeInterval timeInterval) {
         if (nil == currentIndexPath) {
             indexpath = [NSIndexPath indexPathForRow:0 inSection:0];
         }
+        else
+        {
+            indexpath = currentIndexPath;
+        }
         
     }
     else

@@ -8,7 +8,7 @@
 
 #import "HistoryViewController.h"
 
-@interface HistoryViewController ()<BABAudioPlayerDelegate>
+@interface HistoryViewController ()//<BABAudioPlayerDelegate>
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
 
@@ -73,13 +73,34 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+    App(app);
+    [app.playViewController setCallback:nil];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
 
-    [BABAudioPlayer sharedPlayer].delegate = self;
+    WS(ws);
+    App(app);
+    [app.playViewController setCallback:^(CGFloat progress, NSDictionary *album, NSDictionary *track) {
+        __weak HistoryCell *playCell = nil;
+        for (HistoryCell *cell in self.tableview.visibleCells) {
+            if ([track[@"id"] integerValue] == [cell.dict[@"track"][@"id"] integerValue]) {
+                playCell = cell;
+                break;
+            }
+        }
+        
+        if (playCell) {
+            [playCell updateTime:progress];
+            NSIndexPath *indexPath = [ws.tableview indexPathForCell:playCell];
+            [ws.tableview selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+        }
+        
+    }];
 
     [self updateList];
 
@@ -114,11 +135,15 @@
     App(app);
     [app.playViewController updateList:album track:track];
 
-    [BABAudioPlayer sharedPlayer].delegate = self;
+    HistoryCell *playCell = [tableView cellForRowAtIndexPath:indexPath];
+    [app.playViewController setCallback:^(CGFloat progress, NSDictionary *album, NSDictionary *track) {
+        [playCell updateTime:progress];
+    }];
     
     NavPlayButton *btn = self.navigationItem.rightBarButtonItem.customView;
     [btn startAnimation];
 }
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
@@ -196,29 +221,5 @@
     }];
 }
 
-
-#pragma BABAudioPlayerDelegate
-- (void)audioPlayer:(BABAudioPlayer *)player didChangeElapsedTime:(NSTimeInterval)elapsedTime percentage:(float)percentage
-{
-    App(app);
-    NSDictionary *track = app.playViewController.track;
-    NSDictionary *album = app.playViewController.album;
-    
-    [PublicMethod updateHistory:album[@"id"] trackId:track[@"id"] time:elapsedTime callback:^{
-        
-    }];
-    
-    NSInteger albumid = [album[@"id"] integerValue];
-    for (HistoryCell *cell in self.tableview.visibleCells) {
-        
-        NSDictionary *calbum = cell.dict;
-        NSInteger calbumid = [calbum[@"id"] integerValue];
-        if (calbumid == albumid) {
-            [cell updateTime:elapsedTime];
-            break;
-        }
-    }
-    
-}
 
 @end

@@ -11,9 +11,12 @@
 
 @interface PlayerViewController : BaseViewController
 
+@property(nonatomic, copy) void(^callback)(CGFloat progress, NSDictionary *album, NSDictionary *track);
+
 @property (nonatomic, strong) NSDictionary *album;
 @property (nonatomic, strong) NSDictionary *track;
 
 - (void)updateList:(NSDictionary *)album track:(NSDictionary *)track;
 
+- (BOOL)isPlaying;
 @end

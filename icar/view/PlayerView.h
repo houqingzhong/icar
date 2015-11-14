@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Public.h"
 
-@interface PlayerView : UIView<BABAudioPlayerDelegate>
+@interface PlayerView : UITableViewHeaderFooterView
 
 @property(nonatomic, copy) void(^callback)(NSString *, NSString *,PlayerActionType, PlayModeType);
 
@@ -18,5 +18,12 @@
 
 - (void)setData:(NSDictionary *)album track:(NSDictionary *)track;
 
-- (ProgressView *)getProgressView;
+- (void)updateProgres:(NSInteger)timePlayed duration:(NSInteger)duration;
+
+- (void)setPlayState:(BOOL)isPlay;
+
+- (CGFloat)sliderValue;
+
+- (BOOL)isScribe;
+
 @end

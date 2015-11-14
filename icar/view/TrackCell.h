@@ -12,6 +12,9 @@
 @interface TrackCell : BaseCell
 
 @property(nonatomic, copy) void(^callback)(NSDictionary*);
+@property (nonatomic, strong) NSDictionary *dict;
+
+- (void)updateTime:(NSTimeInterval)time;
 
 + (CGFloat)height:(NSDictionary *)dict;
 

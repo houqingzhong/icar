@@ -9,25 +9,19 @@
 #import "AppDelegate.h"
 #import "Public.h"
 #import <AVFoundation/AVAudioSession.h>
+#import <MediaPlayer/MPMediaItem.h>
+#import <MediaPlayer/MPNowPlayingInfoCenter.h>
 
 #define dataBaseName @"music.sqlite"
 #define dataBasePath [[(NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)) lastObject]stringByAppendingPathComponent:dataBaseName]
 
 @interface AppDelegate ()<SmtaranSplashAdDelegate>
-
 @end
 
 @implementation AppDelegate
 
 - (void)setup
 {
-    
-    AVAudioSession *session = [AVAudioSession sharedInstance];
-    NSError *setCategoryError = nil;
-    [session setCategory:AVAudioSessionCategoryPlayback error:&setCategoryError];
-    NSError *activationError = nil;
-    [session setActive:YES error:&activationError];
-    
     //1. 设置导航栏的背景图片
     UINavigationBar *bar=[UINavigationBar appearance];
     //[bar setBackgroundImage:[UIImage imageNamed:@"navigationbar_background.png"] forBarMetrics:UIBarMetricsDefault];
@@ -60,6 +54,7 @@
     // 5.设置状态栏样式
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interruption:) name:AVAudioSessionInterruptionNotification object:nil];
     
     self.queue = [FMDatabaseQueue databaseQueueWithPath:dataBasePath];
     
@@ -114,9 +109,9 @@
     }];
     
     
-    BABAudioPlayer *player = [BABAudioPlayer new];
-    player.allowsBackgroundAudio = YES;
-    [BABAudioPlayer setSharedPlayer:player];
+//    BABAudioPlayer *player = [BABAudioPlayer new];
+//    player.allowsBackgroundAudio = YES;
+//    [BABAudioPlayer setSharedPlayer:player];
     
     self.localStore = [[YTKKeyValueStore alloc] initDBWithName:@"local-key-value"];
     NSString *tableName = server_data_cahce;
@@ -213,6 +208,7 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];    
     
 }
 
@@ -238,5 +234,110 @@
     
 }
 
+
+
+//- (void)playerDidFinishPlaying
+//{
+//    [[SCLTAudioPlayer sharedPlayer] play];
+//}
+
+- (void) interruption:(NSNotification*)notification
+{
+    NSDictionary *interuptionDict = notification.userInfo;
+    NSUInteger interuptionType = (NSUInteger)[interuptionDict valueForKey:AVAudioSessionInterruptionTypeKey];
+    if(interuptionType == AVAudioSessionInterruptionTypeBegan)
+        [self beginInterruption];
+    else if (interuptionType == AVAudioSessionInterruptionTypeEnded)
+        [self endInterruption];
+}
+
+- (void)beginInterruption {
+    
+//    [_player pause];
+    
+}
+
+- (void)endInterruption {
+//    [_player play];
+}
+
+
+- (void)updateTrackProgress
+{
+
+}
+
+-(void)configNowPlayingInfoCenter:(NSDictionary *)info
+{
+    
+    if (!info) {
+        return;
+    }
+    
+//    if (NSClassFromString(@"MPNowPlayingInfoCenter")) {
+//        
+//        NSMutableDictionary *dict = [NSMutableDictionary new];
+//        
+//        if (info[@"track"][@"title"]) {
+//            dict[MPMediaItemPropertyArtist] = info[@"track"][@"title"];
+//        }
+//        if (info[@"track"][@"albumTitle"]) {
+//            dict[MPMediaItemPropertyAlbumTitle] = info[@"track"][@"albumTitle"];
+//        }
+//        
+//        MPMediaItemArtwork *mArt = [[MPMediaItemArtwork alloc] initWithImage:[UIImage imageNamed:@"icon"]];
+//        dict[MPMediaItemPropertyArtwork] = mArt;
+//        
+//        dict[MPNowPlayingInfoPropertyElapsedPlaybackTime] = @(_player.currentTime);
+//        dict[MPMediaItemPropertyPlaybackDuration] = @(_player.duration-_player.currentTime);
+//        
+//        [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:dict];
+//        
+//    }
+    
+}
+
+//- (void)updateStatus
+//{
+//    App(app);
+//    switch (app.player.status) {
+//        case DOUAudioStreamerPlaying:
+//            
+//            break;
+//            
+//        case DOUAudioStreamerPaused:
+//            
+//            break;
+//            
+//        case DOUAudioStreamerIdle:
+//            
+//            break;
+//            
+//        case DOUAudioStreamerFinished:
+//            [_player play];
+//            break;
+//            
+//        case DOUAudioStreamerBuffering:
+//            
+//            break;
+//            
+//        case DOUAudioStreamerError:
+//            
+//            break;
+//    }
+//}
+//
+//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+//{
+//    if ([keyPath isEqualToString:@"status"]) {
+//        [self performSelector:@selector(updateStatus)
+//                     onThread:[NSThread mainThread]
+//                   withObject:nil
+//                waitUntilDone:NO];
+//    }
+//    else {
+//        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+//    }
+//}
 
 @end

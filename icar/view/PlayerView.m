@@ -12,7 +12,7 @@
 @interface PlayerView()
 {
     UIImageView     *_playerTop;
-    ProgressView    *_progressView;
+    UISlider        *_progressView;
     UILabel         *_timeLeft;
     UILabel         *_timeRight;
     UIButton        *_nextButton;
@@ -28,6 +28,8 @@
 @property (nonatomic, strong) NSDictionary *album;
 @property (nonatomic, strong) NSDictionary *track;
 
+@property (nonatomic, assign) BOOL  isScribe;
+
 @end
 
 @implementation PlayerView
@@ -42,7 +44,9 @@
     if (self) {
 
         
-        _progressView = [ProgressView new];
+        self.backgroundColor = [UIColor yellowColor];
+        
+        _progressView = [UISlider new];
         [self addSubview:_progressView];
         
         
@@ -63,8 +67,8 @@
         _modeButton = [UIButton new];
         [self addSubview:_modeButton];
 
-        _timeSettingButton = [UIButton new];
-        [self addSubview:_timeSettingButton];
+        //_timeSettingButton = [UIButton new];
+        //[self addSubview:_timeSettingButton];
         
         _activityView = [UIActivityIndicatorView new];
         [_playButtton addSubview:_activityView];
@@ -74,6 +78,7 @@
         [_progressView setThumbImage:[UIImage imageNamed:@"player_slider_playback_thumb"] forState:UIControlStateNormal];
         [_progressView setMinimumTrackTintColor:[UIColor colorWithHexString:@"#ff5000"]];
         [_progressView setMaximumValueImage:[UIImage imageNamed:@"player_slider_playback_right"]];
+        [_progressView addTarget:self action:@selector(valueChange) forControlEvents:UIControlEventTouchDragInside];
         
         _timeLeft.font = [UIFont systemFontOfSize:14*XA];
         _timeRight.font = [UIFont systemFontOfSize:14*XA];
@@ -109,7 +114,7 @@
 - (void)layout
 {
     CGFloat left = 10 * XA;
-    CGFloat top = 15 * XA;
+    CGFloat top = 30 * XA;
     CGFloat width = CGRectGetMaxX(self.frame) - 2*left;
     CGFloat height = 30 * XA;
 
@@ -130,7 +135,7 @@
     [_progressView alignToTheRightOf:_timeLeft matchingCenterWithLeftPadding:left width:width height:height];
  
     left = 40*XA;
-    CGFloat bottom = 20*XA;
+    CGFloat bottom = 30*XA;
     width = 44*XA;
     height = 42*XA;
     [_modeButton anchorBottomLeftWithLeftPadding:left bottomPadding:bottom width:width height:height];
@@ -176,25 +181,6 @@
     _progressView.value = (CGFloat)timePlayed/duration;
 }
 
-- (void)play
-{
-    
-    App(app);
-    if (BABAudioPlayerStatePlaying == [BABAudioPlayer sharedPlayer].state) {
-        [_playButtton setImage:[UIImage imageNamed:@"widget_play_pressed"] forState:UIControlStateNormal];
-        [[BABAudioPlayer sharedPlayer] pause];
-        app.isStoped = YES;
-    }
-    else
-    {
-        [_playButtton setImage:[UIImage imageNamed:@"widget_pause_pressed"] forState:UIControlStateNormal];
-        [[BABAudioPlayer sharedPlayer] play];
-        app.isStoped = NO;
-    }
-
-    
-}
-
 
 - (void)nextItem
 {
@@ -203,7 +189,7 @@
     }
 }
 
-- (ProgressView *)getProgressView
+- (UISlider *)getProgressView
 {
     return _progressView;
 }
@@ -228,84 +214,53 @@
     }
 }
 
-#pragma mark Delegate
-
-- (void)audioPlayer:(BABAudioPlayer *)player didChangeState:(BABAudioPlayerState)state
+- (void)play
 {
-    _activityView.hidden = YES;
-    if (BABAudioPlayerStatePlaying == state) {
-        [_playButtton setImage:[UIImage imageNamed:@"widget_pause_pressed"] forState:UIControlStateNormal];
-    }
-    else if (BABAudioPlayerStateBuffering == state)
-    {
-        [_playButtton setImage:[UIImage imageNamed:@"widget_pause_pressed"] forState:UIControlStateNormal];
-        
-        _activityView.hidden = NO;
-    }
-    
-    if (BABAudioPlayerStateIdle ==  player.state) {
-        return;
-    }
-    
-    [PublicMethod updateHistory:self.album[@"id"] trackId:self.track[@"id"] time:player.timeElapsed callback:nil];
-    
-}
-
-- (void)audioPlayer:(BABAudioPlayer *)player didChangeElapsedTime:(NSTimeInterval)elapsedTime percentage:(float)percentage
-{
-
-    if (BABAudioPlayerStatePlaying !=  player.state) {
-        return;
-    }
-    _timeLeft.text = [NSObject getDurationText:elapsedTime];
-    _timeRight.text = [NSObject getDurationText:player.duration];
-    _progressView.value = percentage;
-
-    [PublicMethod updateHistory:self.album[@"id"] trackId:self.track[@"id"] time:player.timeElapsed callback:nil];
-
-}
-
-
-- (void)audioPlayer:(BABAudioPlayer *)player didFinishPlayingAudioItem:(BABAudioItem *)audioItem
-{
-    [_playButtton setImage:[UIImage imageNamed:@"widget_play_pressed"] forState:UIControlStateNormal];
-    
     if (_callback) {
         App(app);
 
-        app.isPlayed = NO;
+        [self setPlayState:![app.playViewController isPlaying]];
         
-        _callback(self.album[@"id"], self.track[@"id"], PlayerActionTypeNext, _playModeType);
+        _callback(self.album[@"id"], self.track[@"id"], PlayerActionTypePlay, _playModeType);
     }
 }
 
-- (void)audioPlayer:(BABAudioPlayer *)player didLoadMetadata:(NSDictionary *)metadata forAudioItem:(BABAudioItem *)audioItem
+- (void)setPlayState:(BOOL)isPlay
 {
-    
+    if (isPlay) {
+        [_playButtton setImage:[UIImage imageNamed:@"widget_pause_pressed"] forState:UIControlStateNormal];
+    }
+    else
+    {
+        [_playButtton setImage:[UIImage imageNamed:@"widget_play_pressed"] forState:UIControlStateNormal];
+    }
 }
 
-- (void)audioPlayer:(BABAudioPlayer *)player didFailPlaybackWithError:(NSError *)error
+- (void)valueChange
 {
-    [_playButtton setImage:[UIImage imageNamed:@"widget_play_pressed"] forState:UIControlStateNormal];
-
+    self.isScribe = YES;
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(changePlayTime) object:nil];
+    [self performSelector:@selector(changePlayTime) withObject:nil afterDelay:1];
 }
 
+- (void)changePlayTime
+{
+    self.isScribe = NO;
+    App(app);
+    if ([app.playViewController isPlaying]) {
+        if (_callback) {
+            _callback(self.album[@"id"], self.track[@"id"], PlayerActionTypeChangeTime, _playModeType);
+        }
+    }
+}
+
+- (CGFloat)sliderValue
+{
+    return _progressView.value;
+}
+
+- (BOOL)isScribe
+{
+    return _isScribe;
+}
 @end
-/*
- 
- App(app);
- 
- if(!app.isStoped)
- {
- [_playButtton setImage:[UIImage imageNamed:@"widget_pause_pressed"] forState:UIControlStateNormal];
- [[BABAudioPlayer sharedPlayer] play];
- app.isStoped = NO;
- }
- else
- {
- [_playButtton setImage:[UIImage imageNamed:@"widget_play_pressed"] forState:UIControlStateNormal];
- [[BABAudioPlayer sharedPlayer] pause];
- app.isStoped = YES;
- }
-
- */

@@ -19,4 +19,6 @@
 
 - (void)setProgress:(CGFloat )progress;
 
+- (void)updateTime:(NSTimeInterval)time;
+
 @end

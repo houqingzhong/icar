@@ -18,6 +18,7 @@
     UILabel     *_trackCount;
     UILabel     *_playCount;
 }
+
 @end
 
 @implementation DownloadCell
@@ -108,6 +109,7 @@
 
 - (void)setData:(NSDictionary *)dict
 {
+    self.dict = dict;
     
     if(![NSObject isNull:dict[@"cover_url"]]){
         [_header setImageWithURL:[NSURL URLWithString:dict[@"cover_url"]] placeholderImage:[UIImage imageNamed:@"album_cover_bg"]];

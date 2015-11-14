@@ -29,6 +29,40 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    WS(ws);
+    App(app);
+    [app.playViewController setCallback:^(CGFloat progress, NSDictionary *album, NSDictionary *track) {
+        __weak TrackCell *playCell = nil;
+        for (TrackCell *cell in self.tableview.visibleCells) {
+            if ([track[@"id"] integerValue] == [cell.dict[@"id"] integerValue]) {
+                playCell = cell;
+                break;
+            }
+        }
+        
+        if (playCell) {
+            [playCell updateTime:progress];
+            NSIndexPath *indexPath = [ws.tableview indexPathForCell:playCell];
+            [ws.tableview selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+        }
+        
+    }];
+
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    App(app);
+    [app.playViewController setCallback:nil];
+
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -88,6 +122,11 @@
     App(app);
 
     [app.playViewController updateList:self.album track:track];
+    
+    TrackCell *playCell = [tableView cellForRowAtIndexPath:indexPath];
+    [app.playViewController setCallback:^(CGFloat progress, NSDictionary *album, NSDictionary *track) {
+        [playCell updateTime:progress];
+    }];
     
 
 }

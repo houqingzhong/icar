@@ -20,7 +20,6 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - BABAudioPlayer (0.1.0)
   - FMDB (2.5):
     - FMDB/standard (= 2.5)
   - FMDB/common (2.5)
@@ -29,33 +28,43 @@ PODS:
   - GCNetworkReachability (1.3.2)
   - HexColors (2.2.1)
   - JSONKit-NoWarning (1.2)
+  - JxbPlayerControl (1.0)
+  - PYAudioKit (0.4):
+    - PYCore
+  - PYCore (0.10.1)
   - SVPullToRefreshImprove (0.5)
   - TSMessages (0.9.12):
     - HexColors (~> 2.2.0)
+  - UIColor-MoreColors (1.1.0)
   - UMengAnalyticsSDK (3.6.5)
   - YTKKeyValueStore (0.1.2):
     - FMDB (~> 2.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
-  - BABAudioPlayer (~> 0.1.0)
   - FMDB (~> 2.5)
   - GCNetworkReachability (~> 1.3.2)
   - JSONKit-NoWarning (~> 1.2)
+  - JxbPlayerControl (~> 1.0)
+  - PYAudioKit (~> 0.4)
   - SVPullToRefreshImprove (~> 0.5)
   - TSMessages
+  - UIColor-MoreColors (~> 1.1.0)
   - UMengAnalyticsSDK (~> 3.6.5)
   - YTKKeyValueStore (~> 0.1.2)
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
-  BABAudioPlayer: 90acdcc8b8123733dfd4cc1c2e23df75986c6a33
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   GCNetworkReachability: 2a7dd53d362220326b3e38df68c91b3ef84418d1
   HexColors: abfd172e329dab59888614ccba6f216cec59289d
   JSONKit-NoWarning: 3d27e6f9e6846ecf741e8c64dcadd7d5aa7193cb
+  JxbPlayerControl: 1466ce0a6797f99d72f2c73778e5cda350dea99e
+  PYAudioKit: b87a2e287905ab97a149124fb43c63753ffb5e29
+  PYCore: af9b97714243917bb541d94945848e02ac901792
   SVPullToRefreshImprove: 5b0760edd107d6ef96c7e09c86fe2d67f6c842a5
   TSMessages: c8cc7b80f2a833af533872cd02010cac061532cc
+  UIColor-MoreColors: 66b65dcd322602ccd4d8064037a1ca0b4bb6acb2
   UMengAnalyticsSDK: 63e8b331c43072137b212090608f532816c2fece
   YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
 

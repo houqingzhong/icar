@@ -9,16 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>BABAudioPlayer-BABAudioPlayer.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>BABAudioPlayer.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>FMDB.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -39,6 +29,21 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>JxbPlayerControl.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>PYAudioKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>PYCore.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -54,6 +59,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>UIColor-MoreColors.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>YTKKeyValueStore.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -62,7 +72,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>0C6507EB22A7AF5875CA1039CF124EF3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>153298C28F171DAB34506507A8E1A36C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2A2E187F61377E365EA627FD860616A1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -72,7 +92,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4E64D9B26B03A12553229E58CC9502EE</key>
+		<key>571C2A0F1620D042715A35D5CAB0F459</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7090405E323CE50F9C22C8D1A0BD7998</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -82,12 +107,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AD6ADF453750FCF5F1E14A48CA9DDDEE</key>
+		<key>B3B56E58B5AE0E997C69982F7004B791</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BD8F7AF43C9DCECC444CC2EC466AF63E</key>
+		<key>C76843DD5AA580F29BDC1B3628A606E8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C86AFECD69E47C4B5AF20DA2E20425DD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -97,22 +127,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E5BB6E65C924D3FF7ACDE0AD6BE92EAE</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>E9EF397B95762DDB254C71DDCB4B1381</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F014C0ADFFC3A252D49FF2AB15DACA84</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F5153FBB4404804D8E479C637B510109</key>
+		<key>EF8D21F1BEAF9143004E6C12DBC79CD2</key>
 		<dict>
 			<key>primary</key>
 			<true/>

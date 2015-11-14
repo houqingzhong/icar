@@ -271,13 +271,6 @@
 			path = Facade;
 			sourceTree = "<group>";
 		};
-		FF5731DF1BD1DAF900BEBD43 /* data */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = data;
-			sourceTree = "<group>";
-		};
 		FF59C4D91BD1F39700858FE2 /* net */ = {
 			isa = PBXGroup;
 			children = (
@@ -465,6 +458,7 @@
 		FFC946181BD1CA32001B2B8A /* icar */ = {
 			isa = PBXGroup;
 			children = (
+				FFCDD2021BF70BFD0043A523 /* comm */,
 				7184412B1BF46D3E006B8ADF /* lib */,
 				FFC07DD61BDB28860001C671 /* TableViewSettingList */,
 				FF59C52F1BD20F8600858FE2 /* view */,
@@ -472,8 +466,8 @@
 				FF59C51A1BD20F1500858FE2 /* category */,
 				FF59C4D91BD1F39700858FE2 /* net */,
 				FF3287F61BD1E646007A36F1 /* Facade */,
-				FF5731DF1BD1DAF900BEBD43 /* data */,
 				FFC9464B1BD1CEDC001B2B8A /* LeftSlideViewController */,
+				FFCDD1FE1BF700CA0043A523 /* data */,
 				FFC9464A1BD1CD27001B2B8A /* Public.h */,
 				FF1F9F1D1BD3819F0099D1F0 /* PublicMethod.h */,
 				FF1F9F1E1BD3819F0099D1F0 /* PublicMethod.m */,
@@ -521,6 +515,20 @@
 				FFC9464D1BD1CEDC001B2B8A /* LeftSlideViewController.m */,
 			);
 			path = LeftSlideViewController;
+			sourceTree = "<group>";
+		};
+		FFCDD1FE1BF700CA0043A523 /* data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = data;
+			sourceTree = "<group>";
+		};
+		FFCDD2021BF70BFD0043A523 /* comm */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = comm;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -837,7 +845,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 225;
 				INFOPLIST_FILE = icar/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -859,7 +867,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 225;
 				INFOPLIST_FILE = icar/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

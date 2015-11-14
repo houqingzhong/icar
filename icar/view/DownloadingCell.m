@@ -163,6 +163,17 @@
     
 }
 
+
+- (void)updateTime:(NSTimeInterval)time
+{
+    
+    _duration.text = [NSString stringWithFormat:@"%@/%@", [NSObject getDurationText:time], [NSObject getDurationText:[_dict[@"duration"] floatValue]]];
+    
+    [self setNeedsLayout];
+    
+}
+
+
 - (void)setProgress:(CGFloat )progress
 {
     _playProgress.progress = progress;

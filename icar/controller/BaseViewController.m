@@ -49,7 +49,7 @@
     App(app);
     [app.leftSlideVC setPanEnabled:NO];
 
-    if(app.isPlayed)
+    if([app.playViewController isPlaying])
     {
         [_rightBtn startAnimation];
     }
@@ -99,7 +99,7 @@
 {
     App(app);
 
-    if(app.isPlayed)
+    if([app.playViewController isPlaying])
     {
         App(app);
         if (app.playViewController.navigationController) {

@@ -1,4 +1,4 @@
-//
+    //
 //  PlayerViewController.m
 //  icar
 //
@@ -9,11 +9,15 @@
 #import "PlayerViewController.h"
 #import "Public.h"
 
-@interface PlayerViewController ()
 
-@property (nonatomic,strong) PlayerView  *playerView;
+#define kSectionViewIdentifier @"kSectionViewIdentifier"
+
+@interface PlayerViewController ()<JxbPlayerDelegate>
+
+//@property (nonatomic, strong) PYAudioPlayer        *player;
+@property (nonatomic, strong) JxbPlayer     *player;
+@property (nonatomic, strong) NSTimer       *timer;
 @property (nonatomic, strong) NSMutableArray *dataArray;
-
 @end
 
 @implementation PlayerViewController
@@ -24,6 +28,11 @@
     
     if (self) {
         
+        self.player = [[JxbPlayer alloc] initWithMainColor:[UIColor blueCrayola] frame:CGRectMake(0, 20, self.view.width, 100)];
+        self.player.delegate = self;
+        
+    
+        
     }
     
     return self;
@@ -32,59 +41,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.navigationItem.rightBarButtonItem = nil;
     
-    self.tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetMaxX(self.view.frame), CGRectGetMaxY(self.view.frame) - 120*XA) style:UITableViewStylePlain];
+    self.tableview = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableview.dataSource = self;
     self.tableview.delegate  = self;
     
     [self.view addSubview:self.tableview];
     
-    self.playerView = [PlayerView new];
-    [self.view addSubview:self.playerView];
-    
-    [_playerView anchorBottomCenterFillingWidthWithLeftAndRightPadding:0 bottomPadding:0 height:120*XA];
-    
     WS(ws);
-    [_playerView setCallback:^(NSString *albumId, NSString *trackId, PlayerActionType actionType, PlayModeType playMode) {
-        
-        if (ws.dataArray.count == 0) {
-            return ;
-        }
-        
-        if (PlayerActionTypeNext == actionType) {
-            
-            BOOL played = NO;
-            NSIndexPath *nextPlayIndexPath = [PublicMethod getNextPlayIndexPath:playMode currentIndexPath:[NSIndexPath indexPathForRow:[ws getCurrentRow] inSection:0] dataArray:ws.dataArray];
-            if (nextPlayIndexPath) {
-                NSDictionary *track =  ws.dataArray[nextPlayIndexPath.row];
-                NSURL *fileUrl = [[DownloadClient sharedInstance] getDownloadFile:ws.album track:track];
-                if (!fileUrl) {
-                    if ([[DownloadClient sharedInstance] isWifi] || ([[DownloadClient sharedInstance] is3G] && [PublicMethod isAllowPlayInGprs])) {
-                        played = YES;
-                        NSDictionary *track = ws.dataArray[nextPlayIndexPath.row];
-                        [ws play:ws.album track:track];
-                    }
-                }
-                else
-                {
-                    NSLog(@"next .. play ...1 ... ");
-                    played = YES;
-                    NSDictionary *track = ws.dataArray[nextPlayIndexPath.row];
-                    [ws play:ws.album track:track];
-                }
-            }
-            
-            
-            if (!played) {
-                [ws playNextLocal];
-            }
-            
-        }
-    }];
-    
     [self.tableview addPullToRefreshWithActionHandler:^{
         ws.pageNum ++;
         [ws updateList:ws.album pageNum:ws.pageNum];
@@ -95,19 +64,44 @@
         [ws updateList:ws.album pageNum:ws.pageNum];
         
     }];
+    
+    
+   
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    [BABAudioPlayer sharedPlayer].delegate = _playerView;
     
-    BABConfigureSliderForAudioPlayer([_playerView getProgressView], [BABAudioPlayer sharedPlayer]);
-    
-    [self setPlayState:_track];
+    WS(ws);
+    App(app);
+    [app.playViewController setCallback:^(CGFloat progress, NSDictionary *album, NSDictionary *track) {
+        __weak TrackCell *playCell = nil;
+        for (TrackCell *cell in self.tableview.visibleCells) {
+            if ([track[@"id"] integerValue] == [cell.dict[@"id"] integerValue]) {
+                playCell = cell;
+                break;
+            }
+        }
+        
+        if (playCell) {
+            [playCell updateTime:progress];
+            NSIndexPath *indexPath = [ws.tableview indexPathForCell:playCell];
+            [ws.tableview selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+        }
+        
+        
+    }];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    App(app);
+    [app.playViewController setCallback:nil];
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -139,6 +133,13 @@
     NSDictionary *track = _dataArray[indexPath.row];
     [self play:self.album track:track];
     
+    App(app);
+    TrackCell *playCell = [tableView cellForRowAtIndexPath:indexPath];
+    [app.playViewController setCallback:^(CGFloat progress, NSDictionary *album, NSDictionary *track) {
+        [playCell updateTime:progress];
+    }];
+    
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
@@ -148,11 +149,73 @@
 }
 
 
-- (PlayType)play:(NSDictionary *)album track:(NSDictionary *)track
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    [_playerView setData:album track:track];
     
-    return [self play:album track:track target:_playerView slider:[_playerView getProgressView]];
+    UITableViewHeaderFooterView *v = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:kSectionViewIdentifier];
+
+    [v addSubview:self.player];
+
+    
+    return v;
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 130;
+}
+
+- (void)play:(NSDictionary *)album track:(NSDictionary *)track
+{
+    
+    [PublicMethod saveHistory:album track:track callback:nil];
+    
+    self.album = album;
+    self.track = track;
+    
+    NSURL *fileUrl = [[DownloadClient sharedInstance] getDownloadFile:album track:track];
+    
+    if (nil == fileUrl && ![[DownloadClient sharedInstance] isWifi]) {
+        
+        if ([[DownloadClient sharedInstance] is3G] && ![PublicMethod isAllowPlayInGprs]) {
+            [self playNext];
+            return;
+        }
+        
+    }
+    
+    if (!fileUrl && ![NSObject isNull:track[@"play_path_32"]]) {
+
+        fileUrl = [NSURL URLWithString:track[@"play_path_32"]];
+    }
+    
+    self.player.itemUrl = [fileUrl absoluteString];
+    
+    [self.player play];
+
+    
+    [PublicMethod getHistoryTrack:_track[@"id"] callback:^(NSDictionary * localTrack) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (localTrack) {
+
+                NSTimeInterval time = [localTrack[@"time"] doubleValue];
+
+                if ([localTrack[@"duration"] doubleValue] - time < 2) {
+                    time = 1;
+                }
+                
+                if (time > 0) {
+                    [self.player seekToTime:time];
+                }
+
+            }
+            
+        });
+        
+    }];
+
+    
 }
 
 
@@ -196,28 +259,6 @@
         }];
     
     return row;
-}
-
-- (void)playNextLocal
-{
-    NSInteger index =  [self getCurrentRow];
-    if ( [self getCurrentRow] > _dataArray.count-1) {
-        index = 0;
-    }
-    
-    NSInteger count = _dataArray.count;
-    for (int i = 0; i < count; i++) {
-        if (i > index) {
-            NSDictionary *track = _dataArray[i];
-            NSURL *fileUrl = [[DownloadClient sharedInstance] getDownloadFile:self.album track:track];
-            if (fileUrl) {
-                NSLog(@"next .. play ...");
-                [self play:self.album track:track];
-                [self setPlayState:self.album];
-                break;
-            }
-        }
-    }
 }
 
 - (void)updateList:(NSDictionary *)album pageNum:(NSInteger)pageNum
@@ -292,7 +333,6 @@
                     [ws.tableview insertRowsAtIndexPaths:arrCells withRowAnimation:UITableViewRowAnimationAutomatic];
                 }
                 
-                [ws setPlayState:album];
             });
             
         }];
@@ -300,133 +340,110 @@
 }
 
 
-- (PlayType)play:(NSDictionary *)album track:(NSDictionary *)track target:(id<BABAudioPlayerDelegate>)target slider:(UISlider *)slider
+- (BOOL)isPlaying
 {
-    if (!album || !track) {
-        
-        return PlayTypeDataError;
+    return [self.player playState];
+}
+
+- (void)seekToTime
+{
+    if (self.isPlaying) {
+//        PlayerView *playerView = (PlayerView *)[self.tableview headerViewForSection:0];
+//        
+//        NSTimeInterval time = _player.duration*[playerView sliderValue];
+//        if (time) {
+//            [_player seekToProgress:time];
+//        }
+    }
+}
+
+- (void)playPre
+{
+    NSIndexPath* currentPath = [self.tableview indexPathForSelectedRow];
+    NSInteger row = currentPath.row - 1;
+    
+    if (row < 0) {
+        row = -1;
     }
     
-    App(app);
     
-    if ([self.track[@"id"] integerValue] == [track[@"id"] integerValue]) {
+    if (-1 == row) {
         
-        return PlayTypeSame;
+        return;
     }
     
-    [[BABAudioPlayer sharedPlayer] pause];
+    NSIndexPath *preIndexPath = [NSIndexPath indexPathForRow:row inSection:currentPath.section];
+    [self.tableview selectRowAtIndexPath:preIndexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
     
-    PlayType playType = PlayTypeOnline;
-    if (![NSObject isNull:track[@"play_path_32"]]) {
-        
-        NSURL *fileUrl = [[DownloadClient sharedInstance] getDownloadFile:album track:track];
-        
-        BABAudioItem *playItem = nil;
-        if (fileUrl) {
-            playItem = [BABAudioItem audioItemWithURL:fileUrl];
-            [playItem setLocal:YES];
-            playType = PlayTypeLocal;
-        }
-        else
-        {
-            fileUrl = [NSURL URLWithString:track[@"play_path_32"]];
-            if (![[DownloadClient sharedInstance] hasNetwork]) {
-                
-                [TSMessage showNotificationWithTitle:nil
-                                            subtitle:NetworkError
-                                                type:TSMessageNotificationTypeMessage];
-                
-                [[BABAudioPlayer sharedPlayer] stop];
-                return PlayTypeNetError;
-            }
-            else if (![[DownloadClient sharedInstance] isWifi] && ![PublicMethod isAllowPlayInGprs])
-            {
-                
-                [TSMessage showNotificationWithTitle:nil
-                                            subtitle:NotAllowedPlayError
-                                                type:TSMessageNotificationTypeMessage];
-                
-                [[BABAudioPlayer sharedPlayer] stop];
-                
-                return PlayTypeNetError;
-            }
-            
-            playItem = [BABAudioItem audioItemWithURL:fileUrl];
-            
-            playType = PlayTypeOnline;
-        }
-        
-        [[BABAudioPlayer sharedPlayer] queueItem:playItem];
+    NSDictionary *track = _dataArray[preIndexPath.row];
+    [self play:self.album track:track];
+
+}
+
+- (void)playNext
+{
+    
+    NSLog(@"play next");
+    
+    NSIndexPath* currentPath = [self.tableview indexPathForSelectedRow];
+    NSInteger row = currentPath.row + 1;
+    
+    if (row <= _dataArray.count - 1) {
         
     }
     else
     {
-        return PlayTypeDataError;
+        row = -1;
     }
     
+    if (-1 == row) {
+        return;
+    }
+    NSIndexPath *nextIndexPath = [NSIndexPath indexPathForRow:row inSection:currentPath.section];
+    [self.tableview selectRowAtIndexPath:nextIndexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
     
-    [PublicMethod saveHistory:album track:track callback:nil];
     
-    [BABAudioPlayer sharedPlayer].delegate = target;
+    NSDictionary *track = _dataArray[nextIndexPath.row];
+    [self play:self.album track:track];
     
-    BABConfigureSliderForAudioPlayer(slider, [BABAudioPlayer sharedPlayer]);
-    
-    
-    app.isPlayed = YES;
-    app.isStoped = NO;
-    
-    self.album = album;
-    self.track = track;
-    
-    [PublicMethod getHistoryTrack:track[@"id"] callback:^(NSDictionary * localTrack) {
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            if (localTrack) {
-                
-                float value = [localTrack[@"time"] doubleValue]/[track[@"duration"] floatValue];
-                
-                NSTimeInterval time = [localTrack[@"time"] doubleValue];
-                if (value >= 1.0) {
-                    value = 0;
-                    time = 0;
-                }
-                
-                [[BABAudioPlayer sharedPlayer] seekToTime:time];
-                slider.value = value;
-            }
-            
-            [[BABAudioPlayer sharedPlayer] play];
-            
-            [self setPlayState:track];
-        });
-        
-    }];
-    
-    return  playType;
 }
 
-- (void)setPlayState:(NSDictionary *)track
+#pragma PYPlayerDelegate
+
+- (void)XBPlayer_play
 {
-    BOOL isExist = NO;
-    NSInteger index = 0;
-    for(NSInteger i = 0; i < self.dataArray.count; i++)
-    {
-        NSDictionary *track = self.dataArray[i];
-        if ([track[@"id"] integerValue] == [self.track[@"id"] integerValue]) {
-            isExist = YES;
-            index = i;
-            break;
-        }
-        
+    NSLog(@"XBPlayer_play");
+}
+
+- (void)XBPlayer_pause
+{
+    NSLog(@"XBPlayer_pause");
+}
+
+- (void)XBPlayer_stop
+{
+    NSLog(@"XBPlayer_stop");
+    [self playNext];
+}
+
+- (void)XBPlayer_playDuration:(NSTimeInterval)duration
+{
+    NSLog(@"XBPlayer_playDuration %f", duration);
+    
+    if (_callback) {
+        _callback(duration, self.album, self.track);
     }
     
-    if (isExist) {
-        
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-        
-        [self.tableview selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
-        
-    }
 }
+
+- (void)XBPlayer_next
+{
+    [self playNext];
+}
+
+- (void)XBPlayer_pre
+{
+    [self playPre];
+}
+
 @end

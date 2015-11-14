@@ -10,7 +10,7 @@
 
 #import "Public.h"
 
-@interface DownloadingViewController ()<BABAudioPlayerDelegate>
+@interface DownloadingViewController ()//<BABAudioPlayerDelegate>
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) NSDictionary *album;
@@ -49,6 +49,10 @@
     NSLog(@"viewWillDisappear");
     
     [[DownloadClient sharedInstance] setCallback:nil];
+    
+    App(app);
+    [app.playViewController setCallback:nil];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -56,15 +60,31 @@
     [super viewWillAppear:animated];
     
     
-    [self.tableview reloadData];
+    WS(ws);
+    App(app);
+    [app.playViewController setCallback:^(CGFloat progress, NSDictionary *album, NSDictionary *track) {
+        __weak DownloadingCell *playCell = nil;
+        for (DownloadingCell *cell in self.tableview.visibleCells) {
+            if ([track[@"id"] integerValue] == [cell.dict[@"id"] integerValue]) {
+                playCell = cell;
+                break;
+            }
+        }
+        
+        if (playCell) {
+            [playCell updateTime:progress];
+            NSIndexPath *indexPath = [ws.tableview indexPathForCell:playCell];
+            [ws.tableview selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+        }
+        
+    }];
+
     
     [self updateList:self.album];
     
     
     self.title = self.album[@"title"];
 
-    
-    WS(ws);
     [[DownloadClient sharedInstance] setCallback:^(CGFloat progress, NSString *albumId, NSString *trackId, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
         if ([ws.album[@"id"] integerValue] == albumId.integerValue) {
             
@@ -153,6 +173,13 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *track = _dataArray[indexPath.row];
+    DownloadingCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    [cell setData:track];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *track = _dataArray[indexPath.row];
@@ -160,6 +187,10 @@
     App(app);
     [app.playViewController updateList:self.album track:track];
     
+    HistoryCell *playCell = [tableView cellForRowAtIndexPath:indexPath];
+    [app.playViewController setCallback:^(CGFloat progress, NSDictionary *album, NSDictionary *track) {
+        [playCell updateTime:progress];
+    }];
     
     NavPlayButton *btn = self.navigationItem.rightBarButtonItem.customView;
     [btn startAnimation];

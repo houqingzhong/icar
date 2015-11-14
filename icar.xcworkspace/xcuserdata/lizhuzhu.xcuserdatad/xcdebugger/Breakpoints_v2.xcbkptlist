@@ -166,11 +166,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/JxbPlayerControl/JxbPlayerControl/JxbPlayer/JxbPlayer.m"
-            timestampString = "469205456.424694"
+            timestampString = "469208835.661248"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "437"
-            endingLineNumber = "437"
+            startingLineNumber = "438"
+            endingLineNumber = "438"
             landmarkName = "-handleInterruption:"
             landmarkType = "5">
          </BreakpointContent>
@@ -182,11 +182,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/JxbPlayerControl/JxbPlayerControl/JxbPlayer/JxbPlayer.m"
-            timestampString = "469204492.69939"
+            timestampString = "469208835.661248"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
+            startingLineNumber = "228"
+            endingLineNumber = "228"
             landmarkName = "-playing"
             landmarkType = "5">
          </BreakpointContent>
@@ -198,11 +198,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/JxbPlayerControl/JxbPlayerControl/JxbPlayer/JxbPlayer.m"
-            timestampString = "469204492.69939"
+            timestampString = "469208835.661248"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "293"
-            endingLineNumber = "293"
+            startingLineNumber = "294"
+            endingLineNumber = "294"
             landmarkName = "-btnPauseAction"
             landmarkType = "5">
          </BreakpointContent>
@@ -214,11 +214,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/JxbPlayerControl/JxbPlayerControl/JxbPlayer/JxbPlayer.m"
-            timestampString = "469205508.092947"
+            timestampString = "469208835.661248"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "355"
-            endingLineNumber = "355"
+            startingLineNumber = "356"
+            endingLineNumber = "356"
             landmarkName = "-playState"
             landmarkType = "5">
          </BreakpointContent>
@@ -230,11 +230,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/JxbPlayerControl/JxbPlayerControl/JxbPlayer/JxbPlayer.m"
-            timestampString = "469205932.489705"
+            timestampString = "469208835.661248"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
             landmarkName = "-play"
             landmarkType = "5">
          </BreakpointContent>
@@ -246,11 +246,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/JxbPlayerControl/JxbPlayerControl/JxbPlayer/JxbPlayer.m"
-            timestampString = "469205993.700836"
+            timestampString = "469208835.661248"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "152"
-            endingLineNumber = "152"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
             landmarkName = "-play"
             landmarkType = "5">
          </BreakpointContent>

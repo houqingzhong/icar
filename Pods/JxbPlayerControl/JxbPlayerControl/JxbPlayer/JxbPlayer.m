@@ -10,9 +10,10 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AVFoundation/AVAudioSession.h>
 
+
 #define playerScale         44100
 #define playerIconWidth     36
-#define playerFont          [UIFont systemFontOfSize:16]
+#define playerFont          [UIFont systemFontOfSize:24*([[UIScreen mainScreen] bounds].size.width/640)]
 
 
 @implementation NSString (Size)
@@ -107,13 +108,13 @@
     
     CGSize s = [@"00:00" textSizeWithFont:playerFont constrainedToSize:CGSizeMake(MAXFLOAT, 999) lineBreakMode:NSLineBreakByCharWrapping];
     
-    _lblPlayTime = [[UILabel alloc] initWithFrame:CGRectMake(20, 5 + (playerIconWidth - s.height) / 2, s.width, s.height)];
+    _lblPlayTime = [[UILabel alloc] initWithFrame:CGRectMake(20, 5 + (playerIconWidth - s.height) / 2, s.width+10, s.height)];
     _lblPlayTime.font = playerFont;
     _lblPlayTime.text = @"00:00";
     _lblPlayTime.textColor = _maincolor;
     [self addSubview:_lblPlayTime];
     
-    _lblAllTime = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width - 20 - s.width, 5 + (playerIconWidth - s.height) / 2, s.width, s.height)];
+    _lblAllTime = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width - 20 - s.width, 5 + (playerIconWidth - s.height) / 2, s.width+10, s.height)];
     _lblAllTime.font = playerFont;
     _lblAllTime.text = @"00:00";
     _lblAllTime.textColor = _maincolor;

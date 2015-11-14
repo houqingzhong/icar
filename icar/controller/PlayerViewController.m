@@ -28,7 +28,7 @@
     
     if (self) {
         
-        self.player = [[JxbPlayer alloc] initWithMainColor:[UIColor blueCrayola] frame:CGRectMake(0, 20, self.view.width, 100)];
+        self.player = [[JxbPlayer alloc] initWithMainColor:[UIColor colorWithHexString:@"#ff7d3d"] frame:CGRectMake(0, 20, self.view.width, 100)];
         self.player.delegate = self;
         
     

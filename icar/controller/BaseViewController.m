@@ -57,6 +57,14 @@
     {
         [_rightBtn stopAnimation];
     }
+    
+    
+    //Once the view has loaded then we can register to begin recieving controls and we can become the first responder
+    
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    
+    [self becomeFirstResponder];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -68,6 +76,14 @@
     [app.leftSlideVC setPanEnabled:NO];
     
     [self.tableview.pullToRefreshView stopAnimating];
+    
+    
+    //End recieving events
+    
+    [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
+    
+    [self resignFirstResponder];
+    
 }
 
 - (void) openOrCloseLeftList
@@ -134,4 +150,48 @@
     
     return nil;
 }
+
+
+
+-(void)remoteControlReceivedWithEvent:(UIEvent *)event{
+    
+    //if it is a remote control event handle it correctly
+
+    App(app);
+    if (event.type == UIEventTypeRemoteControl) {
+        
+
+        if (event.subtype == UIEventSubtypeRemoteControlNextTrack){
+            
+            [app.playViewController playNext];
+            
+        }
+        else if (event.subtype == UIEventSubtypeRemoteControlPreviousTrack){
+            
+            [app.playViewController playPre];
+            
+        }
+        else if (event.subtype == UIEventSubtypeRemoteControlPlay){
+            
+            [app.playViewController playEvent];
+            
+        }
+        else if (event.subtype == UIEventSubtypeRemoteControlPause) {
+            
+            [app.playViewController pauseEvent];
+            
+        }
+
+    }
+    
+}
+
+//Make sure we can receive remote control events
+- (BOOL)canBecomeFirstResponder {
+    
+    return YES;
+    
+}
+
+
 @end

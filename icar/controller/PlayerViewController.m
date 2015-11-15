@@ -171,6 +171,23 @@
     
     [PublicMethod saveHistory:album track:track callback:nil];
     
+    App(app);
+    NSMutableDictionary *mediaItemInfo = [NSMutableDictionary new];
+    if (album[@"title"]) {
+        mediaItemInfo[@"albumTitle"] = album[@"title"];
+    }
+    
+    if (track[@"title"]) {
+        mediaItemInfo[@"title"] = track[@"title"];
+    }
+    
+    mediaItemInfo[@"icon"] = [UIImage imageNamed:@"AppIcon"];
+    mediaItemInfo[@"duration"] = track[@"duration"];
+    mediaItemInfo[@"curTime"] = @"0";
+    
+    app.mediaItemInfo = mediaItemInfo;
+    
+    
     self.album = album;
     self.track = track;
     
@@ -193,7 +210,7 @@
     self.player.itemUrl = [fileUrl absoluteString];
     
     [self.player play];
-
+    [self.player setBBegin:YES];
     
     [PublicMethod getHistoryTrack:_track[@"id"] callback:^(NSDictionary * localTrack) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -380,6 +397,22 @@
 
 }
 
+- (void)playEvent
+{
+    [self.player playEvent];
+}
+
+- (void)toggleEvent
+{
+    [self.player toggleEvent];
+}
+
+- (void)pauseEvent
+{
+    [self.player pauseEvent];
+}
+
+
 - (void)playNext
 {
     
@@ -433,6 +466,16 @@
     if (_callback) {
         _callback(duration, self.album, self.track);
     }
+    
+    
+    App(app);
+    NSMutableDictionary *mediaItemInfo = [NSMutableDictionary dictionaryWithDictionary:app.mediaItemInfo];
+
+    mediaItemInfo[@"curTime"] = [NSString stringWithFormat:@"%f", duration];
+    
+    app.mediaItemInfo = mediaItemInfo;
+    
+    [app configNowPlayingInfoCenter];
     
 }
 

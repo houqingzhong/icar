@@ -26,7 +26,9 @@
 @property (strong, nonatomic) YTKKeyValueStore      *localStore;
 @property (strong, nonatomic) GCNetworkReachability *reachability;
 
--(void)configNowPlayingInfoCenter:(NSDictionary *)info;
+@property (strong, nonatomic) NSDictionary       *mediaItemInfo;
+
+-(void)configNowPlayingInfoCenter;
 
 @end
 

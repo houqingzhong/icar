@@ -42,6 +42,12 @@
  */
 - (void)stop;
 
+- (void)setBBegin:(BOOL)bBegin;
+
+- (void)pauseEvent;
+- (void)playEvent;
+- (void)toggleEvent;
+
 - (BOOL)playState;
 
 - (void)seekToTime:(CGFloat)time;

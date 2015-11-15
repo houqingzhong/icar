@@ -16,6 +16,9 @@
 #define dataBasePath [[(NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)) lastObject]stringByAppendingPathComponent:dataBaseName]
 
 @interface AppDelegate ()<SmtaranSplashAdDelegate>
+
+@property (nonatomic, strong) NSTimer* timer;
+
 @end
 
 @implementation AppDelegate
@@ -203,6 +206,7 @@
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    //[self scheduleProgressTimer];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
@@ -218,6 +222,8 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    //[self unshceduleProgressTimer];
     
 }
 
@@ -261,39 +267,55 @@
 //    [_player play];
 }
 
-
-- (void)updateTrackProgress
-{
-
-}
-
--(void)configNowPlayingInfoCenter:(NSDictionary *)info
+- (void)scheduleProgressTimer
 {
     
-    if (!info) {
+    if (nil == _mediaItemInfo) {
         return;
     }
     
-//    if (NSClassFromString(@"MPNowPlayingInfoCenter")) {
-//        
-//        NSMutableDictionary *dict = [NSMutableDictionary new];
-//        
-//        if (info[@"track"][@"title"]) {
-//            dict[MPMediaItemPropertyArtist] = info[@"track"][@"title"];
-//        }
-//        if (info[@"track"][@"albumTitle"]) {
-//            dict[MPMediaItemPropertyAlbumTitle] = info[@"track"][@"albumTitle"];
-//        }
-//        
-//        MPMediaItemArtwork *mArt = [[MPMediaItemArtwork alloc] initWithImage:[UIImage imageNamed:@"icon"]];
-//        dict[MPMediaItemPropertyArtwork] = mArt;
-//        
-//        dict[MPNowPlayingInfoPropertyElapsedPlaybackTime] = @(_player.currentTime);
-//        dict[MPMediaItemPropertyPlaybackDuration] = @(_player.duration-_player.currentTime);
-//        
-//        [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:dict];
-//        
-//    }
+    [self.timer invalidate];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(configNowPlayingInfoCenter) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+    
+}
+
+- (void)unshceduleProgressTimer
+{
+    [self.timer invalidate];
+    self.timer = nil;
+}
+
+-(void)configNowPlayingInfoCenter
+{
+    
+    if (!_mediaItemInfo) {
+        return;
+    }
+    
+    if (NSClassFromString(@"MPNowPlayingInfoCenter")) {
+        
+        NSMutableDictionary *dict = [NSMutableDictionary new];
+        
+        if (_mediaItemInfo[@"title"]) {
+            dict[MPMediaItemPropertyArtist] = _mediaItemInfo[@"title"];
+        }
+        if (_mediaItemInfo[@"albumTitle"]) {
+            dict[MPMediaItemPropertyAlbumTitle] = _mediaItemInfo[@"albumTitle"];
+        }
+        
+        if (_mediaItemInfo[@"icon"]) {
+            MPMediaItemArtwork *mArt = [[MPMediaItemArtwork alloc] initWithImage:_mediaItemInfo[@"icon"]];
+            dict[MPMediaItemPropertyArtwork] = mArt;
+        }
+
+        
+        dict[MPNowPlayingInfoPropertyElapsedPlaybackTime] = _mediaItemInfo[@"curTime"];
+        dict[MPMediaItemPropertyPlaybackDuration] = _mediaItemInfo[@"duration"];
+        
+        [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:dict];
+        
+    }
     
 }
 

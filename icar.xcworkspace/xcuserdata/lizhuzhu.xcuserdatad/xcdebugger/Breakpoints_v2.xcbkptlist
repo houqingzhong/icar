@@ -150,11 +150,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "icar/controller/PlayerViewController.m"
-            timestampString = "469207530.845089"
+            timestampString = "469248419.645575"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "426"
-            endingLineNumber = "426"
+            startingLineNumber = "459"
+            endingLineNumber = "459"
             landmarkName = "-XBPlayer_stop"
             landmarkType = "5">
          </BreakpointContent>
@@ -166,11 +166,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/JxbPlayerControl/JxbPlayerControl/JxbPlayer/JxbPlayer.m"
-            timestampString = "469208835.661248"
+            timestampString = "469248419.645575"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "438"
-            endingLineNumber = "438"
+            startingLineNumber = "481"
+            endingLineNumber = "481"
             landmarkName = "-handleInterruption:"
             landmarkType = "5">
          </BreakpointContent>
@@ -182,12 +182,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/JxbPlayerControl/JxbPlayerControl/JxbPlayer/JxbPlayer.m"
-            timestampString = "469208835.661248"
+            timestampString = "469248419.645575"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
-            landmarkName = "-playing"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
+            landmarkName = "-playEvent"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -198,76 +198,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/JxbPlayerControl/JxbPlayerControl/JxbPlayer/JxbPlayer.m"
-            timestampString = "469208835.661248"
+            timestampString = "469248419.645575"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "294"
-            endingLineNumber = "294"
+            startingLineNumber = "297"
+            endingLineNumber = "297"
             landmarkName = "-btnPauseAction"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Pods/JxbPlayerControl/JxbPlayerControl/JxbPlayer/JxbPlayer.m"
-            timestampString = "469208835.661248"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "356"
-            endingLineNumber = "356"
-            landmarkName = "-playState"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Pods/JxbPlayerControl/JxbPlayerControl/JxbPlayer/JxbPlayer.m"
-            timestampString = "469208835.661248"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "156"
-            endingLineNumber = "156"
-            landmarkName = "-play"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Pods/JxbPlayerControl/JxbPlayerControl/JxbPlayer/JxbPlayer.m"
-            timestampString = "469208835.661248"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
-            landmarkName = "-play"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "icar/controller/PlayerViewController.m"
-            timestampString = "469207481.346168"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
-            landmarkName = "-play:track:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

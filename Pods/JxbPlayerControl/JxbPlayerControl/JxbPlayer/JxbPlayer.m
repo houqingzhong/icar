@@ -149,6 +149,44 @@
         [_delegate XBPlayer_stop];
 }
 
+- (void)pauseEvent {
+    
+    if(!_itemUrl)
+        return;
+    [_avPlayer pause];
+    [_btnPlay setImage:[self imageWithTintColor:[UIImage imageNamed:@"icon_play"] tintColor:_maincolor] forState:UIControlStateNormal];
+    if(_delegate && [_delegate respondsToSelector:@selector(XBPlayer_pause)])
+        [_delegate XBPlayer_pause];
+    if(_avTimer)
+    {
+        [_avTimer invalidate];
+        _avTimer = nil;
+    }
+
+    _bPausing = !_bPausing;
+}
+
+- (void)setBBegin:(BOOL)bBegin
+{
+    _bBegin = bBegin;
+}
+
+- (void)playEvent
+{
+    if(!_itemUrl)
+        return;
+    [_avPlayer play];
+    [_btnPlay setImage:[self imageWithTintColor:[UIImage imageNamed:@"icon_pause"] tintColor:_maincolor] forState:UIControlStateNormal];
+    if(_avTimer)
+    {
+        [_avTimer invalidate];
+        _avTimer = nil;
+    }
+    _avTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(playing) userInfo:nil repeats:YES];
+
+    _bPausing = !_bPausing;
+}
+
 - (void)play {
     if(!_itemUrl)
         return;
@@ -354,6 +392,11 @@
 - (BOOL)playState
 {
     return !_bPausing;
+}
+
+- (void)toggleEvent
+{
+    [self btnPauseAction];
 }
 
 #pragma mark - get AVPlayerItem info

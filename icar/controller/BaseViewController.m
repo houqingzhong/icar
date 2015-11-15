@@ -49,14 +49,8 @@
     App(app);
     [app.leftSlideVC setPanEnabled:NO];
 
-    if([app.playViewController isPlaying])
-    {
-        [_rightBtn startAnimation];
-    }
-    else
-    {
-        [_rightBtn stopAnimation];
-    }
+
+    [_rightBtn startAnimation];
     
     
     //Once the view has loaded then we can register to begin recieving controls and we can become the first responder
@@ -114,19 +108,13 @@
 - (void)openPlayList
 {
     App(app);
-
-    if([app.playViewController isPlaying])
-    {
-        App(app);
-        if (app.playViewController.navigationController) {
-            [app.mainNavigationController popToViewController:app.playViewController animated:YES];
-        }
-        else
-        {
-            [app.mainNavigationController pushViewController:app.playViewController animated:YES];
-        }
+    if (app.playViewController.navigationController) {
+        [app.mainNavigationController popToViewController:app.playViewController animated:YES];
     }
-
+    else
+    {
+        [app.mainNavigationController pushViewController:app.playViewController animated:YES];
+    }
 }
 
 

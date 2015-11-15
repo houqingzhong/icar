@@ -42,7 +42,6 @@
 		FF59C54D1BD2970900858FE2 /* DownloadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF59C54C1BD2970900858FE2 /* DownloadViewController.m */; };
 		FF59C5501BD2998200858FE2 /* DownloadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FF59C54F1BD2998200858FE2 /* DownloadingCell.m */; };
 		FF59C5531BD3004D00858FE2 /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF59C5521BD3004D00858FE2 /* PlayerViewController.m */; };
-		FF59C5561BD3012200858FE2 /* PlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF59C5551BD3012200858FE2 /* PlayerView.m */; };
 		FFC07DD51BD9358E0001C671 /* HistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DD41BD9358E0001C671 /* HistoryCell.m */; };
 		FFC07DF91BDB28870001C671 /* CFSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DD91BDB28860001C671 /* CFSettingTableViewController.m */; };
 		FFC07DFA1BDB28870001C671 /* CFSettingArrowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC07DDC1BDB28860001C671 /* CFSettingArrowItem.m */; };
@@ -144,8 +143,6 @@
 		FF59C54F1BD2998200858FE2 /* DownloadingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadingCell.m; sourceTree = "<group>"; };
 		FF59C5511BD3004D00858FE2 /* PlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerViewController.h; sourceTree = "<group>"; };
 		FF59C5521BD3004D00858FE2 /* PlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerViewController.m; sourceTree = "<group>"; };
-		FF59C5541BD3012200858FE2 /* PlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerView.h; sourceTree = "<group>"; };
-		FF59C5551BD3012200858FE2 /* PlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerView.m; sourceTree = "<group>"; };
 		FF59C5571BD30C7800858FE2 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		FF59C5591BD320BD00858FE2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		FF59C55B1BD3289C00858FE2 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -354,8 +351,6 @@
 				FFE3E1C21BD5EA4700C7EE95 /* DownloadCell.m */,
 				FF59C5391BD218F400858FE2 /* CategroyView.h */,
 				FF59C53A1BD218F400858FE2 /* CategroyView.m */,
-				FF59C5541BD3012200858FE2 /* PlayerView.h */,
-				FF59C5551BD3012200858FE2 /* PlayerView.m */,
 				FF1F9F1A1BD3691B0099D1F0 /* ProgressView.h */,
 				FF1F9F1B1BD3691B0099D1F0 /* ProgressView.m */,
 				FF23A2EA1BD3BC1700440792 /* NavPlayButton.h */,
@@ -680,7 +675,6 @@
 				FF59C4DC1BD1F3CD00858FE2 /* HttpEngine.m in Sources */,
 				FF59C54A1BD2875800858FE2 /* TrackViewController.m in Sources */,
 				FF59C52E1BD20F6600858FE2 /* otherViewController.m in Sources */,
-				FF59C5561BD3012200858FE2 /* PlayerView.m in Sources */,
 				FF59C5471BD2838E00858FE2 /* TrackCell.m in Sources */,
 				FFC07DFA1BDB28870001C671 /* CFSettingArrowItem.m in Sources */,
 				1DFBEA711BDFA0BC0026572A /* BackgroundManager.m in Sources */,
@@ -845,7 +839,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 263;
+				CURRENT_PROJECT_VERSION = 278;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = icar/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -868,7 +862,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CURRENT_PROJECT_VERSION = 263;
+				CURRENT_PROJECT_VERSION = 278;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = icar/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;

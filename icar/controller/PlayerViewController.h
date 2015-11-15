@@ -18,11 +18,8 @@
 
 - (void)updateList:(NSDictionary *)album track:(NSDictionary *)track;
 
-- (BOOL)isPlaying;
-
 - (void)playEvent;
 - (void)pauseEvent;
-- (void)toggleEvent;
 
 - (void)playNext;
 - (void)playPre;

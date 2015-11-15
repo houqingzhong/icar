@@ -46,7 +46,6 @@
 
 - (void)pauseEvent;
 - (void)playEvent;
-- (void)toggleEvent;
 
 - (BOOL)playState;
 

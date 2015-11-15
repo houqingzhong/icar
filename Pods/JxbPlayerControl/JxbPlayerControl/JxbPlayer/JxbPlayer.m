@@ -394,11 +394,6 @@
     return !_bPausing;
 }
 
-- (void)toggleEvent
-{
-    [self btnPauseAction];
-}
-
 #pragma mark - get AVPlayerItem info
 - (NSTimeInterval)playableDuration
 {
@@ -478,11 +473,37 @@
 
 #pragma mark - AvAudioNotificaion
 - (void)handleInterruption:(NSNotification*)noti {
+    
+    NSDictionary *interuptionDict = noti.userInfo;
+    NSUInteger interuptionType = (NSUInteger)[interuptionDict valueForKey:AVAudioSessionInterruptionTypeKey];
+    if(interuptionType == AVAudioSessionInterruptionTypeBegan)
+        [self beginInterruption];
+    else if (interuptionType == AVAudioSessionInterruptionTypeEnded)
+        [self endInterruption];
+
+    
+}
+
+- (void)beginInterruption {
+    
     [_btnPlay setImage:[self imageWithTintColor:[UIImage imageNamed:@"icon_play"] tintColor:_maincolor] forState:UIControlStateNormal];
     if(_delegate && [_delegate respondsToSelector:@selector(XBPlayer_pause)])
         [_delegate XBPlayer_pause];
     _bPausing = YES;
+    [_avPlayer pause];
+
 }
+
+- (void)endInterruption {
+    
+    [_btnPlay setImage:[self imageWithTintColor:[UIImage imageNamed:@"icon_pause"] tintColor:_maincolor] forState:UIControlStateNormal];
+    if(_delegate && [_delegate respondsToSelector:@selector(XBPlayer_play)])
+        [_delegate XBPlayer_play];
+    _bPausing = NO;
+    
+    [_avPlayer play];
+}
+
 
 #pragma mark - UIImage
 - (UIImage *)imageWithTintColor:(UIImage*)img tintColor:(UIColor *)tintColor

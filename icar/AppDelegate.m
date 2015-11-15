@@ -249,22 +249,22 @@
 
 - (void) interruption:(NSNotification*)notification
 {
-    NSDictionary *interuptionDict = notification.userInfo;
-    NSUInteger interuptionType = (NSUInteger)[interuptionDict valueForKey:AVAudioSessionInterruptionTypeKey];
-    if(interuptionType == AVAudioSessionInterruptionTypeBegan)
-        [self beginInterruption];
-    else if (interuptionType == AVAudioSessionInterruptionTypeEnded)
-        [self endInterruption];
+//    NSDictionary *interuptionDict = notification.userInfo;
+//    NSUInteger interuptionType = (NSUInteger)[interuptionDict valueForKey:AVAudioSessionInterruptionTypeKey];
+//    if(interuptionType == AVAudioSessionInterruptionTypeBegan)
+//        [self beginInterruption];
+//    else if (interuptionType == AVAudioSessionInterruptionTypeEnded)
+//        [self endInterruption];
 }
 
 - (void)beginInterruption {
     
-//    [_player pause];
+    //[_playViewController pauseEvent];
     
 }
 
 - (void)endInterruption {
-//    [_player play];
+    //[_playViewController playEvent];
 }
 
 - (void)scheduleProgressTimer

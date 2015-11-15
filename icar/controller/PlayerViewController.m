@@ -202,9 +202,21 @@
         
     }
     
+//    if (![[DownloadClient sharedInstance] hasNetwork]) {
+//        
+//        [self playNext];
+//        
+//        return;
+//    }
+
+    
     if (!fileUrl && ![NSObject isNull:track[@"play_path_32"]]) {
 
         fileUrl = [NSURL URLWithString:track[@"play_path_32"]];
+    }
+    
+    if (!fileUrl && ![NSObject isNull:track[@"play_path_64"]]) {
+        fileUrl = [NSURL URLWithString:track[@"play_path_64"]];
     }
     
     self.player.itemUrl = [fileUrl absoluteString];
@@ -356,24 +368,6 @@
     }];
 }
 
-
-- (BOOL)isPlaying
-{
-    return [self.player playState];
-}
-
-- (void)seekToTime
-{
-    if (self.isPlaying) {
-//        PlayerView *playerView = (PlayerView *)[self.tableview headerViewForSection:0];
-//        
-//        NSTimeInterval time = _player.duration*[playerView sliderValue];
-//        if (time) {
-//            [_player seekToProgress:time];
-//        }
-    }
-}
-
 - (void)playPre
 {
     NSIndexPath* currentPath = [self.tableview indexPathForSelectedRow];
@@ -400,11 +394,6 @@
 - (void)playEvent
 {
     [self.player playEvent];
-}
-
-- (void)toggleEvent
-{
-    [self.player toggleEvent];
 }
 
 - (void)pauseEvent
@@ -476,6 +465,11 @@
     app.mediaItemInfo = mediaItemInfo;
     
     [app configNowPlayingInfoCenter];
+
+    if (self.album && self.track && [self.player playableCurrentTime] > 0) {
+        [PublicMethod updateHistory:_album[@"id"] trackId:_track[@"id"] time:[self.player playableCurrentTime] callback:nil];
+    }
+    
     
 }
 

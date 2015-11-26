@@ -157,7 +157,7 @@
     
 
     
-    //self.window.rootViewController = self.leftSlideVC;
+    self.window.rootViewController = self.leftSlideVC;
     
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithHexString:@"#ff7d3d"]];
 

@@ -13,7 +13,7 @@
 @interface TrackViewController ()
 
 @property (nonatomic, strong) NSArray *dataArray;
-
+@property(nonatomic,strong)GADBannerView *bannerView;
 @end
 
 @implementation TrackViewController
@@ -70,12 +70,21 @@
     
     self.navigationItem.rightBarButtonItem = nil;
     
-    self.tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetMaxX(self.view.frame), CGRectGetMaxY(self.view.frame)) style:UITableViewStylePlain];
+
+    
+    self.tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetMaxX(self.view.frame), CGRectGetMaxY(self.view.frame) ) style:UITableViewStylePlain];
     self.tableview.dataSource = self;
     self.tableview.delegate  = self;
 
     [self.view addSubview:self.tableview];
     
+    _bannerView = [[GADBannerView alloc] initWithFrame:CGRectMake(0, 65, self.view.frame.size.width, 50)];
+    self.bannerView.adUnitID = @"ca-app-pub-6092667862424445/3909770617";
+    self.bannerView.rootViewController = self;
+    
+    [self.view addSubview:self.bannerView];
+    GADRequest *request = [GADRequest request];
+    [self.bannerView loadRequest:request];
     
     WS(ws);
     [self.tableview addPullToRefreshWithActionHandler:^{

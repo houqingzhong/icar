@@ -145,7 +145,7 @@ typedef enum : NSUInteger {
 #import "AppDelegate.h"
 
 #import "MobClick.h"
-
+#import <GoogleMobileAds/GoogleMobileAds.h>
 
 //#define FMPlayer(s) AudioPlayer *s = ((AppDelegate *)[[UIApplication sharedApplication] delegate]).player
 
